@@ -13,6 +13,7 @@ export default function Routes() {
   useEffect(() => {
     RNBootSplash.hide({ fade: true })
   }, [])
+
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
