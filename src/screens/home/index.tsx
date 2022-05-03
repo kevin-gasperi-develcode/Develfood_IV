@@ -1,32 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import { Text } from 'react-native'
-import api from '../../services/api'
-import { useGet } from '../../services/get'
-import { pegarRepositoriosDoUsuario } from '../../services/requisicoes'
+import React, { MutableRefObject, useEffect, useState } from 'react'
+import { Button, FlatList, Text, TextInput } from 'react-native'
+// import api from '../../services/api'
+// import { useGet } from '../../services/get'
+import { funcaoGet } from '../../services/get'
+import { funcaoPost } from '../../services/post'
 
-interface User {
-  id: string
+interface Data {
   name: string
   email: string
+  gender: string
+  status: string
 }
+interface DataPost {
+  name: string
+  email: string
+  gender: string
+  status: string
+}
+export function Home() {
+  const { data } = funcaoGet<Data[]>('/public/v2/users') //get
 
-export const Home: React.FC<undefined> = () => {
-  const [users, setUsers] = useState<User[]>([])
-
-  useEffect(() => {
-    api.get('/public/v2/users').then((response) => {
-      setUsers(response.data)
-      console.log(response.data)
-    })
-  }, [])
+  const { data: dataPost, handlerPost } = funcaoPost<Data, DataPost>(
+    '/public/v2/users',
+    {
+      name: 'Kevin',
+      email: 'kevin@emaissl',
+      gender: 'male',
+      status: 'active',
+    },
+    {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization:
+          'Bearer 51bd36346f73e59623b55b00cbab3d45ca5d9b3e4d0c224e6ae3ed663891edb4',
+      },
+    },
+  )
 
   return (
     <>
-      {users.map((user) => (
+      <Button title={'botao'} onPress={() => handlerPost()} />
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <>
+            <Text>Email:{item.email}</Text>
+          </>
+        )}
+      />
+      {/* {users.map((user) => (
         <Text>
           `user ${user.id}, nome ${user.name}, email: ${user.email}`
         </Text>
-      ))}
+      ))} */}
     </>
   )
 }

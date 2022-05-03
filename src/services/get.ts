@@ -1,49 +1,98 @@
 import { AxiosRequestConfig } from 'axios'
-import React, { useEffect, useState } from 'react'
-import api from './api'
+import { useEffect, useState } from 'react'
+// import api from '../services/api'
 
-export function useGet(url: string, options?: AxiosRequestConfig) {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
+import axios from 'axios'
+
+const api = axios.create({
+  baseURL: 'https://gorest.co.in',
+})
+
+export function funcaoGet<T = unknown>(
+  url: string,
+  options?: AxiosRequestConfig,
+) {
+  const [data, setData] = useState<T>({} as T)
 
   useEffect(() => {
     async function fetchData() {
       try {
         await api.get(url, options).then((response) => setData(response.data))
-      } catch (erro) {
-        setError(error)
-      } finally {
-        setLoading(false)
+        console.log(data)
+      } catch (error) {
+        console.log(error)
       }
     }
-
     fetchData()
   }, [])
 
-  return { data, loading, error }
+  return { data }
 }
+// Token 51bd36346f73e59623b55b00cbab3d45ca5d9b3e4d0c224e6ae3ed663891edb4
+// put /public/v2/users/100
 
-export const usePut = async (
-  url: string,
-  data?: AxiosRequestConfig,
-  options?: AxiosRequestConfig,
-) => {
-  try {
-    const response = await api.put(url, data, options)
-    console.log(response.data)
-    return { response }
-  } catch (error) {
-    console.log(Error, error)
-  }
-}
+//  export default function App() {
+//   const [post, setPost] = React.useState(null);
 
-export const useDelete = async (url: string, options: AxiosRequestConfig) => {
-  try {
-    const response = await api.delete(url, options)
-    console.log(response.data)
-    return { response }
-  } catch (error) {
-    console.log(Error, error)
-  }
-}
+//   React.useEffect(() => {
+//     axios.get(`${baseURL}/1`).then((response) => {
+//       setPost(response.data);
+//     });
+//   }, []);
+
+// function createPost() {
+//   axios
+//     .post(baseURL, {
+//       title: "Hello World!",
+//       body: "This is a new post."
+//     })
+//     .then((response) => {
+//       setPost(response.data);
+//     });
+// }
+
+// export async function funcaoPost(name:string, email:string) {
+//   const [post, setPost] = useState(null);
+
+//   useEffect(() => {
+//     api.get(url)).then((response) => {
+//       setPost(response.data);
+//     });
+//   }, []);
+//   try {
+//     await api.post('/public/v2/users/100', {
+//       name: name,
+//       email: email
+//     })
+//     return 'sucesso'
+//   } catch (error) {
+//     console.log(error)
+//     return 'erro'
+//   }
+// }
+
+// export async function criarRepositoriosDoUsuario(postId, nome, data){
+//     try {
+//         await api.post(`/repos`, {
+//             name: nome,
+//             data: data,
+//             postId: postId
+//         });
+//         return 'sucesso'
+//     }
+//     catch (error){
+//         console.log(error)
+//         return 'erro'
+//     }
+// }
+
+// export async function deletarRepositorioDoUsuario(id){
+//     try {
+//         await api.delete(`/repos/${id}`);
+//         return 'sucesso'
+//     }
+//     catch (error){
+//         console.log(error)
+//         return 'erro'
+//     }
+// }
