@@ -18,7 +18,7 @@ export function funcaoGet<T = unknown>(
     async function fetchData() {
       try {
         await api.get(url, options).then((response) => setData(response.data))
-        console.log(data)
+        
       } catch (error) {
         console.log(error)
       }

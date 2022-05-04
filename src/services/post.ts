@@ -2,18 +2,25 @@ import { AxiosRequestConfig } from 'axios'
 import { useState } from 'react'
 import api from './api'
 
-export function funcaoPost<T = unknown, TResponse = unknown>(
+interface Data {
+  name: string
+  email: string
+  gender: string
+  status: string
+}
+
+export function funcaoPost<Data>(
   url: string,
-  body: T,
+  body: Data,
   options?: AxiosRequestConfig,
 ) {
-  const [data, setData] = useState<TResponse>({} as TResponse)
+  const [data, setData] = useState<Data>({} as Data)
 
   async function handlerPost() {
     try {
       const response = await api.post(url, body, options)
       setData(response.data)
-      console.log({ data })
+      console.log( response.data )
     } catch (error) {
       console.log(error)
     }
