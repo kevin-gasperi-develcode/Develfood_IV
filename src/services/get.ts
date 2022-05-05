@@ -18,7 +18,6 @@ export function funcaoGet<T = unknown>(
     async function fetchData() {
       try {
         await api.get(url, options).then((response) => setData(response.data))
-        
       } catch (error) {
         console.log(error)
       }
@@ -28,71 +27,3 @@ export function funcaoGet<T = unknown>(
 
   return { data }
 }
-// Token 51bd36346f73e59623b55b00cbab3d45ca5d9b3e4d0c224e6ae3ed663891edb4
-// put /public/v2/users/100
-
-//  export default function App() {
-//   const [post, setPost] = React.useState(null);
-
-//   React.useEffect(() => {
-//     axios.get(`${baseURL}/1`).then((response) => {
-//       setPost(response.data);
-//     });
-//   }, []);
-
-// function createPost() {
-//   axios
-//     .post(baseURL, {
-//       title: "Hello World!",
-//       body: "This is a new post."
-//     })
-//     .then((response) => {
-//       setPost(response.data);
-//     });
-// }
-
-// export async function funcaoPost(name:string, email:string) {
-//   const [post, setPost] = useState(null);
-
-//   useEffect(() => {
-//     api.get(url)).then((response) => {
-//       setPost(response.data);
-//     });
-//   }, []);
-//   try {
-//     await api.post('/public/v2/users/100', {
-//       name: name,
-//       email: email
-//     })
-//     return 'sucesso'
-//   } catch (error) {
-//     console.log(error)
-//     return 'erro'
-//   }
-// }
-
-// export async function criarRepositoriosDoUsuario(postId, nome, data){
-//     try {
-//         await api.post(`/repos`, {
-//             name: nome,
-//             data: data,
-//             postId: postId
-//         });
-//         return 'sucesso'
-//     }
-//     catch (error){
-//         console.log(error)
-//         return 'erro'
-//     }
-// }
-
-// export async function deletarRepositorioDoUsuario(id){
-//     try {
-//         await api.delete(`/repos/${id}`);
-//         return 'sucesso'
-//     }
-//     catch (error){
-//         console.log(error)
-//         return 'erro'
-//     }
-// }

@@ -13,7 +13,7 @@ export function funcaoPut<T = unknown, TResponse = unknown>(
     try {
       const response = await api.put(url, body, options)
       setData(response.data)
-      console.log( data )
+      console.log(response.data)
     } catch (error) {
       console.log(error)
     }
