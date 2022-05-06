@@ -85,9 +85,6 @@ export function Home() {
         </View>
       ) : (
         <>
-          <Button title={'post'} onPress={() => handlerPost()} />
-          <Button title={'put'} onPress={() => handlerPut()} />
-          <Button title={'delete'} onPress={() => handlerDelete()} />
           {
             <FlatList
               data={data}
@@ -108,6 +105,10 @@ export function Home() {
             <Text>{dataPost.gender}</Text>
             <Text>{dataPost.status}</Text>
           </View>
+
+          <Button title={'post'} onPress={() => handlerPost()} />
+          <Button title={'put'} onPress={() => handlerPut()} />
+          <Button title={'delete'} onPress={() => handlerDelete()} />
         </>
       )}
     </>

@@ -6,17 +6,28 @@ import { Home } from '../screens/home'
 import History from '../screens/history'
 import Settings from '../screens/settings'
 import Favorites from '../screens/favorites'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Button, Image, StyleSheet, Text, View } from 'react-native'
+
+import { createStackNavigator } from '@react-navigation/stack'
 
 export default function Routes() {
-  const Tab = createBottomTabNavigator()
+  //  const Tab = createBottomTabNavigator()
 
   useEffect(() => {
     RNBootSplash.hide({ fade: true })
   }, [])
-
+  const Stack = createStackNavigator()
   return (
-    <Tab.Navigator
+    <Stack.Navigator>
+      <Stack.Screen name="Notifications" component={History} />
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Profile" component={Favorites} />
+      <Stack.Screen name="Settings" component={Settings} />
+    </Stack.Navigator>
+  )
+}
+{
+  /* <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
     >
       <Tab.Screen
@@ -99,6 +110,5 @@ export default function Routes() {
           ),
         }}
       />
-    </Tab.Navigator>
-  )
+    </Tab.Navigator> */
 }

@@ -1,6 +1,10 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 
 export default function Settings() {
-  return <Text>Settings</Text>
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontSize: 30 }}>Configurações</Text>
+    </View>
+  )
 }
