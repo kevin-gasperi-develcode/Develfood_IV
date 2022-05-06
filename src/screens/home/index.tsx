@@ -1,6 +1,7 @@
+import { CurrentRenderContext } from '@react-navigation/native'
 import React, { MutableRefObject, useEffect, useState } from 'react'
-import { Button, FlatList, Text, TextInput, View } from 'react-native'
-import { funcaoDelete, funcaoGet, funcaoPost, funcaoPut } from '../../services'
+import { Button, FlatList, Text, View } from 'react-native'
+import { useDelete, useGet, usePost, usePut } from '../../services/index'
 
 interface Data {
   name: string
@@ -15,13 +16,18 @@ interface DataPost {
   status: string
 }
 export function Home() {
-  const { data } = funcaoGet<Data[]>('/public/v2/users')
+  const { data, loading, error } = useGet<Data[]>('/public/v2/users')
 
-  const { data: dataPost, handlerPost } = funcaoPost(
+  const {
+    data: dataPost,
+    handlerPost,
+    loading: loadingsPost,
+    error: errorPost,
+  } = usePost(
     '/public/v2/users',
     {
       name: 'Kevin',
-      email: 'kevin@develcode2015.com',
+      email: 'kevin@develcode2025.com',
       gender: 'male',
       status: 'active',
     },
@@ -34,11 +40,16 @@ export function Home() {
     },
   )
 
-  const { data: dataPut, handlerPut } = funcaoPut<Data, DataPost>(
-    '/public/v2/users/4907',
+  const {
+    data: dataPut,
+    handlerPut,
+    loading: loadingPut,
+    error: errorPut,
+  } = usePut<Data, DataPost>(
+    '/public/v2/users/5752',
     {
       name: 'Kevin V',
-      email: 'kevin@develcode2017.com',
+      email: 'kevin@develcode2026.com',
       gender: 'male',
       status: 'active',
     },
@@ -51,42 +62,54 @@ export function Home() {
     },
   )
 
-  const { data: dataDelete, handlerDelete } = funcaoDelete(
-    '/public/v2/users/4907',
-    {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization:
-          'Bearer 51bd36346f73e59623b55b00cbab3d45ca5d9b3e4d0c224e6ae3ed663891edb4',
-      },
+  const {
+    data: dataDelete,
+    handlerDelete,
+    loading: loadingDelete,
+    error: errorDelete,
+  } = useDelete('/public/v2/users/5758', {
+    headers: {
+      'Content-type': 'application/json',
+      Authorization:
+        'Bearer 51bd36346f73e59623b55b00cbab3d45ca5d9b3e4d0c224e6ae3ed663891edb4',
     },
-  )
+  })
 
   return (
     <>
-      <Button title={'post'} onPress={() => handlerPost()} />
-      <Button title={'put'} onPress={() => handlerPut()} />
-      <Button title={'delete'} onPress={() => handlerDelete()} />
-      {
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <>
-              <Text> Nome: {item.name} </Text>
-              <Text> Email: {item.email}</Text>
-              <Text> Gender: {item.gender}</Text>
-              <Text> Status: {item.status}</Text>
-              <Text>_________________________</Text>
-            </>
-          )}
-        />
-      }
-      <View>
-        <Text>{dataPost.name}</Text>
-        <Text>{dataPost.email}</Text>
-        <Text>{dataPost.gender}</Text>
-        <Text>{dataPost.status}</Text>
-      </View>
+      {loading || loadingsPost || loadingPut || loadingDelete ? (
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <Text style={{ fontSize: 30 }}>Carregando...</Text>
+        </View>
+      ) : (
+        <>
+          <Button title={'post'} onPress={() => handlerPost()} />
+          <Button title={'put'} onPress={() => handlerPut()} />
+          <Button title={'delete'} onPress={() => handlerDelete()} />
+          {
+            <FlatList
+              data={data}
+              renderItem={({ item }) => (
+                <>
+                  <Text> Nome: {item.name} </Text>
+                  <Text> Email: {item.email}</Text>
+                  <Text> Gender: {item.gender}</Text>
+                  <Text> Status: {item.status}</Text>
+                  <Text>_________________________</Text>
+                </>
+              )}
+            />
+          }
+          <View>
+            <Text>{dataPost.name}</Text>
+            <Text>{dataPost.email}</Text>
+            <Text>{dataPost.gender}</Text>
+            <Text>{dataPost.status}</Text>
+          </View>
+        </>
+      )}
     </>
   )
 }

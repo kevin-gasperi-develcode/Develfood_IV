@@ -1,29 +1,24 @@
 import { AxiosRequestConfig } from 'axios'
 import { useEffect, useState } from 'react'
-// import api from '../services/api'
+import api from '../services/api'
 
-import axios from 'axios'
-
-const api = axios.create({
-  baseURL: 'https://gorest.co.in',
-})
-
-export function funcaoGet<T = unknown>(
-  url: string,
-  options?: AxiosRequestConfig,
-) {
+export function useGet<T = unknown>(url: string, options?: AxiosRequestConfig) {
   const [data, setData] = useState<T>({} as T)
-
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<Error | unknown | null>(null)
   useEffect(() => {
     async function fetchData() {
+      setLoading(true)
       try {
         await api.get(url, options).then((response) => setData(response.data))
       } catch (error) {
         console.log(error)
+        setError(error)
       }
+      setLoading(false)
     }
     fetchData()
   }, [])
 
-  return { data }
+  return { data, loading, error }
 }
