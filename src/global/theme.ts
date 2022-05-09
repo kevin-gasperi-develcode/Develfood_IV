@@ -1,24 +1,36 @@
-export const theme = {
+export default {
   colors: {
-    primaryDark: '#f11',
-    primary: '#f11',
-    primaryLight: '#f11',
-    primaryNegative: '#07B39C',
-    secondary100: '#0A1033',
-    secondary90: '#0D133D',
-    secondary85: '#0E1647',
-    secondary80: '#171F52',
-    secondary70: '#1B2565',
-    secondary60: '#1C2666',
-    secondary50: '#1E2976',
-    secondary40: '#243189',
-    secondary30: '#495BCC',
-    background: '#0D133D',
-    overlay: 'rgba(0,0,0,0.7)',
-    highlight: '#ABB1CC',
-    heading: '#DDE3F0',
-    line: '#991F36',
-    on: '#32BD50',
-    discord: '#7289DA',
+    background: '#FFFFFF',
+    background_red: '#C20C18',
+    background_gray: '#E5E5E5',
+
+    header: '#C20C18',
+    button: '#C20C18',
+    card: '#F0F0F5',
+
+    text_white: '#FFFFFF',
+    text_gray: '#BFBABA',
+    text_dark: '#2B2B2E',
+
+    icon_gray: '#BFBABA',
+    icon_white: '#FFFFFF',
+    icon_red: '#C20C18',
+    icon_dark: '#2B2B2E',
+  },
+
+  fonts: {
+    primaryReg: 'Poppins-Regular',
+    primaryMed: 'Poppins-Medium',
+
+    secondaryReg: 'Archivo-Regular',
+    secondaryMed: 'Archivo-Medium',
+    secondaryBold: 'Archivo-Bold',
+  },
+
+  icons: {
+    home: require('../assets/icons/home.png'),
+    favorite: require('../assets/icons/favorites.png'),
+    history: require('../assets/icons/history.png'),
+    settings: require('../assets/icons/settings.png'),
   },
 }

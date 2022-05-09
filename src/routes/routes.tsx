@@ -9,6 +9,7 @@ import Favorites from '../screens/favorites'
 import { Button, Image, StyleSheet, Text, View } from 'react-native'
 
 import { createStackNavigator } from '@react-navigation/stack'
+import { TabBar } from '../components/tabBar'
 
 export default function Routes() {
   //  const Tab = createBottomTabNavigator()
@@ -18,12 +19,15 @@ export default function Routes() {
   }, [])
   const Stack = createStackNavigator()
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Notifications" component={History} />
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Profile" component={Favorites} />
-      <Stack.Screen name="Settings" component={Settings} />
-    </Stack.Navigator>
+    <>
+      <Stack.Navigator>
+        <Stack.Screen name="Início" component={Home} />
+        <Stack.Screen name="Favoritos" component={Favorites} />
+        <Stack.Screen name="Histórico" component={History} />
+        <Stack.Screen name="Perfil" component={Settings} />
+      </Stack.Navigator>
+      <TabBar />
+    </>
   )
 }
 {
