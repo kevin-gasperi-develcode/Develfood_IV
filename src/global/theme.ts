@@ -4,9 +4,15 @@ export default {
     background_red: '#C20C18',
     background_gray: '#E5E5E5',
 
+    primary: '#F0F0F5',
+    primary_focus: '#FFE7F7',
+
     header: '#C20C18',
     button: '#C20C18',
     card: '#F0F0F5',
+
+    text_title: '#2B2B2E',
+    text_blur: '#BFBABA',
 
     text_white: '#FFFFFF',
     text_gray: '#BFBABA',

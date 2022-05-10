@@ -10,6 +10,7 @@ import { Button, Image, StyleSheet, Text, View } from 'react-native'
 
 import { createStackNavigator } from '@react-navigation/stack'
 import { TabBar } from '../components/tabBar'
+import { SignIn } from '../screens/signIn'
 
 export default function Routes() {
   //  const Tab = createBottomTabNavigator()
@@ -17,6 +18,7 @@ export default function Routes() {
   useEffect(() => {
     RNBootSplash.hide({ fade: true })
   }, [])
+
   const Stack = createStackNavigator()
   return (
     <>
