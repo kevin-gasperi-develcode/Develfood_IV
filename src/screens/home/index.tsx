@@ -1,6 +1,7 @@
 import { CurrentRenderContext } from '@react-navigation/native'
 import React, { MutableRefObject, useEffect, useState } from 'react'
 import { Button, FlatList, Text, View } from 'react-native'
+import { TabBar } from '../../components/tabBar'
 import { useDelete, useGet, usePost, usePut } from '../../services/index'
 
 interface Data {
@@ -111,6 +112,7 @@ export function Home() {
           <Button title={'delete'} onPress={() => handlerDelete()} />
         </>
       )}
+      <TabBar />
     </>
   )
 }

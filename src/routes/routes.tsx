@@ -6,7 +6,7 @@ import { Home } from '../screens/home'
 import History from '../screens/history'
 import Settings from '../screens/settings'
 import Favorites from '../screens/favorites'
-import { Button, Image, StyleSheet, Text, View } from 'react-native'
+import { Button, Image, StatusBar, StyleSheet, Text, View } from 'react-native'
 
 import { createStackNavigator } from '@react-navigation/stack'
 import { TabBar } from '../components/tabBar'
@@ -22,13 +22,34 @@ export default function Routes() {
   const Stack = createStackNavigator()
   return (
     <>
+      {/* <StatusBar /> */}
       <Stack.Navigator>
-        <Stack.Screen name="Início" component={Home} />
-        <Stack.Screen name="Favoritos" component={Favorites} />
-        <Stack.Screen name="Histórico" component={History} />
-        <Stack.Screen name="Perfil" component={Settings} />
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Início"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Favoritos"
+          component={Favorites}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Histórico"
+          component={History}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Perfil"
+          component={Settings}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
-      <TabBar />
     </>
   )
 }
