@@ -7,4 +7,6 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  border-top-width: 1px;
+  border-top-color: gray;
 `

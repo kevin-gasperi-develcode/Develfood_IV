@@ -1,9 +1,7 @@
-import { CurrentRenderContext } from '@react-navigation/native'
-import React, { MutableRefObject, useEffect, useState } from 'react'
+import React from 'react'
 import { Button, FlatList, Text, View } from 'react-native'
 import { TabBar } from '../../components/tabBar'
-import { useDelete, useGet, usePost, usePut } from '../../services/index'
-
+import { useDelete, useGet, usePut } from '../../services/index'
 interface Data {
   name: string
   email: string
@@ -18,28 +16,6 @@ interface DataPost {
 }
 export function Home() {
   const { data, loading, error } = useGet<Data[]>('/public/v2/users')
-
-  const {
-    data: dataPost,
-    handlerPost,
-    loading: loadingsPost,
-    error: errorPost,
-  } = usePost(
-    '/public/v2/users',
-    {
-      name: 'Kevin',
-      email: 'kevin@develcode2025.com',
-      gender: 'male',
-      status: 'active',
-    },
-    {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization:
-          'Bearer 51bd36346f73e59623b55b00cbab3d45ca5d9b3e4d0c224e6ae3ed663891edb4',
-      },
-    },
-  )
 
   const {
     data: dataPut,
@@ -78,7 +54,7 @@ export function Home() {
 
   return (
     <>
-      {loading || loadingsPost || loadingPut || loadingDelete ? (
+      {loading || loadingPut || loadingDelete ? (
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
@@ -100,14 +76,7 @@ export function Home() {
               )}
             />
           }
-          <View>
-            <Text>{dataPost.name}</Text>
-            <Text>{dataPost.email}</Text>
-            <Text>{dataPost.gender}</Text>
-            <Text>{dataPost.status}</Text>
-          </View>
 
-          <Button title={'post'} onPress={() => handlerPost()} />
           <Button title={'put'} onPress={() => handlerPut()} />
           <Button title={'delete'} onPress={() => handlerDelete()} />
         </>

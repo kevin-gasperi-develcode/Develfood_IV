@@ -1,43 +1,43 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { View } from 'react-native'
-import { Button } from '../button'
+import { Button } from '../tabButton'
 import { Container } from './styles'
 
 export function TabBar() {
   const navigation = useNavigation()
   const [iconName, setIconName] = useState(' ')
+  console.log(iconName)
   return (
     <Container>
       <Button
         name="Início"
         onPressed={() => {
-          setIconName('Início')
           navigation.navigate('Início' as never)
+          setIconName('Início')
         }}
         isPressed={iconName === 'Início'}
       />
       <Button
         name="Favoritos"
         onPressed={() => {
-          setIconName('Favoritos')
           navigation.navigate('Favoritos' as never)
+          setIconName('Favoritos')
         }}
         isPressed={iconName === 'Favoritos'}
       />
       <Button
         name="Histórico"
         onPressed={() => {
-          setIconName('Histórico')
           navigation.navigate('Histórico' as never)
+          setIconName('Histórico')
         }}
         isPressed={iconName === 'Histórico'}
       />
       <Button
         name="Perfil"
         onPressed={() => {
-          setIconName('Perfil')
           navigation.navigate('Perfil' as never)
+          setIconName('Perfil')
         }}
         isPressed={iconName === 'Perfil'}
       />
