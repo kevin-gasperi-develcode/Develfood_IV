@@ -15,6 +15,7 @@ import {
 import { useGet, usePost } from '../../services'
 import { Load } from '../../components/load'
 import { InputStandard } from '../../components/inputStandard'
+import { Home } from '../home'
 interface CreateUserRequest {
   email: string
   password: string
@@ -23,12 +24,14 @@ interface TResponse {
   token: string
   type: string
 }
+
 export function SignIn() {
   const navigation = useNavigation()
   const [textEmail, setTextEmail] = useState('')
   const [textPassword, setTextPassword] = useState('')
 
-  const { user } = useAuth()
+  const { authState, setAuthState } = useAuth()
+  console.log(authState)
 
   function handleNavigationRegister() {
     navigation.navigate('Register' as never)
@@ -46,17 +49,24 @@ export function SignIn() {
     handlerPost,
     loading: loadingsPost,
     error: errorPost,
-  } = usePost<CreateUserRequest, TResponse>('/auth', {
-    email: textEmail,
-    password: textPassword,
-  })
-
-  const { data: dataGet, loading, error } = useGet<unknown[]>('/auth')
-  console.log(dataGet)
-
+  } = usePost<CreateUserRequest, TResponse>(
+    '/auth',
+    {
+      email: textEmail,
+      password: textPassword,
+    },
+    undefined,
+    (dataReturn) => {
+      setAuthState(dataReturn)
+      Alert.alert('você foi logado')
+      console.log('ta garantido bixo')
+      navigation.navigate('Início' as never)
+    },
+  )
+  // trocar histórico para pedidos
   return (
     <>
-      {loadingsPost || loading ? (
+      {loadingsPost ? (
         <Load />
       ) : (
         <>

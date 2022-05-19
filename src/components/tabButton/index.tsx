@@ -11,9 +11,7 @@ interface Props {
 
 export function Button({ name, isPressed, onPressed }: Props) {
   const theme = useTheme()
-  console.log({ name })
 
-  console.log({ isPressed })
   return (
     <Container onPress={() => onPressed()}>
       <Image

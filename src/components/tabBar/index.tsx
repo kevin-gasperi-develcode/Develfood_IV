@@ -6,7 +6,6 @@ import { Container } from './styles'
 export function TabBar() {
   const navigation = useNavigation()
   const [iconName, setIconName] = useState(' ')
-  console.log(iconName)
   return (
     <Container>
       <Button

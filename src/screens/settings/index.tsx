@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import { TabBar } from '../../components/tabBar'
+import { useAuth } from '../../hooks/auth'
 
 export default function Settings() {
   return (
