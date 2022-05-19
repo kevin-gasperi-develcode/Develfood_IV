@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import RNBootSplash from 'react-native-bootsplash'
-
 import { Home } from '../screens/home'
 import History from '../screens/history'
 import Settings from '../screens/settings'
 import Favorites from '../screens/favorites'
-import { Button, Image, StyleSheet, Text, View } from 'react-native'
-
 import { createStackNavigator } from '@react-navigation/stack'
-import { TabBar } from '../components/tabBar'
+import { SignIn } from '../screens/signIn'
+import { Register } from '../screens/register'
 
 export default function Routes() {
   //  const Tab = createBottomTabNavigator()
@@ -17,19 +14,44 @@ export default function Routes() {
   useEffect(() => {
     RNBootSplash.hide({ fade: true })
   }, [])
+
   const Stack = createStackNavigator()
   return (
-    <>
-      <Stack.Navigator>
-        <Stack.Screen name="Início" component={Home} />
-        <Stack.Screen name="Favoritos" component={Favorites} />
-        <Stack.Screen name="Histórico" component={History} />
-        <Stack.Screen name="Perfil" component={Settings} />
-      </Stack.Navigator>
-      <TabBar />
-    </>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Início"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Favoritos"
+        component={Favorites}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Histórico"
+        component={History}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Perfil"
+        component={Settings}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   )
 }
+
 {
   /* <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
