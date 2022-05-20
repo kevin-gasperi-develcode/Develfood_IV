@@ -4,13 +4,6 @@ import { useState } from 'react'
 interface AuthProviderProps {
   children: ReactNode
 }
-interface User {
-  id: string
-  name: string
-  email: string
-  Photo?: string
-}
-
 interface AuthContextData {
   authState: PropContext
   setAuthState: React.Dispatch<React.SetStateAction<PropContext>>
@@ -23,12 +16,6 @@ const AuthContext = createContext({} as AuthContextData)
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [authState, setAuthState] = useState({} as PropContext)
-
-  // const user = {
-  //   id: '123',
-  //   name: 'Kevin',
-  //   email: 'kevin@hotmail',
-  // }
 
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>

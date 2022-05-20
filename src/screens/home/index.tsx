@@ -82,7 +82,6 @@ export function Home() {
           <Button title={'delete'} onPress={() => handlerDelete()} />
         </>
       )}
-      <TabBar />
     </>
   )
 }

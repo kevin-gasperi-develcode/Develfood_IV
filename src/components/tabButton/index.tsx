@@ -20,7 +20,7 @@ export function Button({ name, isPressed, onPressed }: Props) {
             ? theme.icons.home
             : name === 'Favoritos'
             ? theme.icons.favorite
-            : name === 'Histórico'
+            : name === 'Pedidos'
             ? theme.icons.history
             : name === 'Perfil'
             ? theme.icons.settings

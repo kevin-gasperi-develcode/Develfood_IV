@@ -25,12 +25,12 @@ export function TabBar() {
         isPressed={iconName === 'Favoritos'}
       />
       <Button
-        name="Histórico"
+        name="Pedidos"
         onPressed={() => {
-          navigation.navigate('Histórico' as never)
-          setIconName('Histórico')
+          navigation.navigate('Pedidos' as never)
+          setIconName('Pedidos')
         }}
-        isPressed={iconName === 'Histórico'}
+        isPressed={iconName === 'Pedidos'}
       />
       <Button
         name="Perfil"

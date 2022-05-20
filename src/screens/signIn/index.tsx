@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { Text, Image, StatusBar, Alert } from 'react-native'
+import { Text, Image, StatusBar, Alert, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { InputPassword } from '../../components/inputPassword'
 import { LogInButon } from '../../components/logInButton'
@@ -12,10 +12,9 @@ import {
   ViewInputs,
   TextSenha,
 } from './style'
-import { useGet, usePost } from '../../services'
+import { usePost } from '../../services'
 import { Load } from '../../components/load'
 import { InputStandard } from '../../components/inputStandard'
-import { Home } from '../home'
 interface CreateUserRequest {
   email: string
   password: string
@@ -24,7 +23,6 @@ interface TResponse {
   token: string
   type: string
 }
-
 export function SignIn() {
   const navigation = useNavigation()
   const [textEmail, setTextEmail] = useState('')
@@ -35,14 +33,6 @@ export function SignIn() {
 
   function handleNavigationRegister() {
     navigation.navigate('Register' as never)
-  }
-  function handleVerify() {
-    if (!textPassword) {
-      Alert.alert('A senha é obrigatória para logar')
-    }
-    if (!textEmail) {
-      Alert.alert('O email é obrigatório para logar')
-    } else handlerPost()
   }
   const {
     data: dataPost,
@@ -58,12 +48,10 @@ export function SignIn() {
     undefined,
     (dataReturn) => {
       setAuthState(dataReturn)
-      Alert.alert('você foi logado')
-      console.log('ta garantido bixo')
-      navigation.navigate('Início' as never)
+      Alert.alert('ola', 'você foi logado')
+      navigation.navigate('Routes' as never)
     },
   )
-  // trocar histórico para pedidos
   return (
     <>
       {loadingsPost ? (
@@ -95,6 +83,13 @@ export function SignIn() {
                   placeholderProp={'exemplo@email.com'}
                   imageProp={require('../../assets/signIn/E-mail.png')}
                 />
+                <View>
+                  {errorPost ? (
+                    <Text style={{ color: 'red' }}>
+                      Erro no Login, Tente Novamente
+                    </Text>
+                  ) : null}
+                </View>
                 <InputPassword
                   value={textPassword}
                   onChange={(value) => setTextPassword(value)}
@@ -102,7 +97,7 @@ export function SignIn() {
                 <TextSenha>Esqueci minha senha</TextSenha>
 
                 <LogInButon
-                  onPress={handleVerify}
+                  onPress={handlerPost}
                   title={loadingsPost ? 'Carregando...' : 'Entrar'}
                 />
 

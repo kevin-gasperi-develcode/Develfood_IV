@@ -8,7 +8,6 @@ export default function Favorites() {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ fontSize: 30 }}>Favoritos</Text>
       </View>
-      <TabBar />
     </>
   )
 }

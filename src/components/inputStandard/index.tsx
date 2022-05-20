@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { Container, ImageView } from './styles'
 
