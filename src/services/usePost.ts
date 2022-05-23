@@ -9,6 +9,8 @@ export function usePost<T = unknown, TResponse = unknown>(
   url: string,
   body: T,
   options?: AxiosRequestConfig,
+  onSuccess?: (response: TResponse) => void,
+  onError?: Function,
 ) {
   const navigation = useNavigation()
   const [data, setData] = useState<TResponse>({} as TResponse)
@@ -18,15 +20,14 @@ export function usePost<T = unknown, TResponse = unknown>(
   async function handlerPost() {
     setLoading(true)
     try {
-      const response = await api.post(url, body, options)
+      const response = await api.post<TResponse>(url, body, options)
       setData(response.data)
       console.log(response.data)
-      data && Alert.alert('Usuário logado com sucesso.')
-      if (response.status === 200) navigation.navigate('Início' as never)
+      onSuccess && onSuccess(response.data)
     } catch (error) {
       console.log(error)
-      error && Alert.alert('Ocorreu um erro, tente novamente.')
       setError(error)
+      onError && onError(error)
     }
     setLoading(false)
   }

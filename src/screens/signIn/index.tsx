@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { Text, Image, StatusBar, Alert } from 'react-native'
+import { Text, Image, StatusBar, Alert, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { InputPassword } from '../../components/inputPassword'
 import { LogInButon } from '../../components/logInButton'
@@ -12,7 +12,7 @@ import {
   ViewInputs,
   TextSenha,
 } from './style'
-import { useGet, usePost } from '../../services'
+import { usePost } from '../../services'
 import { Load } from '../../components/load'
 import { InputStandard } from '../../components/inputStandard'
 interface CreateUserRequest {
@@ -28,35 +28,33 @@ export function SignIn() {
   const [textEmail, setTextEmail] = useState('')
   const [textPassword, setTextPassword] = useState('')
 
-  const { user } = useAuth()
+  const { authState, setAuthState } = useAuth()
+  console.log(authState)
 
   function handleNavigationRegister() {
     navigation.navigate('Register' as never)
-  }
-  function handleVerify() {
-    if (!textPassword) {
-      Alert.alert('A senha é obrigatória para logar')
-    }
-    if (!textEmail) {
-      Alert.alert('O email é obrigatório para logar')
-    } else handlerPost()
   }
   const {
     data: dataPost,
     handlerPost,
     loading: loadingsPost,
     error: errorPost,
-  } = usePost<CreateUserRequest, TResponse>('/auth', {
-    email: textEmail,
-    password: textPassword,
-  })
-
-  const { data: dataGet, loading, error } = useGet<unknown[]>('/auth')
-  console.log(dataGet)
-
+  } = usePost<CreateUserRequest, TResponse>(
+    '/auth',
+    {
+      email: textEmail,
+      password: textPassword,
+    },
+    undefined,
+    (dataReturn) => {
+      setAuthState(dataReturn)
+      Alert.alert('ola', 'você foi logado')
+      navigation.navigate('Routes' as never)
+    },
+  )
   return (
     <>
-      {loadingsPost || loading ? (
+      {loadingsPost ? (
         <Load />
       ) : (
         <>
@@ -85,6 +83,13 @@ export function SignIn() {
                   placeholderProp={'exemplo@email.com'}
                   imageProp={require('../../assets/signIn/E-mail.png')}
                 />
+                <View>
+                  {errorPost ? (
+                    <Text style={{ color: 'red' }}>
+                      Erro no Login, Tente Novamente
+                    </Text>
+                  ) : null}
+                </View>
                 <InputPassword
                   value={textPassword}
                   onChange={(value) => setTextPassword(value)}
@@ -92,7 +97,7 @@ export function SignIn() {
                 <TextSenha>Esqueci minha senha</TextSenha>
 
                 <LogInButon
-                  onPress={handleVerify}
+                  onPress={handlerPost}
                   title={loadingsPost ? 'Carregando...' : 'Entrar'}
                 />
 
