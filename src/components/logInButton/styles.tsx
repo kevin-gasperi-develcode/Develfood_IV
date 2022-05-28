@@ -12,6 +12,6 @@ export const Container = styled(RectButton)`
 
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.text_white};
-  font-size: 14px;
+  font-size: 16px;
   line-height: 16px;
 `
