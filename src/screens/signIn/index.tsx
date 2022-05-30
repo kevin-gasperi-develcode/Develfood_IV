@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Text, Image, StatusBar } from 'react-native'
+import { Text, Image, StatusBar, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useAuth } from '../../context/auth'
 import {
@@ -16,6 +16,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components'
 import { CustomInput } from '../../components/customInput'
 import { useForm } from 'react-hook-form'
+import { AxiosError } from 'axios'
 interface CreateUserRequest {
   email: string
   password: string
@@ -28,47 +29,74 @@ interface DataProps {
   email: string
   password: string
 }
+interface RequestProps {
+  endpoint: string
+  body: {}
+  error: {
+    title: string
+    message: string
+  }
+}
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/
 
 export function SignIn() {
+  const [request, setRequest] = useState({} as RequestProps)
+  const { authState, setAuthState } = useAuth()
   const navigation = useNavigation()
+  const theme = useTheme()
   const {
     control,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm()
-
   const values = getValues()
-
   const data: DataProps = {
     email: values.email,
     password: values.password,
   }
-  const { authState, setAuthState } = useAuth()
 
-  const theme = useTheme()
-  function handleNavigationRegister() {
-    navigation.navigate('Register' as never)
+  function signInSuccess(data: any) {
+    data.token && navigation.navigate('Routes' as never)
   }
+
+  function signInError(error: AxiosError<any, any> | any) {
+    error && Alert.alert('Erro de Login', 'Email e senha não existem')
+  }
+
+  useEffect(() => {
+    handlerPost && handlerPost()
+  }, [authState])
+
   const {
     data: dataPost,
     handlerPost,
-    loading: loadingsPost,
-    error: errorPost,
+    loading,
   } = usePost<CreateUserRequest, TResponse>(
     '/auth',
+    signInError,
     {
       email: values.email,
       password: values.password,
     },
     undefined,
-    (dataReturn) => {
-      setAuthState(dataReturn)
-      navigation.navigate('Routes' as never)
-    },
+    signInSuccess,
   )
+  function handleNavigationRegister() {
+    navigation.navigate('Register' as never)
+  }
+
+  // (dataReturn) => {
+  //     setAuthState(dataReturn),
+  //     navigation.navigate('Routes' as never)}
+
+  // const { data: dataSignin, handlerPost, loading } = usePost<any, any>(
+  //   '/user',
+  //   data,
+  //   undefined,
+
+  // )
 
   return (
     <>
@@ -120,7 +148,7 @@ export function SignIn() {
               <ButtonStandard
                 onPressed={handleSubmit(handlerPost)}
                 title="Entrar"
-                isLoading={loadingsPost}
+                isLoading={loading}
               />
 
               <TouchableOpacity onPress={handleNavigationRegister}>

@@ -91,14 +91,14 @@ export function Register2({ route }: any) {
                 control={control}
                 rules={{
                   required: 'CPF deve ser preenchido',
-                  minLength: {
-                    value: 11,
-                    message: 'O CPF deve conter 11 digitos',
-                  },
-                  maxLength: {
-                    value: 11,
-                    message: 'O CPF deve conter 11 digitos',
-                  },
+                  // minLength: {
+                  //   value: 11,
+                  //   message: 'O CPF deve conter 11 digitos',
+                  // },
+                  // maxLength: {
+                  //   value: 11,
+                  //   message: 'O CPF deve conter 11 digitos',
+                  // },
                 }}
               />
               <CustomInput
@@ -109,14 +109,14 @@ export function Register2({ route }: any) {
                 control={control}
                 rules={{
                   required: 'O telefone deve ser preenchido',
-                  minLength: {
-                    value: 11,
-                    message: ' Exemplo de preenchimento (xx) xxxxx xxxx',
-                  },
-                  maxLength: {
-                    value: 11,
-                    message: 'O telefone deve conter 11 digitos',
-                  },
+                  // minLength: {
+                  //   value: 11,
+                  //   message: ' Exemplo de preenchimento (xx) xxxxx xxxx',
+                  // },
+                  // maxLength: {
+                  //   value: 11,
+                  //   message: 'O telefone deve conter 11 digitos',
+                  // },
                 }}
               />
               <View
