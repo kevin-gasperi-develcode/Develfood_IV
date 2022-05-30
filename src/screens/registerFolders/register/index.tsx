@@ -61,7 +61,7 @@ export function Register() {
 
             <ViewInputs>
               <CustomInput
-                image={require('')}
+                image={require('../../../assets/icons/E-mail.png')}
                 name="email"
                 placeholder="exemplo@email.com"
                 keybord="email-address"
@@ -73,7 +73,7 @@ export function Register() {
               />
 
               <CustomInput
-                image={require('')}
+                image={require('../../../assets/icons/Password.png')}
                 name="password"
                 placeholder="senha"
                 control={control}
@@ -87,7 +87,7 @@ export function Register() {
                 }}
               />
               <CustomInput
-                image={require('')}
+                image={require('../../../assets/icons/Password.png')}
                 name="password confirm"
                 placeholder="confirmar senha"
                 control={control}

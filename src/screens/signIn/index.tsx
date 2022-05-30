@@ -79,9 +79,9 @@ export function SignIn() {
             backgroundColor={'transparent'}
           />
           <ImagesContainer>
-            <Image source={require('../../assets/signIn/cheese_image.png')} />
+            <Image source={require('../../assets/icons/cheese_image.png')} />
             <Image
-              source={require('../../assets/signIn/pizza_image.png')}
+              source={require('../../assets/icons/pizza_image.png')}
               style={{ height: RFValue(300) }}
             />
           </ImagesContainer>
@@ -90,7 +90,7 @@ export function SignIn() {
             <Image source={theme.icons.develfood} style={{ marginTop: -60 }} />
             <ViewInputs>
               <CustomInput
-                image={require('')}
+                image={require('../../assets/icons/E-mail.png')}
                 name="email"
                 placeholder="exemplo@email.com"
                 keybord="email-address"
@@ -101,7 +101,7 @@ export function SignIn() {
                 }}
               />
               <CustomInput
-                image={require('../../../assets/signIn/Password.png')}
+                image={require('../../assets/icons/Password.png')}
                 name="password"
                 placeholder="senha"
                 control={control}
@@ -149,7 +149,7 @@ export function SignIn() {
             </ViewInputs>
           </ViewInputComponents>
           <Image
-            source={require('../../assets/signIn/backgroundSignIn.png')}
+            source={require('../../assets/icons/backgroundSignIn.png')}
             style={{ marginTop: -30 }}
           />
         </ScrollView>

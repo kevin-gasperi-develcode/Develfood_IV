@@ -12,10 +12,6 @@ export default function Routes() {
   const Stack = createStackNavigator()
   const Tab = createBottomTabNavigator()
 
-  useEffect(() => {
-    RNBootSplash.hide({ fade: true })
-  }, [])
-
   return (
     <>
       <Tab.Navigator
