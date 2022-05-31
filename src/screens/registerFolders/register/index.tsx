@@ -35,15 +35,10 @@ export function Register() {
 
   const onSignInPressed = () => {
     const values = getValues()
-    const data: DataProps = {
-      email: values.email,
-      password: values.password,
-    }
     navigation.navigate(
       'Register2' as never,
       { email: values.email, password: values.password } as never,
     )
-    console.log(values)
   }
 
   return (
@@ -80,10 +75,10 @@ export function Register() {
                 password={true}
                 rules={{
                   required: 'senha deve ser preenchida',
-                  minLength: {
-                    value: 5,
-                    message: 'senha precisa de 5 caracters no mínimo',
-                  },
+                  // minLength: {
+                  //   value: 5,
+                  //   message: 'senha precisa de 5 caracters no mínimo',
+                  // },
                 }}
               />
               <CustomInput

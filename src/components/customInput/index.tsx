@@ -24,7 +24,7 @@ export function CustomInput({
   keybord,
   password,
 }: CustomInputProps) {
-  const [isClicked, setIsClicked] = useState(true)
+  const [isClicked, setIsClicked] = useState(false)
 
   function handlerSecurity() {
     setIsClicked(!isClicked)

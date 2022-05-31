@@ -10,42 +10,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { ButtonStandard } from '../../../components/buttonStandard'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components'
-import { useAuth } from '../../../context/auth'
 import { usePost } from '../../../services'
 import { AxiosError } from 'axios'
-
-// interface CreateUserRequest {
-//   email: string
-//   password: string
-//   creationDate: string
-//   role: {
-//     id: number
-//   }
-//   costumer: {
-//     firstName: string
-//     lastName: string
-//     cpf: string
-//     phone: string
-//     photo: string
-//     address: [{
-//       street: string
-//       number: string
-//       neighborhood: string
-//       city: string
-//       zipCode: string
-//       state: string
-//       nickname: string
-//   }]
-//   }
-// }
-interface RequestProps {
-  endpoint: string
-  body: {}
-  error: {
-    title: string
-    message: string
-  }
-}
 
 export function Register3({ route }: any) {
   const {
@@ -54,9 +20,7 @@ export function Register3({ route }: any) {
     formState: { errors },
     getValues,
   } = useForm()
-  const [request, setRequest] = useState({} as RequestProps)
   const navigation = useNavigation()
-  const { setAuthState } = useAuth()
   const theme = useTheme()
   const values = getValues()
   const { email, password, firstName, lastName, cpf, phone, photo } =
@@ -96,13 +60,14 @@ export function Register3({ route }: any) {
     error && Alert.alert('Erro de cadastro', 'Email já cadastrado')
   }
 
-  const { data, handlerPost, loading } = usePost<any, any>(
+  const { data, loading, handlerPost } = usePost<any, any>(
     '/user',
     createUserError,
     signUpData,
     undefined,
     createUserSuccess,
   )
+
   return (
     <>
       <Container>
@@ -215,7 +180,37 @@ export function Register3({ route }: any) {
             >
               <ButtonStandard
                 title="Continuar"
-                onPressed={handleSubmit(handlerPost)}
+                onPressed={handleSubmit(() => {
+                  handlerPost({
+                    signUpData,
+                    // email,
+                    // password,
+                    // creationDate: new Date().toISOString(),
+                    // role: {
+                    //   id: 2,
+                    // },
+                    // costumer: {
+                    //   firstName,
+                    //   lastName,
+                    //   cpf,
+                    //   phone,
+                    //   photo: '',
+                    //   address: [
+                    //     {
+                    //       street: getValues().street,
+                    //       number: values.number,
+                    //       neighborhood: values.neighborhood,
+                    //       city: values.city,
+                    //       zipCode: values.cep,
+                    //       state: values.state,
+                    //       nickname: values.nickname,
+                    //     },
+                    //   ],
+                    // },
+                    // email: getValues().email,
+                    // password: getValues().password,
+                  })
+                })}
               />
             </View>
           </ViewInputs>
@@ -224,3 +219,28 @@ export function Register3({ route }: any) {
     </>
   )
 }
+
+// interface CreateUserRequest {
+//   email: string
+//   password: string
+//   creationDate: string
+//   role: {
+//     id: number
+//   }
+//   costumer: {
+//     firstName: string
+//     lastName: string
+//     cpf: string
+//     phone: string
+//     photo: string
+//     address: [{
+//       street: string
+//       number: string
+//       neighborhood: string
+//       city: string
+//       zipCode: string
+//       state: string
+//       nickname: string
+//   }]
+//   }
+// }

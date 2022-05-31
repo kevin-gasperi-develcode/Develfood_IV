@@ -1,7 +1,5 @@
 import React, { createContext, ReactNode, useContext } from 'react'
 import { useState } from 'react'
-import { usePost } from '../services'
-
 interface AuthProviderProps {
   children: ReactNode
 }
@@ -14,19 +12,6 @@ interface PropContext {
   type: string
 }
 
-interface IAuthContextData {
-  loading: boolean
-  signIn(email: string, password: string): Promise<void>
-  token: string
-}
-interface RequestProps {
-  endpoint: string
-  body: {}
-  error: {
-    title: string
-    message: string
-  }
-}
 const AuthContext = createContext({} as AuthContextData)
 
 function AuthProvider({ children }: AuthProviderProps) {
@@ -43,3 +28,17 @@ function useAuth() {
   return context
 }
 export { AuthProvider, useAuth }
+
+// interface IAuthContextData {
+//   loading: boolean
+//   signIn(email: string, password: string): Promise<void>
+//   token: string
+// }
+// interface RequestProps {
+//   endpoint: string
+//   body: {}
+//   error: {
+//     title: string
+//     message: string
+//   }
+// }

@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react'
-import RNBootSplash from 'react-native-bootsplash'
+import React from 'react'
 import { Home } from '../screens/home'
 import Demand from '../screens/demand'
 import Settings from '../screens/settings'
 import Favorites from '../screens/favorites'
-import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Image, Text, View } from 'react-native'
+import { ColorPropType, Image, Text, View } from 'react-native'
 
 export default function Routes() {
-  const Stack = createStackNavigator()
   const Tab = createBottomTabNavigator()
 
   return (

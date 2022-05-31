@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, ViewInputs } from './styles'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 import { CustomInput } from '../../../components/customInput'
 import { HeaderRegister } from '../../../components/headerRegister'
@@ -12,27 +12,19 @@ import {
   View,
 } from 'react-native'
 import { ButtonStandard } from '../../../components/buttonStandard'
-import { useTheme } from 'styled-components'
 import theme from '../../../global/theme'
 
-interface DataProps {
-  email: string
-  password: string
-}
-
 export function Register2({ route }: any) {
+  const navigation = useNavigation()
   const {
     control,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm()
-  const navigation = useNavigation()
-
   const onSignInPressed = () => {
-    const { email, password } = route.params
     const values = getValues()
-
+    const { email, password } = route.params
     navigation.navigate(
       'Register3' as never,
       {
@@ -75,6 +67,7 @@ export function Register2({ route }: any) {
                 name="lastName"
                 placeholder="Sobrenome"
                 control={control}
+                password={false}
                 rules={{
                   required: 'Sobrenome deve ser preenchido',
                   minLength: {

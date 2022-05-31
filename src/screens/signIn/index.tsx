@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Text, Image, StatusBar, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
@@ -25,10 +25,6 @@ interface TResponse {
   token: string
   type: string
 }
-interface DataProps {
-  email: string
-  password: string
-}
 interface RequestProps {
   endpoint: string
   body: {}
@@ -52,22 +48,15 @@ export function SignIn() {
     getValues,
   } = useForm()
   const values = getValues()
-  const data: DataProps = {
-    email: values.email,
-    password: values.password,
-  }
 
   function signInSuccess(data: any) {
-    data.token && navigation.navigate('Routes' as never)
+    data.token && setAuthState(data), navigation.navigate('Routes' as never)
   }
 
   function signInError(error: AxiosError<any, any> | any) {
-    error && Alert.alert('Erro de Login', 'Email e senha não existem')
+    error && Alert.alert('Erro de Login', 'Ocorreu um erro no Login')
   }
-
-  useEffect(() => {
-    handlerPost && handlerPost()
-  }, [authState])
+  // exemplo@email.com
 
   const {
     data: dataPost,
@@ -77,26 +66,16 @@ export function SignIn() {
     '/auth',
     signInError,
     {
-      email: values.email,
-      password: values.password,
+      email: getValues().email,
+      password: getValues().password,
     },
     undefined,
     signInSuccess,
   )
+
   function handleNavigationRegister() {
     navigation.navigate('Register' as never)
   }
-
-  // (dataReturn) => {
-  //     setAuthState(dataReturn),
-  //     navigation.navigate('Routes' as never)}
-
-  // const { data: dataSignin, handlerPost, loading } = usePost<any, any>(
-  //   '/user',
-  //   data,
-  //   undefined,
-
-  // )
 
   return (
     <>
@@ -146,7 +125,12 @@ export function SignIn() {
               <TextSenha>Esqueci minha senha</TextSenha>
 
               <ButtonStandard
-                onPressed={handleSubmit(handlerPost)}
+                onPressed={handleSubmit(() => {
+                  handlerPost({
+                    email: getValues().email,
+                    password: getValues().password,
+                  })
+                })}
                 title="Entrar"
                 isLoading={loading}
               />
