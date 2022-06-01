@@ -25,32 +25,6 @@ export function Register3({ route }: any) {
   const values = getValues()
   const { email, password, firstName, lastName, cpf, phone, photo } =
     route.params
-  const signUpData = {
-    email,
-    password,
-    creationDate: new Date().toISOString(),
-    role: {
-      id: 2,
-    },
-    costumer: {
-      firstName,
-      lastName,
-      cpf,
-      phone,
-      photo: '',
-      address: [
-        {
-          street: values.street,
-          number: values.number,
-          neighborhood: values.neighborhood,
-          city: values.city,
-          zipCode: values.cep,
-          state: values.state,
-          nickname: values.nickname,
-        },
-      ],
-    },
-  }
 
   function createUserSuccess(data: any) {
     data.password && navigation.navigate('RegisterSucess' as never)
@@ -63,7 +37,6 @@ export function Register3({ route }: any) {
   const { data, loading, handlerPost } = usePost<any, any>(
     '/user',
     createUserError,
-    signUpData,
     undefined,
     createUserSuccess,
   )
@@ -182,33 +155,30 @@ export function Register3({ route }: any) {
                 title="Continuar"
                 onPressed={handleSubmit(() => {
                   handlerPost({
-                    signUpData,
-                    // email,
-                    // password,
-                    // creationDate: new Date().toISOString(),
-                    // role: {
-                    //   id: 2,
-                    // },
-                    // costumer: {
-                    //   firstName,
-                    //   lastName,
-                    //   cpf,
-                    //   phone,
-                    //   photo: '',
-                    //   address: [
-                    //     {
-                    //       street: getValues().street,
-                    //       number: values.number,
-                    //       neighborhood: values.neighborhood,
-                    //       city: values.city,
-                    //       zipCode: values.cep,
-                    //       state: values.state,
-                    //       nickname: values.nickname,
-                    //     },
-                    //   ],
-                    // },
-                    // email: getValues().email,
-                    // password: getValues().password,
+                    email,
+                    password,
+                    creationDate: new Date().toISOString(),
+                    role: {
+                      id: 2,
+                    },
+                    costumer: {
+                      firstName,
+                      lastName,
+                      cpf,
+                      phone,
+                      photo: '',
+                      address: [
+                        {
+                          street: getValues().street,
+                          number: getValues().number,
+                          neighborhood: getValues().neighborhood,
+                          city: getValues().city,
+                          zipCode: getValues().cep,
+                          state: getValues().state,
+                          nickname: getValues().nickname,
+                        },
+                      ],
+                    },
                   })
                 })}
               />
@@ -219,28 +189,3 @@ export function Register3({ route }: any) {
     </>
   )
 }
-
-// interface CreateUserRequest {
-//   email: string
-//   password: string
-//   creationDate: string
-//   role: {
-//     id: number
-//   }
-//   costumer: {
-//     firstName: string
-//     lastName: string
-//     cpf: string
-//     phone: string
-//     photo: string
-//     address: [{
-//       street: string
-//       number: string
-//       neighborhood: string
-//       city: string
-//       zipCode: string
-//       state: string
-//       nickname: string
-//   }]
-//   }
-// }

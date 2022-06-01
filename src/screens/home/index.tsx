@@ -14,7 +14,10 @@ interface DataPost {
   status: string
 }
 export function Home() {
-  const { data, loading, error } = useGet<Data[]>('/public/v2/users')
+  function handlerGet() {
+    const { data, loading, error } = useGet<Data[]>('/user', undefined)
+    console.log(data)
+  }
 
   const {
     data: dataPut,
@@ -53,33 +56,9 @@ export function Home() {
 
   return (
     <>
-      {loading || loadingPut || loadingDelete ? (
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Text style={{ fontSize: 30 }}>Carregando...</Text>
-        </View>
-      ) : (
-        <>
-          {
-            <FlatList
-              data={data}
-              renderItem={({ item }) => (
-                <>
-                  <Text> Nome: {item.name} </Text>
-                  <Text> Email: {item.email}</Text>
-                  <Text> Gender: {item.gender}</Text>
-                  <Text> Status: {item.status}</Text>
-                  <Text>_________________________</Text>
-                </>
-              )}
-            />
-          }
-
-          <Button title={'put'} onPress={() => handlerPut()} />
-          <Button title={'delete'} onPress={() => handlerDelete()} />
-        </>
-      )}
+      <Button title={'get'} onPress={() => handlerGet()} />
+      <Button title={'put'} onPress={() => handlerPut()} />
+      <Button title={'delete'} onPress={() => handlerDelete()} />
     </>
   )
 }

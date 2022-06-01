@@ -65,10 +65,6 @@ export function SignIn() {
   } = usePost<CreateUserRequest, TResponse>(
     '/auth',
     signInError,
-    {
-      email: getValues().email,
-      password: getValues().password,
-    },
     undefined,
     signInSuccess,
   )
