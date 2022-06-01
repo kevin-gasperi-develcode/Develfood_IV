@@ -1,3 +1,4 @@
+import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
@@ -11,5 +12,11 @@ export const BackButton = styled.TouchableOpacity`
 export const TextTitle = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-left: 130px;
+  width: 100%;
+  justify-content: center;
+`
+export const ImageGoBack = styled.Image`
+  position: absolute;
+  margin-top: ${RFValue(23)}px;
+  margin-left: ${RFValue(20)}px;
 `

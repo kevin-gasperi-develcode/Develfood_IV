@@ -46,7 +46,9 @@ export function SignIn() {
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm()
+  } = useForm({
+    defaultValues: { email: 'kevin6@email.com', password: '123456' },
+  })
   const values = getValues()
 
   function signInSuccess(data: any) {

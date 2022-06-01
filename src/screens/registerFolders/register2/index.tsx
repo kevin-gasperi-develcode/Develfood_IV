@@ -3,7 +3,7 @@ import { Container, ViewInputs } from './styles'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 import { CustomInput } from '../../../components/customInput'
-import { HeaderRegister } from '../../../components/headerRegister'
+import { HeaderStandard } from '../../../components/headerStandard'
 import { RegisterSteps } from '../../../components/registerSteps'
 import {
   ScrollView,
@@ -43,7 +43,10 @@ export function Register2({ route }: any) {
     <>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
-          <HeaderRegister />
+          <HeaderStandard
+            title={'Cadastro'}
+            goBackButton={theme.icons.back_button}
+          />
           <ScrollView showsVerticalScrollIndicator={true}>
             <RegisterSteps
               circle={theme.icons.circle_filled}

@@ -3,7 +3,7 @@ import { Container, ViewInputs } from './styles'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 import { CustomInput } from '../../../components/customInput'
-import { HeaderRegister } from '../../../components/headerRegister'
+import { HeaderStandard } from '../../../components/headerStandard'
 import { RegisterSteps } from '../../../components/registerSteps'
 import { Alert, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -44,7 +44,10 @@ export function Register3({ route }: any) {
   return (
     <>
       <Container>
-        <HeaderRegister />
+        <HeaderStandard
+          title={'Cadastro'}
+          goBackButton={theme.icons.back_button}
+        />
         <ScrollView>
           <RegisterSteps
             circle={theme.icons.circle_filled}
