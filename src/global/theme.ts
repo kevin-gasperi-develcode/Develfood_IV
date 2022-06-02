@@ -40,5 +40,13 @@ export default {
     favorite: require('../assets/icons/favorites.png'),
     history: require('../assets/icons/history.png'),
     settings: require('../assets/icons/settings.png'),
+    circle_empty: require('../assets/icons/Vector-circle.png'),
+    circle_filled: require('../assets/icons/Vector_circle_green.png'),
+    girl_rigth_h_up: require('../assets/icons/Girl_right_hand-up.png'),
+    girl_left_h_center: require('../assets/icons/Girl_register.png'),
+    girl_rigth_h_center: require('../assets/icons/Girl_right_hand-center.png'),
+    girl_success: require('../assets/icons/Girl_success.png'),
+    security_icon: require('../assets/icons/Eye-slashed.png'),
+    develfood: require('../assets/icons/develfood_logo.png'),
   },
 }

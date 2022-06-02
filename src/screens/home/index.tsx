@@ -1,7 +1,5 @@
 import React from 'react'
 import { Button, FlatList, Text, View } from 'react-native'
-import { TabBar } from '../../components/tabBar'
-import { useAuth } from '../../hooks/auth'
 import { useDelete, useGet, usePut } from '../../services/index'
 interface Data {
   name: string
