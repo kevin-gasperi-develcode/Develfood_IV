@@ -1,42 +1,27 @@
 import React from 'react'
 import { Image } from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
+import { panHandlerName } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler'
 import {
+  ButtonMod,
   Container,
-  ContainerScroll,
   ImageSearch,
   InputRestaurants,
-  TextBanner,
-  ViewBanner,
+  TextInputMod,
 } from './styles'
 
-export function SearchRestaurants() {
+interface InputProps {
+  onTouch?: any
+}
+
+export function SearchRestaurants({ onTouch }: InputProps) {
   return (
     <Container>
-      <ContainerScroll>
-        <ScrollView
-          scrollEventThrottle={3}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        >
-          <ViewBanner>
-            <TextBanner>Pizza</TextBanner>
-          </ViewBanner>
-          <ViewBanner>
-            <TextBanner>Churrasco</TextBanner>
-          </ViewBanner>
-          <ViewBanner>
-            <TextBanner>Almoço</TextBanner>
-          </ViewBanner>
-          <ViewBanner>
-            <TextBanner>Massas</TextBanner>
-          </ViewBanner>
-        </ScrollView>
-      </ContainerScroll>
-
       <InputRestaurants>
-        <ImageSearch source={require('../../assets/icons/search-icon.png')} />
-        <TextInput />
+        <ButtonMod onPress={onTouch}>
+          <ImageSearch source={require('../../assets/icons/search-icon.png')} />
+        </ButtonMod>
+        <TextInputMod placeholder="Buscar restaurantes" />
       </InputRestaurants>
     </Container>
   )

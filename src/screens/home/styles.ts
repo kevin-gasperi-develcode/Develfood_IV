@@ -9,3 +9,4 @@ export const TitleCategories = styled.Text`
   font-family: ${theme.fonts.secondaryReg};
   font-weight: 500;
 `
+export const FlatListMod = styled.FlatList``

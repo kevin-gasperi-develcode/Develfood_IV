@@ -8,7 +8,7 @@ import {
   ViewCirclesGroup,
 } from './styles'
 
-export function BannerHome() {
+export function BannerHomeImage() {
   return (
     <Container>
       <ScrollView

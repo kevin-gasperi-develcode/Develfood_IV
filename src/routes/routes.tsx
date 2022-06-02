@@ -15,6 +15,7 @@ export default function Routes() {
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
+          tabBarHideOnKeyboard: true,
         }}
       >
         <Tab.Screen

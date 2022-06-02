@@ -1,13 +1,20 @@
 import React from 'react'
 import { Button, FlatList, StatusBar, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { BannerHome } from '../../components/bannerHome'
+import { BannerHomeCategories } from '../../components/bannerHomeCategories'
+import { BannerHomeImage } from '../../components/bannerHomeImages'
 import { HeaderAddress } from '../../components/headerAddress'
 import { SearchRestaurants } from '../../components/searchRestaurants'
 import theme from '../../global/theme'
-import { TitleCategories } from './styles'
+import { useGet } from '../../services'
+import { FlatListMod, TitleCategories } from './styles'
 
 export function Home() {
+  function handlerGet() {
+    const { data, loading, error } = useGet('/restaurant?page=0&quantity=10')
+    console.log(data)
+  }
+
   return (
     <>
       <StatusBar
@@ -15,9 +22,17 @@ export function Home() {
         backgroundColor={theme.colors.background_red}
       />
       <HeaderAddress />
-      <BannerHome />
+      <BannerHomeImage />
       <TitleCategories>Categorias</TitleCategories>
-      <SearchRestaurants />
+      <BannerHomeCategories />
+      <SearchRestaurants onTouch={console.log('botao press')} />
+
+      <View></View>
+
+      {/* <FlatListMod
+      data={}
+      renderItem={({}) =>  }
+      /> */}
     </>
   )
 }
