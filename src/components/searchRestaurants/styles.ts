@@ -19,7 +19,7 @@ export const ImageSearch = styled.Image`
   margin-top: ${RFValue(13.79)}px;
   margin-right: ${RFValue(13.79)}px;
 `
-export const ButtonMod = styled.TouchableOpacity``
+export const ViewSearch = styled.View``
 export const TextInputMod = styled.TextInput`
   width: ${RFValue(285)}px;
 `

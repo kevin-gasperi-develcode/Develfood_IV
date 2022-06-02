@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button, FlatList, StatusBar, Text, View } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
@@ -9,12 +9,20 @@ import { SearchRestaurants } from '../../components/searchRestaurants'
 import theme from '../../global/theme'
 import { useGet } from '../../services'
 import { FlatListMod, TitleCategories } from './styles'
+import { useAuth } from '../../context/auth'
 
 export function Home() {
-  function handlerGet() {
-    const { data, loading, error } = useGet('/restaurant?page=0&quantity=10')
-    console.log(data)
-  }
+  const { authState } = useAuth()
+  const { data, loading, error } = useGet<any>(
+    '/restaurant?page=0&quantity=10',
+    {
+      headers: {
+        Authorization: ` Bearer ${authState.token}`,
+      },
+    },
+  )
+  console.log(data)
+  console.log(authState.token)
 
   return (
     <>
@@ -26,14 +34,14 @@ export function Home() {
       <BannerHomeImage />
       <TitleCategories>Categorias</TitleCategories>
       <BannerHomeCategories />
-      <SearchRestaurants onTouch={handlerGet} />
+      <SearchRestaurants />
 
-      {/* <FlatListMod
-      data={}
-      renderItem={({data}) => }
-      /> */}
-
-      <CardRestaurant />
+      <FlatListMod
+        data={data}
+        renderItem={({ item }: any) => (
+          <CardRestaurant dataImage={item.image} />
+        )}
+      />
     </>
   )
 }

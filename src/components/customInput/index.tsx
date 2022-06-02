@@ -24,7 +24,7 @@ export function CustomInput({
   keybord,
   password,
 }: CustomInputProps) {
-  const [isClicked, setIsClicked] = useState(false)
+  const [isClicked, setIsClicked] = useState(true)
 
   function handlerSecurity() {
     setIsClicked(!isClicked)
@@ -39,7 +39,7 @@ export function CustomInput({
         fieldState: { error },
       }) => (
         <>
-          <Container style={{ borderColor: error ? 'red' : 'gray' }}>
+          <Container style={{ borderColor: error ? '#C20C18' : '#BFBABA' }}>
             <Image source={image} style={{ margin: 5 }} />
             <Input
               style={{ fontSize: RFValue(16) }}
@@ -47,7 +47,7 @@ export function CustomInput({
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder={placeholder}
-              secureTextEntry={isClicked}
+              secureTextEntry={password && isClicked}
               keyboardType={keybord}
             />
             {password && (

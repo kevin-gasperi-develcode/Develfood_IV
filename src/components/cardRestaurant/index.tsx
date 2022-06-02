@@ -13,7 +13,11 @@ import {
   ViewInfo,
 } from './styles'
 
-export function CardRestaurant() {
+interface RestaurantProps {
+  id?: any
+  dataImage: string
+}
+export function CardRestaurant({ id, dataImage }: RestaurantProps) {
   return (
     <Container>
       <ImageRestaurant
