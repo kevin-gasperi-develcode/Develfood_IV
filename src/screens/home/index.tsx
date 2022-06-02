@@ -1,8 +1,9 @@
 import React from 'react'
 import { Button, FlatList, StatusBar, Text, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
 import { BannerHomeImage } from '../../components/bannerHomeImages'
+import { CardRestaurant } from '../../components/cardRestaurant'
 import { HeaderAddress } from '../../components/headerAddress'
 import { SearchRestaurants } from '../../components/searchRestaurants'
 import theme from '../../global/theme'
@@ -25,14 +26,14 @@ export function Home() {
       <BannerHomeImage />
       <TitleCategories>Categorias</TitleCategories>
       <BannerHomeCategories />
-      <SearchRestaurants onTouch={console.log('botao press')} />
-
-      <View></View>
+      <SearchRestaurants onTouch={handlerGet} />
 
       {/* <FlatListMod
       data={}
-      renderItem={({}) =>  }
+      renderItem={({data}) => }
       /> */}
+
+      <CardRestaurant />
     </>
   )
 }
