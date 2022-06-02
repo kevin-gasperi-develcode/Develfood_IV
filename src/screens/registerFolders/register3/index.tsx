@@ -1,44 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, ViewInputs } from './styles'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 import { CustomInput } from '../../../components/customInput'
 import { HeaderRegister } from '../../../components/headerRegister'
 import { RegisterSteps } from '../../../components/registerSteps'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { ButtonStandard } from '../../../components/buttonStandard'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components'
-import { useAuth } from '../../../context/auth'
 import { usePost } from '../../../services'
-
-interface CreateUserRequest {
-  email: string
-  password: string
-  creationDate: string
-  role: {
-    id: 2
-  }
-  costumer: {
-    firstName: string
-    lastName: string
-    cpf: string
-    phone: string
-    photo: string
-    address: [
-      {
-        street: string
-        number: string
-        neighborhood: string
-        city: string
-        zipCode: string
-        state: string
-        nickname: string
-      },
-    ]
-  }
-}
+import { AxiosError } from 'axios'
 
 export function Register3({ route }: any) {
   const {
@@ -48,59 +21,26 @@ export function Register3({ route }: any) {
     getValues,
   } = useForm()
   const navigation = useNavigation()
-  const { signUp, setAuthState } = useAuth()
   const theme = useTheme()
-
-  console.log(errors)
-
-  const onSignInPressed = () => {
-    const { email, password, firstName, lastName, cpf, phone, photo } =
-      route.params
-    const values = getValues()
-
-    signUp({
-      email,
-      password,
-      firstName,
-      lastName,
-      cpf,
-      phone,
-      photo,
-      street: values.street,
-      number: values.number,
-      neighborhood: values.neighborhood,
-      city: values.city,
-      zipcode: values.cep,
-      state: values.state,
-      nickname: values.nickname,
-    })
-  }
-  navigation.navigate('RegisterSucess' as never)
+  const values = getValues()
   const { email, password, firstName, lastName, cpf, phone, photo } =
     route.params
-  const values = getValues()
 
-  const {
-    data: dataPost,
-    handlerPost,
-    loading: loadingsPost,
-    error: errorPost,
-  } = usePost<CreateUserRequest, any>(
+  function createUserSuccess(data: any) {
+    data.password && navigation.navigate('RegisterSucess' as never)
+  }
+
+  function createUserError(error: AxiosError<any, any> | any) {
+    error && Alert.alert('Erro de cadastro', 'Email já cadastrado')
+  }
+
+  const { data, loading, handlerPost } = usePost<any, any>(
     '/user',
-    {
-      email,
-      password,
-      creationDate: route.params,
-      role: route.params,
-      costumer: route.params,
-    },
+    createUserError,
     undefined,
-    (dataReturn) => {
-      setAuthState(dataReturn)
-      console.log(dataReturn)
-      navigation.navigate('Routes' as never)
-    },
+    createUserSuccess,
   )
+
   return (
     <>
       <Container>
@@ -138,14 +78,14 @@ export function Register3({ route }: any) {
                   keybord="numeric"
                   rules={{
                     required: 'Campo obrigatório',
-                    minLength: {
-                      value: 8,
-                      message: 'CEP com 8 digitos',
-                    },
-                    maxLength: {
-                      value: 8,
-                      message: 'CEP com 8 digitos',
-                    },
+                    // minLength: {
+                    //   value: 8,
+                    //   message: 'CEP com 8 digitos',
+                    // },
+                    // maxLength: {
+                    //   value: 8,
+                    //   message: 'CEP com 8 digitos',
+                    // },
                   }}
                 />
               </View>
@@ -213,7 +153,34 @@ export function Register3({ route }: any) {
             >
               <ButtonStandard
                 title="Continuar"
-                onPressed={handleSubmit(onSignInPressed)}
+                onPressed={handleSubmit(() => {
+                  handlerPost({
+                    email,
+                    password,
+                    creationDate: new Date().toISOString(),
+                    role: {
+                      id: 2,
+                    },
+                    costumer: {
+                      firstName,
+                      lastName,
+                      cpf,
+                      phone,
+                      photo: '',
+                      address: [
+                        {
+                          street: getValues().street,
+                          number: getValues().number,
+                          neighborhood: getValues().neighborhood,
+                          city: getValues().city,
+                          zipCode: getValues().cep,
+                          state: getValues().state,
+                          nickname: getValues().nickname,
+                        },
+                      ],
+                    },
+                  })
+                })}
               />
             </View>
           </ViewInputs>

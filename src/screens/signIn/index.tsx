@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Text, Image, StatusBar } from 'react-native'
+import { Text, Image, StatusBar, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useAuth } from '../../context/auth'
 import {
@@ -16,6 +16,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components'
 import { CustomInput } from '../../components/customInput'
 import { useForm } from 'react-hook-form'
+import { AxiosError } from 'axios'
 interface CreateUserRequest {
   email: string
   password: string
@@ -24,51 +25,53 @@ interface TResponse {
   token: string
   type: string
 }
-interface DataProps {
-  email: string
-  password: string
+interface RequestProps {
+  endpoint: string
+  body: {}
+  error: {
+    title: string
+    message: string
+  }
 }
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/
 
 export function SignIn() {
+  const [request, setRequest] = useState({} as RequestProps)
+  const { authState, setAuthState } = useAuth()
   const navigation = useNavigation()
+  const theme = useTheme()
   const {
     control,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm()
-
   const values = getValues()
 
-  const data: DataProps = {
-    email: values.email,
-    password: values.password,
+  function signInSuccess(data: any) {
+    data.token && setAuthState(data), navigation.navigate('Routes' as never)
   }
-  const { authState, setAuthState } = useAuth()
 
-  const theme = useTheme()
-  function handleNavigationRegister() {
-    navigation.navigate('Register' as never)
+  function signInError(error: AxiosError<any, any> | any) {
+    error && Alert.alert('Erro de Login', 'Ocorreu um erro no Login')
   }
+  // exemplo@email.com
+
   const {
     data: dataPost,
     handlerPost,
-    loading: loadingsPost,
-    error: errorPost,
+    loading,
   } = usePost<CreateUserRequest, TResponse>(
     '/auth',
-    {
-      email: values.email,
-      password: values.password,
-    },
+    signInError,
     undefined,
-    (dataReturn) => {
-      setAuthState(dataReturn)
-      navigation.navigate('Routes' as never)
-    },
+    signInSuccess,
   )
+
+  function handleNavigationRegister() {
+    navigation.navigate('Register' as never)
+  }
 
   return (
     <>
@@ -118,9 +121,14 @@ export function SignIn() {
               <TextSenha>Esqueci minha senha</TextSenha>
 
               <ButtonStandard
-                onPressed={handleSubmit(handlerPost)}
+                onPressed={handleSubmit(() => {
+                  handlerPost({
+                    email: getValues().email,
+                    password: getValues().password,
+                  })
+                })}
                 title="Entrar"
-                isLoading={loadingsPost}
+                isLoading={loading}
               />
 
               <TouchableOpacity onPress={handleNavigationRegister}>

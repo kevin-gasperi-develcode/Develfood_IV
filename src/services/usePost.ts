@@ -1,30 +1,29 @@
-import { AxiosRequestConfig } from 'axios'
-import { useState } from 'react'
-import api from './api'
+import { AxiosRequestConfig, AxiosError } from 'axios'
+import React, { useState } from 'react'
+import api from '../services/api'
 
 export function usePost<T = unknown, TResponse = unknown>(
   url: string,
-  body: T,
-  options?: AxiosRequestConfig,
+  onError: (error: AxiosError<any, any>) => void,
+  options?: AxiosRequestConfig | undefined,
   onSuccess?: (response: TResponse) => void,
-  onError?: Function,
 ) {
   const [data, setData] = useState<TResponse>({} as TResponse)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<Error | unknown | null>(null)
+  const [loading, setLoading] = useState(false)
 
-  async function handlerPost() {
-    setLoading(true)
+  async function handlerPost(body?: T) {
     try {
-      const response = await api.post<TResponse>(url, body, options)
+      setLoading(true)
+      const response = await api.post(url, body, options)
       setData(response.data)
-      onSuccess && onSuccess(response.data)
-    } catch (error) {
-      setError(error)
-      onError && onError(error)
+      response.data && onSuccess && onSuccess(response.data)
+    } catch (error: AxiosError<any, any> | any) {
+      error && onError(error)
+      console.log({ error })
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
-  return { data, handlerPost, loading, error }
+  return { data, loading, handlerPost }
 }
