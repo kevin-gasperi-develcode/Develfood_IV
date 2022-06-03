@@ -26,6 +26,8 @@ export function Home() {
   const [dataRestaurants, setDataRestaurants] = useState([])
   const { authState } = useAuth()
 
+  useEffect(() => {}, [])
+
   const { data, loading, error } = useGet<ApiData>(
     `/restaurant?page=${page}&quantity=10`,
     {
@@ -33,10 +35,10 @@ export function Home() {
         Authorization: ` Bearer ${authState.token}`,
       },
     },
-    Funcao,
+    dataReturn,
   )
 
-  function Funcao(response: any) {
+  function dataReturn(response: any) {
     setDataRestaurants([...dataRestaurants, ...response.content] as never)
   }
 
