@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Button, FlatList, StatusBar, Text, View } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { Alert, Button, FlatList, StatusBar, Text, View } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
 import { BannerHomeImage } from '../../components/bannerHomeImages'
@@ -11,18 +11,34 @@ import { useGet } from '../../services'
 import { FlatListMod, TitleCategories } from './styles'
 import { useAuth } from '../../context/auth'
 
+interface ApiData {
+  content: [
+    {
+      id: number
+      name: string
+      photo_url: string
+    },
+  ]
+}
+
 export function Home() {
+  const [page, setPage] = useState(0)
+  const [dataRestaurants, setDataRestaurants] = useState([])
   const { authState } = useAuth()
-  const { data, loading, error } = useGet<any>(
-    '/restaurant?page=0&quantity=10',
+
+  const { data, loading, error } = useGet<ApiData>(
+    `/restaurant?page=${page}&quantity=10`,
     {
       headers: {
         Authorization: ` Bearer ${authState.token}`,
       },
     },
+    Funcao,
   )
-  console.log(data)
-  console.log(authState.token)
+
+  function Funcao(response: any) {
+    setDataRestaurants([...dataRestaurants, ...response.content] as never)
+  }
 
   return (
     <>
@@ -37,9 +53,10 @@ export function Home() {
       <SearchRestaurants />
 
       <FlatListMod
-        data={data}
+        numColumns={2}
+        data={dataRestaurants}
         renderItem={({ item }: any) => (
-          <CardRestaurant dataImage={item.image} />
+          <CardRestaurant dataImage={item.image} name={item.name} />
         )}
       />
     </>
@@ -145,3 +162,28 @@ export function Home() {
       <Button title={'put'} onPress={() => handlerPut()} />
       <Button title={'delete'} onPress={() => handlerDelete()} /> */
 }
+
+// Envio da foto
+
+// "photo_url": url_api/photo/{id}
+
+// {
+//   "email": "nespimospa@vusra.com",
+//   "password": "123456",
+//   "creationDate": "2022-05-02",
+//   "role": {
+//       "id":2
+//   },
+//  "costumer": {
+//          "firstName": "firstName",
+//          "lastName": "lastName",
+//          "cpf": "234.567.434-05",
+//          "phone": "(12)997485733",
+//          "photo": {
+//              "code": ""
+//          },
+//          "address":[ {
+//                      "street": "Rua Alemanha",
+//                      "number": "34",
+//                      "neighborhood": "Jardim das Nações",
+//                      "c

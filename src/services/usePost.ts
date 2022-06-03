@@ -11,10 +11,10 @@ export function usePost<T = unknown, TResponse = unknown>(
   const [data, setData] = useState<TResponse>({} as TResponse)
   const [loading, setLoading] = useState(false)
 
-  async function handlerPost(body2?: T) {
+  async function handlerPost(body?: T) {
     try {
       setLoading(true)
-      const response = await api.post(url, body2, options)
+      const response = await api.post(url, body, options)
       setData(response.data)
       response.data && onSuccess && onSuccess(response.data)
     } catch (error: AxiosError<any, any> | any) {

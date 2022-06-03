@@ -15,9 +15,10 @@ import {
 
 interface RestaurantProps {
   id?: any
-  dataImage: string
+  dataImage?: string
+  name: string
 }
-export function CardRestaurant({ id, dataImage }: RestaurantProps) {
+export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
   return (
     <Container>
       <ImageRestaurant
@@ -29,7 +30,7 @@ export function CardRestaurant({ id, dataImage }: RestaurantProps) {
         />
       </ViewFavorite>
       <ViewInfo>
-        <TextInfo>La casa di Pizza</TextInfo>
+        <TextInfo>{name}</TextInfo>
         <TextCategories>Pizza</TextCategories>
         <RateContainer>
           <ImageRate source={require('../../assets/icons/star-rate.png')} />

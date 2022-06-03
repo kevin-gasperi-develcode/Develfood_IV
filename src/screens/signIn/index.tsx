@@ -54,7 +54,6 @@ export function SignIn() {
   }
 
   function signInError(error: AxiosError<any, any> | any) {
-    navigation.navigate('Routes' as never)
     error && Alert.alert('Erro de Login', 'Ocorreu um erro no Login')
   }
 
