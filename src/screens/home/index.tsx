@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Alert, Button, FlatList, StatusBar, Text, View } from 'react-native'
+import {
+  Alert,
+  Button,
+  Dimensions,
+  FlatList,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
 import { BannerHomeImage } from '../../components/bannerHomeImages'
@@ -8,8 +16,10 @@ import { HeaderAddress } from '../../components/headerAddress'
 import { SearchRestaurants } from '../../components/searchRestaurants'
 import theme from '../../global/theme'
 import { useGet } from '../../services'
-import { FlatListMod, TitleCategories } from './styles'
+import { FlatListMod, TitleCategories, ViewLoading, Wrapper } from './styles'
 import { useAuth } from '../../context/auth'
+import { Load } from '../../components/load'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 interface ApiData {
   content: [
@@ -20,15 +30,15 @@ interface ApiData {
     },
   ]
 }
+const CardMargins =
+  (Dimensions.get('screen').width - RFValue(312)) / RFValue(3.5)
 
 export function Home() {
   const [page, setPage] = useState(0)
   const [dataRestaurants, setDataRestaurants] = useState([])
   const { authState } = useAuth()
 
-  useEffect(() => {}, [])
-
-  const { data, loading, error } = useGet<ApiData>(
+  const { data, loading, error, fetchData } = useGet<ApiData>(
     `/restaurant?page=${page}&quantity=10`,
     {
       headers: {
@@ -37,9 +47,16 @@ export function Home() {
     },
     dataReturn,
   )
-
   function dataReturn(response: any) {
     setDataRestaurants([...dataRestaurants, ...response.content] as never)
+  }
+
+  useEffect(() => {
+    ;(async () => await fetchData())()
+  }, [page])
+
+  async function handlerOnEndReached() {
+    setPage(page + 1)
   }
 
   return (
@@ -48,17 +65,35 @@ export function Home() {
         barStyle={'default'}
         backgroundColor={theme.colors.background_red}
       />
-      <HeaderAddress />
-      <BannerHomeImage />
-      <TitleCategories>Categorias</TitleCategories>
-      <BannerHomeCategories />
-      <SearchRestaurants />
 
       <FlatListMod
+        onEndReachedThreshold={0.1}
+        showsVerticalScrollIndicator={false}
         numColumns={2}
         data={dataRestaurants}
+        columnWrapperStyle={{
+          justifyContent: 'space-between',
+          paddingHorizontal: RFValue(CardMargins),
+          paddingBottom: 10,
+        }}
+        ListHeaderComponent={
+          <>
+            <HeaderAddress />
+            <BannerHomeImage />
+            <TitleCategories>Categorias</TitleCategories>
+            <BannerHomeCategories />
+            <SearchRestaurants />
+          </>
+        }
+        onEndReached={handlerOnEndReached}
+        ListFooterComponent={() => (
+          <ViewLoading>{loading ? <Load /> : null}</ViewLoading>
+        )}
+        keyExtractor={(item: any) => item.id}
         renderItem={({ item }: any) => (
-          <CardRestaurant dataImage={item.image} name={item.name} />
+          <Wrapper>
+            <CardRestaurant dataImage={item.photo_url} name={item.name} />
+          </Wrapper>
         )}
       />
     </>

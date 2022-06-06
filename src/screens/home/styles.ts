@@ -10,5 +10,15 @@ export const TitleCategories = styled.Text`
   font-weight: 500;
 `
 export const FlatListMod = styled.FlatList`
-  margin-left: ${RFValue(20)}px;
+  width: 100%;
+  align-self: center;
+  background-color: #ffffff;
+`
+export const Wrapper = styled.View`
+  flex-grow: 1;
+`
+export const ViewLoading = styled.View`
+  width: 100%;
+  height: ${RFValue(80)}px;
+  justify-content: center;
 `

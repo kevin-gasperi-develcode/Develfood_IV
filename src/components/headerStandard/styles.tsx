@@ -7,7 +7,6 @@ export const Container = styled.View`
 `
 export const BackButton = styled.TouchableOpacity`
   height: 24px;
-  height: 24px;
 `
 export const TextTitle = styled.View`
   flex-direction: row;

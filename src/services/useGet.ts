@@ -11,22 +11,19 @@ export function useGet<T = unknown>(
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | unknown | null>(null)
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true)
-      try {
-        await api.get(url, options).then((response) => {
-          setData(response.data)
-          onSuccess && onSuccess(response.data)
-        })
-      } catch (error) {
-        console.log(error)
-        setError(error)
-      }
-      setLoading(false)
+  async function fetchData() {
+    setLoading(true)
+    try {
+      await api.get(url, options).then((response) => {
+        setData(response.data)
+        onSuccess && onSuccess(response.data)
+      })
+    } catch (error) {
+      console.log(error)
+      setError(error)
     }
-    fetchData()
-  }, [])
+    setLoading(false)
+  }
 
-  return { data, loading, error }
+  return { data, loading, error, fetchData }
 }

@@ -22,7 +22,13 @@ export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
   return (
     <Container>
       <ImageRestaurant
-        source={require('../../assets/images/restaurant-image.png')}
+        source={
+          dataImage
+            ? { uri: dataImage }
+            : require('../../assets/images/restaurant-without-image.png')
+        }
+        // {uri: dataImage}
+        //        '../../assets/images/restaurant-image.png'
       />
       <ViewFavorite>
         <ImageFavorite
@@ -37,9 +43,6 @@ export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
           <TextRate>4.3</TextRate>
         </RateContainer>
       </ViewInfo>
-      {/* <ViewMod>
-        <TextMod></TextMod>
-      </ViewMod> */}
     </Container>
   )
 }
