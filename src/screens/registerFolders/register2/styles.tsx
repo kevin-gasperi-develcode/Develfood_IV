@@ -9,3 +9,6 @@ export const ViewInputs = styled.View`
   margin-top: ${RFValue(25)}px;
   padding: 0 ${RFValue(40)}px;
 `
+export const ViewButton = styled.View`
+  margin-top: ${RFValue(25)}px;
+`

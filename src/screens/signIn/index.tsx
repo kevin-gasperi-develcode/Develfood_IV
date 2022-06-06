@@ -92,7 +92,7 @@ export function SignIn() {
             <Image source={theme.icons.develfood} style={{ marginTop: -60 }} />
             <ViewInputs>
               <CustomInput
-                image={require('../../assets/icons/E-mail.png')}
+                image={theme.icons.email_icon}
                 name="email"
                 placeholder="exemplo@email.com"
                 keybord="email-address"
@@ -103,7 +103,7 @@ export function SignIn() {
                 }}
               />
               <CustomInput
-                image={require('../../assets/icons/Password.png')}
+                image={theme.icons.password_icon}
                 name="password"
                 placeholder="senha"
                 control={control}

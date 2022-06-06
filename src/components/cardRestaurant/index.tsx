@@ -40,7 +40,7 @@ export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
         <TextCategories>Pizza</TextCategories>
         <RateContainer>
           <ImageRate source={require('../../assets/icons/star-rate.png')} />
-          <TextRate>4.3</TextRate>
+          <TextRate>{id}</TextRate>
         </RateContainer>
       </ViewInfo>
     </Container>

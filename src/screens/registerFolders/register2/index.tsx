@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, ViewInputs } from './styles'
+import { Container, ViewButton, ViewInputs } from './styles'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 import { CustomInput } from '../../../components/customInput'
@@ -56,7 +56,7 @@ export function Register2({ route }: any) {
             />
             <ViewInputs>
               <CustomInput
-                image={require('../../../assets/icons/Identity.png')}
+                image={theme.icons.identity_icon}
                 name="firstName"
                 placeholder="Nome"
                 control={control}
@@ -66,7 +66,7 @@ export function Register2({ route }: any) {
               />
 
               <CustomInput
-                image={require('../../../assets/icons/Identity.png')}
+                image={theme.icons.identity_icon}
                 name="lastName"
                 placeholder="Sobrenome"
                 control={control}
@@ -80,7 +80,7 @@ export function Register2({ route }: any) {
                 }}
               />
               <CustomInput
-                image={require('../../../assets/icons/Document.png')}
+                image={theme.icons.document_icon}
                 name="cpf"
                 placeholder="CPF"
                 keybord="numeric"
@@ -98,7 +98,7 @@ export function Register2({ route }: any) {
                 }}
               />
               <CustomInput
-                image={require('../../../assets/icons/Cellphone.png')}
+                image={theme.icons.cellphone_icon}
                 name="phone"
                 placeholder="Telefone"
                 keybord="numeric"
@@ -115,16 +115,12 @@ export function Register2({ route }: any) {
                   // },
                 }}
               />
-              <View
-                style={{
-                  marginTop: 25,
-                }}
-              >
+              <ViewButton>
                 <ButtonStandard
                   title="Continuar"
                   onPressed={handleSubmit(onSignInPressed)}
                 />
-              </View>
+              </ViewButton>
             </ViewInputs>
           </ScrollView>
         </Container>

@@ -51,5 +51,11 @@ export default {
     back_button: require('../assets/icons/back-button.png'),
     back_button_x: require('../assets/icons/back-button-x.png'),
     map_logo: require('../assets/icons/map-logo.png'),
+    email_icon: require('../assets/icons/e-mail.png'),
+    password_icon: require('../assets/icons/password.png'),
+    identity_icon: require('../assets/icons/identity.png'),
+    document_icon: require('../assets/icons/document.png'),
+    cellphone_icon: require('../assets/icons/cellphone.png'),
+    map_icon: require('../assets/icons/map.png'),
   },
 }

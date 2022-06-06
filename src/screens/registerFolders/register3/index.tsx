@@ -22,7 +22,6 @@ export function Register3({ route }: any) {
   } = useForm()
   const navigation = useNavigation()
   const theme = useTheme()
-  const values = getValues()
   const { email, password, firstName, lastName, cpf, phone, photo } =
     route.params
 
@@ -62,7 +61,7 @@ export function Register3({ route }: any) {
             >
               <View style={{ width: RFValue(150) }}>
                 <CustomInput
-                  image={require('../../../assets/icons/Map.png')}
+                  image={theme.icons.map_icon}
                   name="nickname"
                   placeholder="Apelido do End."
                   control={control}
@@ -74,7 +73,7 @@ export function Register3({ route }: any) {
               </View>
               <View style={{ width: RFValue(120) }}>
                 <CustomInput
-                  image={require('../../../assets/icons/Map.png')}
+                  image={theme.icons.map_icon}
                   name="cep"
                   placeholder="CEP"
                   control={control}
@@ -95,7 +94,7 @@ export function Register3({ route }: any) {
             </View>
 
             <CustomInput
-              image={require('../../../assets/icons/Map.png')}
+              image={theme.icons.map_icon}
               name="street"
               placeholder="Rua"
               control={control}
@@ -104,7 +103,7 @@ export function Register3({ route }: any) {
               }}
             />
             <CustomInput
-              image={require('../../../assets/icons/Map.png')}
+              image={theme.icons.map_icon}
               name="city"
               placeholder="Cidade"
               control={control}
@@ -113,7 +112,7 @@ export function Register3({ route }: any) {
               }}
             />
             <CustomInput
-              image={require('../../../assets/icons/Map.png')}
+              image={theme.icons.map_icon}
               name="neighborhood"
               placeholder="Bairro"
               control={control}
@@ -126,7 +125,7 @@ export function Register3({ route }: any) {
             >
               <View style={{ width: RFValue(135) }}>
                 <CustomInput
-                  image={require('../../../assets/icons/Map.png')}
+                  image={theme.icons.map_icon}
                   name="state"
                   placeholder="Estado"
                   control={control}
@@ -138,7 +137,7 @@ export function Register3({ route }: any) {
               </View>
               <View style={{ width: RFValue(135) }}>
                 <CustomInput
-                  image={require('../../../assets/icons/Map.png')}
+                  image={theme.icons.map_icon}
                   name="number"
                   placeholder="Número"
                   keybord="numeric"
