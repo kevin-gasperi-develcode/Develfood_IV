@@ -168,7 +168,7 @@ export function Register3({ route }: any) {
                       lastName,
                       cpf,
                       phone,
-                      photo: '',
+                      photo: { code: '' },
                       address: [
                         {
                           street: getValues().street,

@@ -5,7 +5,6 @@ import theme from '../../global/theme'
 export const Container = styled.View`
   align-self: center;
 `
-
 export const InputRestaurants = styled.View`
   height: ${RFValue(50)}px;
   width: ${RFValue(339)}px;

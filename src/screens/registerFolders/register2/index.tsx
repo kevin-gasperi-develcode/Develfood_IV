@@ -34,7 +34,7 @@ export function Register2({ route }: any) {
         lastName: values.lastName,
         cpf: values.cpf,
         phone: values.phone,
-        photo: '',
+        photo: { code: '' },
       } as never,
     )
   }

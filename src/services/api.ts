@@ -5,5 +5,3 @@ const api = axios.create({
 })
 
 export default api
-
-// link original do back>> https://develfood-3.herokuapp.com

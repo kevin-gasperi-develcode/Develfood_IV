@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, StatusBar } from 'react-native'
+import { Alert, Dimensions, StatusBar } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
 import { BannerHomeImage } from '../../components/bannerHomeImages'
@@ -29,6 +29,7 @@ export function Home() {
   const { authState } = useAuth()
   const CardMargins =
     (Dimensions.get('screen').width - RFValue(312)) / RFValue(3.5)
+  const [textValue, setTextValue] = useState('')
   const { data, loading, error, fetchData } = useGet<ApiData>(
     `/restaurant?page=${page}&quantity=10`,
     {
@@ -55,7 +56,6 @@ export function Home() {
         barStyle={'default'}
         backgroundColor={theme.colors.background_red}
       />
-
       <FlatListMod
         onEndReachedThreshold={0.1}
         showsVerticalScrollIndicator={false}
@@ -64,7 +64,7 @@ export function Home() {
         columnWrapperStyle={{
           justifyContent: 'space-between',
           paddingHorizontal: RFValue(CardMargins),
-          paddingBottom: 10,
+          marginTop: 10,
         }}
         ListHeaderComponent={
           <>
@@ -72,7 +72,7 @@ export function Home() {
             <BannerHomeImage />
             <TitleCategories>Categorias</TitleCategories>
             <BannerHomeCategories />
-            <SearchRestaurants />
+            <SearchRestaurants textChange={(t) => setTextValue(t)} />
           </>
         }
         onEndReached={handlerOnEndReached}

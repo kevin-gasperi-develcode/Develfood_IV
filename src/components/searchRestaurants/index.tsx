@@ -11,17 +11,20 @@ import {
 } from './styles'
 
 interface InputProps {
-  onTouch?: any
+  textChange: ((text: string) => void) | undefined
 }
 
-export function SearchRestaurants({ onTouch }: InputProps) {
+export function SearchRestaurants({ textChange }: InputProps) {
   return (
     <Container>
       <InputRestaurants>
         <ViewSearch>
           <ImageSearch source={require('../../assets/icons/search-icon.png')} />
         </ViewSearch>
-        <TextInputMod placeholder="Buscar restaurantes" />
+        <TextInputMod
+          placeholder="Buscar restaurantes"
+          onChangeText={textChange}
+        />
       </InputRestaurants>
     </Container>
   )
