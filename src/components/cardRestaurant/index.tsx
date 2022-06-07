@@ -1,5 +1,4 @@
 import React from 'react'
-import { Image, Text } from 'react-native'
 import {
   Container,
   ImageFavorite,
@@ -14,7 +13,7 @@ import {
 } from './styles'
 
 interface RestaurantProps {
-  id?: any
+  id?: string
   dataImage?: string
   name: string
 }
@@ -27,8 +26,6 @@ export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
             ? { uri: dataImage }
             : require('../../assets/images/restaurant-without-image.png')
         }
-        // {uri: dataImage}
-        //        '../../assets/images/restaurant-image.png'
       />
       <ViewFavorite>
         <ImageFavorite
@@ -40,7 +37,7 @@ export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
         <TextCategories>Pizza</TextCategories>
         <RateContainer>
           <ImageRate source={require('../../assets/icons/star-rate.png')} />
-          <TextRate>4.3</TextRate>
+          <TextRate>{Math.ceil(Math.random() * 5)}</TextRate>
         </RateContainer>
       </ViewInfo>
     </Container>

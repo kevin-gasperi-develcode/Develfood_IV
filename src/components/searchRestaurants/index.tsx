@@ -10,11 +10,7 @@ import {
   ViewSearch,
 } from './styles'
 
-interface InputProps {
-  onTouch?: any
-}
-
-export function SearchRestaurants({ onTouch }: InputProps) {
+export function SearchRestaurants() {
   return (
     <Container>
       <InputRestaurants>
