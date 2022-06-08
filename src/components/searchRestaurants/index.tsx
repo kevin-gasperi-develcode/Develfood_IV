@@ -1,7 +1,4 @@
 import React from 'react'
-import { Image } from 'react-native'
-import { ScrollView, TextInput } from 'react-native-gesture-handler'
-import { panHandlerName } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler'
 import {
   Container,
   ImageSearch,

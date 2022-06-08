@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Image, Text } from 'react-native'
 import { useTheme } from 'styled-components'
 import { ButtonStandard } from '../../../components/buttonStandard'
 import { HeaderStandard } from '../../../components/headerStandard'

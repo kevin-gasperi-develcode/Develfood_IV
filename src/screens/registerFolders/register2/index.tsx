@@ -5,12 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { CustomInput } from '../../../components/customInput'
 import { HeaderStandard } from '../../../components/headerStandard'
 import { RegisterSteps } from '../../../components/registerSteps'
-import {
-  ScrollView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  View,
-} from 'react-native'
+import { ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { ButtonStandard } from '../../../components/buttonStandard'
 import theme from '../../../global/theme'
 

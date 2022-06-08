@@ -1,6 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Text } from 'react-native'
 import { BackButton, Container, ImageGoBack, TextTitle } from './styles'
 import { useNavigation } from '@react-navigation/native'
 import theme from '../../global/theme'
@@ -31,7 +30,7 @@ export function HeaderStandard({
     >
       <BackButton
         onPress={
-          backToStart === true
+          backToStart
             ? () => navigation.navigate('SignIn' as never)
             : () => navigation.goBack()
         }

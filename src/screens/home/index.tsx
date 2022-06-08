@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Alert, Dimensions, StatusBar } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { Dimensions, StatusBar } from 'react-native'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
 import { BannerHomeImage } from '../../components/bannerHomeImages'
 import { CardRestaurant } from '../../components/cardRestaurant'
@@ -12,43 +11,50 @@ import { FlatListMod, TitleCategories, ViewLoading, Wrapper } from './styles'
 import { useAuth } from '../../context/auth'
 import { Load } from '../../components/load'
 import { RFValue } from 'react-native-responsive-fontsize'
-
-interface ApiData {
-  content: [
-    {
-      id: number
-      name: string
-      photo_url: string
-    },
-  ]
+import { useDebouncedCallback } from 'use-debounce'
+interface Restaurant {
+  id: number
+  name: string
+  photo_url: string
 }
-
+interface ApiData {
+  content: Restaurant[]
+}
 export function Home() {
-  const [page, setPage] = useState(0)
-  const [dataRestaurants, setDataRestaurants] = useState([])
+  const [dataRestaurants, setDataRestaurants] = useState<Restaurant[]>([])
+  const [filter, setFilter] = useState({
+    text: '',
+    page: 0,
+  })
   const { authState } = useAuth()
   const CardMargins =
     (Dimensions.get('screen').width - RFValue(312)) / RFValue(3.5)
-  const [textValue, setTextValue] = useState('')
-  const { data, loading, error, fetchData } = useGet<ApiData>(
-    `/restaurant?page=${page}&quantity=10`,
-    {
-      headers: {
-        Authorization: ` Bearer ${authState.token}`,
-      },
-    },
+
+  const { loading, fetchData } = useGet<ApiData>(
+    `/restaurant/filter?name=${filter.text}&page=${filter.page}&quantity=10`,
+    { headers: { Authorization: ` Bearer ${authState.token}` } },
     dataReturn,
   )
-  function dataReturn(response: any) {
-    setDataRestaurants([...dataRestaurants, ...response.content] as never)
+  function dataReturn(response: ApiData) {
+    setDataRestaurants([...dataRestaurants, ...response.content])
   }
   useEffect(() => {
     ;(async () => await fetchData())()
-  }, [page])
+  }, [filter])
 
   async function handlerOnEndReached() {
-    setPage(page + 1)
+    setFilter({ ...filter, page: filter.page + 1 })
   }
+
+  function handleSearch(text: string) {
+    if (text.length > 1) {
+      setDataRestaurants([])
+      setFilter({ text: text, page: 0 })
+    } else setDataRestaurants([]), setFilter({ text: '', page: 0 })
+  }
+  const debounced = useDebouncedCallback((text) => {
+    handleSearch(text)
+  }, 1500)
 
   return (
     <>
@@ -72,7 +78,7 @@ export function Home() {
             <BannerHomeImage />
             <TitleCategories>Categorias</TitleCategories>
             <BannerHomeCategories />
-            <SearchRestaurants textChange={(t) => setTextValue(t)} />
+            <SearchRestaurants textChange={(text) => debounced(text)} />
           </>
         }
         onEndReached={handlerOnEndReached}
@@ -93,13 +99,3 @@ export function Home() {
     </>
   )
 }
-
-// Requisitos de aceite:
-
-// O usuário deve ser capaz de digitar o nome do Restaurante, ou parte dele, para fazer uma busca na tela Home que retornará todos os registros que correspondem com o que foi digitado;
-
-// A consulta deve trazer os Restaurantes filtrados quando tiver 2 (dois) ou mais caracteres no input, e a lista padrão de Restaurantes quando tiver menos de 2 (dois) caracteres;
-
-// A busca deve ser feita de maneira dinâmica, 1,5 segundos após o último carácter ser digitado pelo usuário;
-
-// A busca deve retornar os dados paginados, em 10 items cada;
