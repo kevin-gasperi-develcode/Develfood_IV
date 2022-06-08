@@ -2,7 +2,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
-export const Container = styled.View`
+export const ContainerButton = styled.TouchableOpacity`
   width: ${RFValue(156)}px;
   height: ${RFValue(173)}px;
   border-radius: 8px;

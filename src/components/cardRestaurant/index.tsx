@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, Text } from 'react-native'
 import {
-  Container,
+  ContainerButton,
   ImageFavorite,
   ImageRate,
   ImageRestaurant,
@@ -20,15 +20,13 @@ interface RestaurantProps {
 }
 export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
   return (
-    <Container>
+    <ContainerButton onPress={() => {}}>
       <ImageRestaurant
         source={
           dataImage
             ? { uri: dataImage }
             : require('../../assets/images/restaurant-without-image.png')
         }
-        // {uri: dataImage}
-        //        '../../assets/images/restaurant-image.png'
       />
       <ViewFavorite>
         <ImageFavorite
@@ -43,6 +41,6 @@ export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
           <TextRate>{id}</TextRate>
         </RateContainer>
       </ViewInfo>
-    </Container>
+    </ContainerButton>
   )
 }
