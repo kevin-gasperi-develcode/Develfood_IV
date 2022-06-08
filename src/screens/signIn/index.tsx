@@ -37,17 +37,17 @@ const EMAIL_REGEX =
   /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/
 
 export function SignIn() {
-  const [request, setRequest] = useState({} as RequestProps)
-  const { authState, setAuthState } = useAuth()
+  const { setAuthState } = useAuth()
   const navigation = useNavigation()
   const theme = useTheme()
   const {
     control,
     handleSubmit,
-    formState: { errors },
     getValues,
-  } = useForm()
-  const values = getValues()
+    formState: { errors },
+  } = useForm({
+    defaultValues: { email: 'kevin6@email.com', password: '123456' },
+  })
 
   function signInSuccess(data: any) {
     data.token && setAuthState(data), navigation.navigate('Routes' as never)
@@ -56,7 +56,6 @@ export function SignIn() {
   function signInError(error: AxiosError<any, any> | any) {
     error && Alert.alert('Erro de Login', 'Ocorreu um erro no Login')
   }
-  // exemplo@email.com
 
   const {
     data: dataPost,

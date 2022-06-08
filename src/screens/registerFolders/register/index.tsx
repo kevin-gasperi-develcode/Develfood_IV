@@ -3,7 +3,7 @@ import { Container, ViewInputs } from './styles'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 import { CustomInput } from '../../../components/customInput'
-import { HeaderRegister } from '../../../components/headerRegister'
+import { HeaderStandard } from '../../../components/headerStandard'
 import { RegisterSteps } from '../../../components/registerSteps'
 import {
   TouchableWithoutFeedback,
@@ -17,10 +17,6 @@ import { useTheme } from 'styled-components'
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/
 
-interface DataProps {
-  email: string
-  password: string
-}
 export function Register() {
   const {
     control,
@@ -45,7 +41,10 @@ export function Register() {
     <>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
-          <HeaderRegister />
+          <HeaderStandard
+            title={'Cadastro'}
+            goBackButton={theme.icons.back_button}
+          />
           <ScrollView>
             <RegisterSteps
               circle={theme.icons.circle_empty}

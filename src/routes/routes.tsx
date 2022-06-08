@@ -4,7 +4,7 @@ import Demand from '../screens/demand'
 import Settings from '../screens/settings'
 import Favorites from '../screens/favorites'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { ColorPropType, Image, Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
 
 export default function Routes() {
   const Tab = createBottomTabNavigator()
@@ -15,6 +15,7 @@ export default function Routes() {
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
+          tabBarHideOnKeyboard: true,
         }}
       >
         <Tab.Screen
@@ -100,41 +101,4 @@ export default function Routes() {
       </Tab.Navigator>
     </>
   )
-}
-
-{
-  /* <Stack.Navigator>
-<Stack.Screen
-  name="SignIn"
-  component={SignIn}
-  options={{ headerShown: false }}
-/>
-<Stack.Screen
-  name="Início"
-  component={Home}
-  options={{ headerShown: false }}
-/>
-<Stack.Screen
-  name="Favoritos"
-  component={Favorites}
-  options={{ headerShown: false }}
-/>
-<Stack.Screen
-  name="Pedidos"
-  component={Demand}
-  options={{ headerShown: false }}
-/>
-<Stack.Screen
-  name="Perfil"
-  component={Settings}
-  options={{ headerShown: false }}
-/>
-<Stack.Screen
-  name="Register"
-  component={Register}
-  options={{ headerShown: false }}
-/>
-</Stack.Navigator>
-)
-} */
 }

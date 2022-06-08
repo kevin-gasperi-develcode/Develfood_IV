@@ -48,5 +48,8 @@ export default {
     girl_success: require('../assets/icons/Girl_success.png'),
     security_icon: require('../assets/icons/Eye-slashed.png'),
     develfood: require('../assets/icons/develfood_logo.png'),
+    back_button: require('../assets/icons/back-button.png'),
+    back_button_x: require('../assets/icons/back-button-x.png'),
+    map_logo: require('../assets/icons/map-logo.png'),
   },
 }

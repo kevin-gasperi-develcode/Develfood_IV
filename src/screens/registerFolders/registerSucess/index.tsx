@@ -3,7 +3,7 @@ import React from 'react'
 import { Image, Text } from 'react-native'
 import { useTheme } from 'styled-components'
 import { ButtonStandard } from '../../../components/buttonStandard'
-import { HeaderRegister } from '../../../components/headerRegister'
+import { HeaderStandard } from '../../../components/headerStandard'
 import {
   Container,
   Content,
@@ -23,7 +23,11 @@ export function RegisterSucess() {
 
   return (
     <Container>
-      <HeaderRegister />
+      <HeaderStandard
+        title={'Cadastro'}
+        goBackButton={theme.icons.back_button_x}
+        backToStart={true}
+      />
       <Content>
         <ViewImage source={theme.icons.girl_success} />
         <Wrapper>

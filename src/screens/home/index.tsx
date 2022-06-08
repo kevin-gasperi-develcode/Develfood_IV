@@ -1,64 +1,92 @@
-import React from 'react'
-import { Button, FlatList, Text, View } from 'react-native'
-import { useDelete, useGet, usePut } from '../../services/index'
-interface Data {
-  name: string
-  email: string
-  gender: string
-  status: string
-}
-interface DataPost {
-  name: string
-  email: string
-  gender: string
-  status: string
-}
-export function Home() {
-  function handlerGet() {
-    const { data, loading, error } = useGet<Data[]>('/user', undefined)
-    console.log(data)
-  }
-
-  const {
-    data: dataPut,
-    handlerPut,
-    loading: loadingPut,
-    error: errorPut,
-  } = usePut<Data, DataPost>(
-    '/public/v2/users/5752',
+import React, { useEffect, useState } from 'react'
+import { Dimensions, StatusBar } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { BannerHomeCategories } from '../../components/bannerHomeCategories'
+import { BannerHomeImage } from '../../components/bannerHomeImages'
+import { CardRestaurant } from '../../components/cardRestaurant'
+import { HeaderAddress } from '../../components/headerAddress'
+import { SearchRestaurants } from '../../components/searchRestaurants'
+import theme from '../../global/theme'
+import { useGet } from '../../services'
+import { FlatListMod, TitleCategories, ViewLoading, Wrapper } from './styles'
+import { useAuth } from '../../context/auth'
+import { Load } from '../../components/load'
+import { RFValue } from 'react-native-responsive-fontsize'
+interface ApiData {
+  content: [
     {
-      name: 'Kevin V',
-      email: 'kevin@develcode2026.com',
-      gender: 'male',
-      status: 'active',
+      id: number
+      name: string
+      photo_url: string
     },
+  ]
+}
+const CardMargins =
+  (Dimensions.get('screen').width - RFValue(312)) / RFValue(3.5)
+
+export function Home() {
+  const [page, setPage] = useState(0)
+  const [dataRestaurants, setDataRestaurants] = useState([])
+  const { authState } = useAuth()
+
+  const { loading, fetchData } = useGet<ApiData>(
+    `/restaurant?page=${page}&quantity=10`,
     {
       headers: {
-        'Content-type': 'application/json',
-        Authorization:
-          'Bearer 51bd36346f73e59623b55b00cbab3d45ca5d9b3e4d0c224e6ae3ed663891edb4',
+        Authorization: ` Bearer ${authState.token}`,
       },
     },
+    dataReturn,
   )
+  function dataReturn(response: ApiData) {
+    setDataRestaurants([...dataRestaurants, ...response.content] as never)
+  }
 
-  const {
-    data: dataDelete,
-    handlerDelete,
-    loading: loadingDelete,
-    error: errorDelete,
-  } = useDelete('/public/v2/users/5758', {
-    headers: {
-      'Content-type': 'application/json',
-      Authorization:
-        'Bearer 51bd36346f73e59623b55b00cbab3d45ca5d9b3e4d0c224e6ae3ed663891edb4',
-    },
-  })
+  useEffect(() => {
+    ;(async () => await fetchData())()
+  }, [page])
+
+  async function handlerOnEndReached() {
+    setPage(page + 1)
+  }
 
   return (
     <>
-      <Button title={'get'} onPress={() => handlerGet()} />
-      <Button title={'put'} onPress={() => handlerPut()} />
-      <Button title={'delete'} onPress={() => handlerDelete()} />
+      <StatusBar
+        barStyle={'default'}
+        backgroundColor={theme.colors.background_red}
+      />
+
+      <FlatListMod
+        onEndReachedThreshold={0.1}
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+        data={dataRestaurants}
+        columnWrapperStyle={{
+          justifyContent: 'space-between',
+          paddingHorizontal: RFValue(CardMargins),
+          paddingBottom: 10,
+        }}
+        ListHeaderComponent={
+          <>
+            <HeaderAddress />
+            <BannerHomeImage />
+            <TitleCategories>Categorias</TitleCategories>
+            <BannerHomeCategories />
+            <SearchRestaurants />
+          </>
+        }
+        onEndReached={handlerOnEndReached}
+        ListFooterComponent={() => (
+          <ViewLoading>{loading ? <Load /> : null}</ViewLoading>
+        )}
+        keyExtractor={(item: any) => item.id}
+        renderItem={({ item }: any) => (
+          <Wrapper>
+            <CardRestaurant dataImage={item.photo_url} name={item.name} />
+          </Wrapper>
+        )}
+      />
     </>
   )
 }
