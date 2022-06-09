@@ -12,6 +12,7 @@ import { useAuth } from '../../context/auth'
 import { Load } from '../../components/load'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useDebouncedCallback } from 'use-debounce'
+import { useNavigation } from '@react-navigation/native'
 interface Restaurant {
   id: number
   name: string
@@ -21,6 +22,7 @@ interface ApiData {
   content: Restaurant[]
 }
 export function Home() {
+  const navigation = useNavigation()
   const [dataRestaurants, setDataRestaurants] = useState<Restaurant[]>([])
   const [filter, setFilter] = useState({
     text: '',
@@ -55,7 +57,9 @@ export function Home() {
   const debounced = useDebouncedCallback((text) => {
     handleSearch(text)
   }, 1500)
-
+  function handlerNavigate(id: number, name: string) {
+    navigation.navigate('RestaurantProfile' as never, { id, name } as never)
+  }
   return (
     <>
       <StatusBar
@@ -89,6 +93,7 @@ export function Home() {
         renderItem={({ item }: any) => (
           <Wrapper>
             <CardRestaurant
+              onPress={() => handlerNavigate(item.id, item.name)}
               dataImage={item.photo_url}
               name={item.name}
               id={item.id}

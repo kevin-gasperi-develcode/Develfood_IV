@@ -1,14 +1,23 @@
 import React from 'react'
-import { Text } from 'react-native'
-import { BackButton, Container, ImageGoBack, TextTitle } from './styles'
+import { ImageProps, ImageSourcePropType, Text } from 'react-native'
+import {
+  BackButtonContainer,
+  Container,
+  ImageGoBack,
+  ImageRight,
+  RightImageContainer,
+  TextContainer,
+  TextTitle,
+} from './styles'
 import { useNavigation } from '@react-navigation/native'
 import theme from '../../global/theme'
 
 interface HeaderProps {
-  title: string
-  goBackButton: any
+  title?: string
+  goBackButton?: any
   backToStart?: boolean
   backGroundIsRed?: boolean
+  imageRight?: any
 }
 
 export function HeaderStandard({
@@ -16,19 +25,19 @@ export function HeaderStandard({
   goBackButton,
   backToStart,
   backGroundIsRed,
+  imageRight,
 }: HeaderProps) {
   const navigation = useNavigation()
-  const red = theme.colors.background_red
-
+  const redColor = theme.colors.background_red
   return (
     <Container
       style={
         backGroundIsRed
-          ? { backgroundColor: red }
+          ? { backgroundColor: redColor }
           : { backgroundColor: 'white' }
       }
     >
-      <BackButton
+      <BackButtonContainer
         onPress={
           backToStart
             ? () => navigation.navigate('SignIn' as never)
@@ -36,12 +45,13 @@ export function HeaderStandard({
         }
       >
         <ImageGoBack source={goBackButton} />
-      </BackButton>
-      <TextTitle>
-        <Text style={{ fontSize: 16, lineHeight: 16.41, color: '#2B2B2E' }}>
-          {title}
-        </Text>
-      </TextTitle>
+      </BackButtonContainer>
+      <TextContainer>
+        <TextTitle>{title}</TextTitle>
+      </TextContainer>
+      <RightImageContainer>
+        <ImageRight source={imageRight} />
+      </RightImageContainer>
     </Container>
   )
 }

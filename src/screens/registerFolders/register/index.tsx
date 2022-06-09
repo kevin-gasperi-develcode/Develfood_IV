@@ -82,7 +82,7 @@ export function Register() {
               />
               <CustomInput
                 image={theme.icons.password_icon}
-                name="password confirm"
+                name="password_confirm"
                 placeholder="confirmar senha"
                 control={control}
                 password={true}

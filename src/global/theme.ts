@@ -57,5 +57,6 @@ export default {
     document_icon: require('../assets/icons/document.png'),
     cellphone_icon: require('../assets/icons/cellphone.png'),
     map_icon: require('../assets/icons/map.png'),
+    favorite_white: require('../assets/icons/favorite-white.png'),
   },
 }

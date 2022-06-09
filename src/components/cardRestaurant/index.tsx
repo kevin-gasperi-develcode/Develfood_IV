@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Text } from 'react-native'
+import { GestureResponderEvent, Image, Text } from 'react-native'
 import {
   ContainerButton,
   ImageFavorite,
@@ -17,10 +17,16 @@ interface RestaurantProps {
   id?: any
   dataImage?: string
   name: string
+  onPress: (event: GestureResponderEvent) => void
 }
-export function CardRestaurant({ id, dataImage, name }: RestaurantProps) {
+export function CardRestaurant({
+  id,
+  dataImage,
+  name,
+  onPress,
+}: RestaurantProps) {
   return (
-    <ContainerButton onPress={() => {}}>
+    <ContainerButton onPress={onPress}>
       <ImageRestaurant
         source={
           dataImage
