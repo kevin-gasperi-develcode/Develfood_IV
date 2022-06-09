@@ -1,4 +1,5 @@
 import React from 'react'
+import theme from '../../global/theme'
 import {
   BarGray,
   ImageRestautant,
@@ -23,9 +24,7 @@ export function RestaurantInfo({
           <TittleRestaurant>{nameRestaurant}</TittleRestaurant>
           <TipeRestautant>{idRestaurant}</TipeRestautant>
         </ViewRestaurantInfo>
-        <ImageRestautant
-          source={require('../../assets/images/restaurant-without-image.png')}
-        />
+        <ImageRestautant source={theme.icons.security_icon} />
       </ViewRestaurantContainer>
       <BarGray />
     </>

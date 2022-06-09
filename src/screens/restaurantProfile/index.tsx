@@ -8,15 +8,13 @@ import { Container } from './styles'
 export function RestaurantProfile({ route }: any) {
   const { id, name } = route.params
   return (
-    <>
-      <Container>
-        <HeaderStandard
-          goBackButton={theme.icons.back_button}
-          imageRight={theme.icons.favorite_white}
-          title={'Restaurantes'}
-        />
-        <RestaurantInfo nameRestaurant={name} idRestaurant={id} />
-      </Container>
-    </>
+    <Container>
+      <HeaderStandard
+        goBackButton={theme.icons.back_button}
+        imageRight={theme.icons.favorite_white}
+        title={'Restaurantes'}
+      />
+      <RestaurantInfo nameRestaurant={name} idRestaurant={id} />
+    </Container>
   )
 }
