@@ -50,7 +50,7 @@ export function HeaderStandard({
         <TextTitle>{title}</TextTitle>
       </TextContainer>
       <RightImageContainer>
-        <ImageRight source={imageRight} />
+        <ImageRight resizeMode="stretch" source={imageRight} />
       </RightImageContainer>
     </Container>
   )

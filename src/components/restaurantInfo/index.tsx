@@ -1,5 +1,7 @@
 import React from 'react'
 import theme from '../../global/theme'
+import { SearchFood } from '../searchFood'
+import { SearchRestaurants } from '../searchRestaurants'
 import {
   BarGray,
   ImageRestautant,
@@ -11,20 +13,20 @@ import {
 
 interface RestaurantProfile {
   nameRestaurant: string
-  idRestaurant: string
+  idRestaurant?: string
 }
-export function RestaurantInfo({
-  nameRestaurant,
-  idRestaurant,
-}: RestaurantProfile) {
+export function RestaurantInfo({ nameRestaurant }: RestaurantProfile) {
   return (
     <>
       <ViewRestaurantContainer>
         <ViewRestaurantInfo>
           <TittleRestaurant>{nameRestaurant}</TittleRestaurant>
-          <TipeRestautant>{idRestaurant}</TipeRestautant>
+          <TipeRestautant>Pizza</TipeRestautant>
         </ViewRestaurantInfo>
-        <ImageRestautant source={theme.icons.security_icon} />
+        <ImageRestautant
+          resizeMode="stretch"
+          source={require('../../assets/icons/bobs.png')}
+        />
       </ViewRestaurantContainer>
       <BarGray />
     </>

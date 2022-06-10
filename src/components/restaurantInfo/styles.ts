@@ -9,9 +9,9 @@ export const ViewRestaurantContainer = styled.View`
 export const ViewRestaurantInfo = styled.View`
   height: ${RFValue(60)}px;
   width: ${RFValue(343)}px;
-  margin-left: ${RFValue(21)}px;
 `
 export const TittleRestaurant = styled.Text`
+  margin-top: ${RFValue(18)}px;
   font-size: ${RFValue(18)}px;
   line-height: ${RFValue(21.9)}px;
   font-weight: 400;
@@ -31,7 +31,8 @@ export const ImageRestautant = styled.Image`
   margin-bottom: ${RFValue(26)}px;
 `
 export const BarGray = styled.View`
-  height: ${RFValue(2)}px;
+  height: ${RFValue(2.2)}px;
   width: ${RFValue(343)}px;
   background-color: #f0f0f5;
+  align-self: center;
 `

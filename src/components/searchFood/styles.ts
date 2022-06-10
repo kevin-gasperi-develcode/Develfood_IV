@@ -2,12 +2,10 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
-export const Container = styled.View`
-  align-self: center;
-`
 export const InputRestaurants = styled.View`
+  align-self: center;
   height: ${RFValue(50)}px;
-  width: ${RFValue(339)}px;
+  width: 100%;
   border: ${RFValue(1.4)}px;
   border-color: #bfbaba;
   border-radius: 10px;
@@ -21,4 +19,7 @@ export const ImageSearch = styled.Image`
 export const ViewSearch = styled.View``
 export const TextInputMod = styled.TextInput`
   width: ${RFValue(285)}px;
+  font-size: ${RFValue(14)}px;
+  line-height: ${RFValue(16.41)}px;
+  width: 80%;
 `
