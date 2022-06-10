@@ -15,7 +15,7 @@ export const InputRestaurants = styled.View`
 `
 export const ImageSearch = styled.Image`
   margin-left: ${RFValue(17)}px;
-  margin-top: ${RFValue(13.79)}px;
+  margin-top: ${RFValue(17)}px;
   margin-right: ${RFValue(13.79)}px;
 `
 export const ViewSearch = styled.View``

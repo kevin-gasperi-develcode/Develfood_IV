@@ -1,5 +1,5 @@
 import React from 'react'
-import { GestureResponderEvent, Image, Text } from 'react-native'
+import { GestureResponderEvent } from 'react-native'
 import {
   ContainerButton,
   ImageFavorite,

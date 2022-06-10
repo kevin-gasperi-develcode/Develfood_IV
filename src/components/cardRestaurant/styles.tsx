@@ -6,7 +6,6 @@ export const ContainerButton = styled.TouchableOpacity`
   width: ${RFValue(156)}px;
   height: ${RFValue(173)}px;
   border-radius: 8px;
-  /* margin-left: 10px; */
   margin-right: 10px;
 `
 export const ViewFavorite = styled.View`
@@ -33,12 +32,10 @@ export const ImageRestaurant = styled.Image`
   position: absolute;
 `
 
-export const ViewInfo = styled.View`
+export const ViewInfo = styled.View.attrs({ elevation: 10 })`
   width: ${RFValue(156)}px;
   height: ${RFValue(69)}px;
-  border: ${RFValue(1.5)}px;
   border-radius: 8px;
-  border-color: #bfbaba;
   top: ${RFValue(104)}px;
   position: absolute;
   background-color: white;
