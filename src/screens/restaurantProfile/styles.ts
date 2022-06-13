@@ -15,3 +15,21 @@ export const TextPratos = styled.Text`
   color: ${theme.colors.text_dark};
   padding-bottom: ${RFValue(18)}px;
 `
+export const ViewLoading = styled.View`
+  width: 100%;
+  height: ${RFValue(80)}px;
+  justify-content: center;
+`
+
+export const ImageNotFound = styled.Image`
+  align-self: center;
+  width: ${RFValue(375)}px;
+  height: ${RFValue(228)}px;
+`
+
+export const TextNotFound = styled.Text`
+  align-self: center;
+  font-weight: 400;
+  font-size: ${RFValue(18)}px;
+  line-height: ${RFValue(21)}px;
+`

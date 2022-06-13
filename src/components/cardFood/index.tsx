@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView } from 'react-native-gesture-handler'
+import theme from '../../global/theme'
 import {
   AddButton,
   Container,
@@ -9,26 +9,45 @@ import {
   TextPrice,
   Tittle,
   ViewFood,
+  Wrapper,
 } from './styles'
 
-export function CardFood() {
+interface RestaurantFood {
+  description?: string
+  foodType?: any
+  id?: number
+  photo_url?: string
+  price?: number
+  restaurantName?: string
+}
+export function CardFood({
+  description,
+  price,
+  id,
+  photo_url,
+}: RestaurantFood) {
   return (
     <Container>
-      <ImageFood source={require('../../assets/images/food-test.png')} />
+      {photo_url ? (
+        <ImageFood source={{ uri: photo_url }} />
+      ) : (
+        <ImageFood source={theme.icons.restaurant_without_img} />
+      )}
       <ViewFood>
         <Tittle numberOfLines={1} ellipsizeMode={'tail'}>
-          Prato de Camarão e fritasPrato de Camarão e fritasPrato de Camarão e
-          fritasPrato de Camarão e fritas
+          {description}
         </Tittle>
         <Description numberOfLines={3} ellipsizeMode={'tail'}>
           Um prato de camarão com fritas que é uma ótima opção para pedir quando
           se está com a família. Um prato de camarão com fritas que é uma ótima
           opção para pedir quando se está com a família.
         </Description>
-        <TextPrice>R$ 49,90</TextPrice>
-        <AddButton>
-          <TextButton>Adicionar</TextButton>
-        </AddButton>
+        <Wrapper>
+          <TextPrice>R$ {price}</TextPrice>
+          <AddButton>
+            <TextButton>Adicionar</TextButton>
+          </AddButton>
+        </Wrapper>
       </ViewFood>
     </Container>
   )

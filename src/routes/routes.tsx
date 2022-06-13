@@ -29,11 +29,11 @@ export default function Routes() {
                   resizeMode={'contain'}
                   style={{
                     tintColor: focused ? 'red' : '#DEDCDC',
-                    width: focused ? 27 : 25,
-                    height: focused ? 27 : 25,
+                    width: focused ? 25 : 23,
+                    height: focused ? 25 : 23,
                   }}
                 />
-                {focused ? null : <Text>Início</Text>}
+                {focused ? null : <Text style={{ width: 75 }}>Início</Text>}
               </View>
             ),
           }}
@@ -43,17 +43,17 @@ export default function Routes() {
           component={Favorites}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: 'center' }}>
+              <View style={{ alignContent: 'center', backgroundColor: 'gray' }}>
                 <Image
                   source={require('../assets/icons/favorites.png')}
                   resizeMode={'contain'}
                   style={{
                     tintColor: focused ? 'red' : '#DEDCDC',
-                    width: focused ? 27 : 25,
+                    width: 75,
                     height: focused ? 27 : 25,
                   }}
                 />
-                {focused ? null : <Text>Favoritos</Text>}
+                {focused ? null : <Text style={{ width: 75 }}>Favoritos</Text>}
               </View>
             ),
           }}

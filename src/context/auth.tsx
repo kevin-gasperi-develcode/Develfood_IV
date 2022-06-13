@@ -28,17 +28,3 @@ function useAuth() {
   return context
 }
 export { AuthProvider, useAuth }
-
-// interface IAuthContextData {
-//   loading: boolean
-//   signIn(email: string, password: string): Promise<void>
-//   token: string
-// }
-// interface RequestProps {
-//   endpoint: string
-//   body: {}
-//   error: {
-//     title: string
-//     message: string
-//   }
-// }

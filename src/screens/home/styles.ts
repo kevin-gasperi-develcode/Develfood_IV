@@ -11,11 +11,10 @@ export const TitleCategories = styled.Text`
 `
 export const FlatListMod = styled.FlatList`
   width: 100%;
-  align-self: center;
   background-color: #ffffff;
 `
 export const Wrapper = styled.View`
-  flex-grow: 1;
+  align-self: center;
 `
 export const ViewLoading = styled.View`
   width: 100%;

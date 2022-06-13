@@ -13,9 +13,12 @@ import {
 
 interface RestaurantProfile {
   nameRestaurant: string
-  idRestaurant?: string
+  imageRestaurant: string
 }
-export function RestaurantInfo({ nameRestaurant }: RestaurantProfile) {
+export function RestaurantInfo({
+  nameRestaurant,
+  imageRestaurant,
+}: RestaurantProfile) {
   return (
     <>
       <ViewRestaurantContainer>
@@ -25,7 +28,11 @@ export function RestaurantInfo({ nameRestaurant }: RestaurantProfile) {
         </ViewRestaurantInfo>
         <ImageRestautant
           resizeMode="stretch"
-          source={require('../../assets/icons/bobs.png')}
+          source={
+            imageRestaurant
+              ? { uri: imageRestaurant }
+              : require('../../assets/images/restaurant-without-image.png')
+          }
         />
       </ViewRestaurantContainer>
       <BarGray />

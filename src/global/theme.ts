@@ -58,5 +58,7 @@ export default {
     cellphone_icon: require('../assets/icons/cellphone.png'),
     map_icon: require('../assets/icons/map.png'),
     favorite_white: require('../assets/icons/favorite-white.png'),
+    not_found: require('../assets/images/not_found.png'),
+    restaurant_without_img: require('../assets/images/restaurant-without-image.png'),
   },
 }

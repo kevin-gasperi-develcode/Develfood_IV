@@ -23,15 +23,14 @@ interface ApiData {
 }
 export function Home() {
   const navigation = useNavigation()
+  const { authState } = useAuth()
   const [dataRestaurants, setDataRestaurants] = useState<Restaurant[]>([])
   const [filter, setFilter] = useState({
     text: '',
     page: 0,
   })
-  const { authState } = useAuth()
   const CardMargins =
     (Dimensions.get('screen').width - RFValue(312)) / RFValue(3.5)
-
   const { loading, fetchData } = useGet<ApiData>(
     `/restaurant/filter?name=${filter.text}&page=${filter.page}&quantity=10`,
     { headers: { Authorization: ` Bearer ${authState.token}` } },
@@ -57,8 +56,11 @@ export function Home() {
   const debounced = useDebouncedCallback((text) => {
     handleSearch(text)
   }, 1500)
-  function handlerNavigate(id: number, name: string) {
-    navigation.navigate('RestaurantProfile' as never, { id, name } as never)
+  function handlerNavigate(id: number, name: string, photo_url: string) {
+    navigation.navigate(
+      'RestaurantProfile' as never,
+      { id, name, photo_url } as never,
+    )
   }
   return (
     <>
@@ -93,7 +95,9 @@ export function Home() {
         renderItem={({ item }: any) => (
           <Wrapper>
             <CardRestaurant
-              onPress={() => handlerNavigate(item.id, item.name)}
+              onPress={() =>
+                handlerNavigate(item.id, item.name, item.photo_url)
+              }
               dataImage={item.photo_url}
               name={item.name}
               id={item.id}

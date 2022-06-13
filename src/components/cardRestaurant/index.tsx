@@ -26,7 +26,7 @@ export function CardRestaurant({
   onPress,
 }: RestaurantProps) {
   return (
-    <ContainerButton onPress={onPress}>
+    <ContainerButton onPress={onPress} activeOpacity={1}>
       <ImageRestaurant
         source={
           dataImage

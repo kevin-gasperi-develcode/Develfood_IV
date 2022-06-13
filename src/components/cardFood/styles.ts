@@ -2,7 +2,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
-export const Container = styled.View.attrs({ elevation: 5 })`
+export const Container = styled.View.attrs({ elevation: 10 })`
   width: 100%;
   height: ${RFValue(103)}px;
   border-radius: ${RFValue(8)}px;
@@ -44,12 +44,17 @@ export const TextPrice = styled.Text`
   line-height: ${RFValue(14.06)}px;
   color: ${theme.colors.text_dark};
 `
-export const AddButton = styled.TouchableOpacity`
-  margin-left: ${RFValue(145)}px;
+export const Wrapper = styled.View`
+  flex-direction: row;
 `
 export const TextButton = styled.Text`
   font-weight: 500;
   font-size: ${RFValue(14)}px;
   line-height: ${RFValue(16)}px;
   color: ${theme.colors.background_red};
+`
+export const AddButton = styled.TouchableOpacity`
+  position: absolute;
+  right: ${RFValue(8)}px;
+  margin-top: ${RFValue(6)}px;
 `
