@@ -5,6 +5,7 @@ import Settings from '../screens/settings'
 import Favorites from '../screens/favorites'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Image, Text, View } from 'react-native'
+import theme from '../global/theme'
 
 export default function Routes() {
   const Tab = createBottomTabNavigator()
@@ -23,17 +24,16 @@ export default function Routes() {
           component={Home}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: 'center' }}>
+              <View style={{  width: 75, alignItems: 'center' }}>
                 <Image
-                  source={require('../assets/icons/home.png')}
+                  source={require('../assets/icons/home_red.png')}
                   resizeMode={'contain'}
                   style={{
-                    tintColor: focused ? 'red' : '#DEDCDC',
-                    width: focused ? 25 : 23,
+                    tintColor: focused ? theme.colors.background_red : '#DEDCDC',
                     height: focused ? 25 : 23,
                   }}
                 />
-                {focused ? null : <Text style={{ width: 75 }}>Início</Text>}
+                {focused ? null : <Text>Início</Text>}
               </View>
             ),
           }}
@@ -43,17 +43,16 @@ export default function Routes() {
           component={Favorites}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignContent: 'center', backgroundColor: 'gray' }}>
+              <View style={{  width: 75, alignItems: 'center' }}>
                 <Image
-                  source={require('../assets/icons/favorites.png')}
+                  source={require('../assets/icons/favorites_red.png')}
                   resizeMode={'contain'}
                   style={{
-                    tintColor: focused ? 'red' : '#DEDCDC',
-                    width: 75,
-                    height: focused ? 27 : 25,
+                    tintColor: focused ? theme.colors.background_red : '#DEDCDC',
+                    height: focused ? 25 : 23,
                   }}
                 />
-                {focused ? null : <Text style={{ width: 75 }}>Favoritos</Text>}
+                {focused ? null : <Text>Favoritos</Text>}
               </View>
             ),
           }}
@@ -63,14 +62,13 @@ export default function Routes() {
           component={Demand}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: 'center' }}>
+              <View style={{  width: 75, alignItems: 'center' }}>
                 <Image
-                  source={require('../assets/icons/history.png')}
+                  source={require('../assets/icons/history_red.png')}
                   resizeMode={'contain'}
                   style={{
-                    tintColor: focused ? 'red' : '#DEDCDC',
-                    width: focused ? 27 : 25,
-                    height: focused ? 27 : 25,
+                    tintColor: focused ? theme.colors.background_red : '#DEDCDC',
+                    height: focused ? 25 : 23,
                   }}
                 />
                 {focused ? null : <Text>Histórico</Text>}
@@ -83,14 +81,13 @@ export default function Routes() {
           component={Settings}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: 'center' }}>
+              <View style={{  width: 75, alignItems: 'center' }}>
                 <Image
-                  source={require('../assets/icons/settings.png')}
+                  source={require('../assets/icons/settings_red.png')}
                   resizeMode={'contain'}
                   style={{
-                    tintColor: focused ? 'red' : '#DEDCDC',
-                    width: focused ? 27 : 25,
-                    height: focused ? 27 : 25,
+                    tintColor: focused ? theme.colors.background_red : '#DEDCDC',
+                    height: focused ? 25 : 23,
                   }}
                 />
                 {focused ? null : <Text>Perfil</Text>}
