@@ -15,7 +15,7 @@ import {
 
 interface RestaurantProps {
   id?: any
-  dataImage?: string
+  dataImage?: any
   name: string
   onPress: (event: GestureResponderEvent) => void
 }

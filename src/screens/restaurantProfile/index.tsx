@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { StatusBar } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
+import { useDebouncedCallback } from 'use-debounce'
 import { CardFood } from '../../components/cardFood'
 import { HeaderStandard } from '../../components/headerStandard'
 import { Load } from '../../components/load'
@@ -17,50 +18,55 @@ import {
   ViewLoading,
 } from './styles'
 interface RestaurantFood {
+  id: number
   description: string
+  price: number
   foodType: {
     id: number
     name: string
   }
-  id: number
-  photo_url: string
-  price: number
   restaurantName: string
+  photo_url: string
 }
-interface ApiDataFood {
-  content: RestaurantFood[]
-  totalElements: number
-}
+;[]
 
 export function RestaurantProfile({ route }: any) {
   const { id, name, photo_url } = route.params
-  const [filter, setFilter] = useState({ page: 0 })
-  const [dataEmpty, setDataEmpty] = useState(1)
+  const [filter, setFilter] = useState({ text: '' })
   const [dataFood, setDataFood] = useState<RestaurantFood[]>([])
   const { authState } = useAuth()
-  const { loading, fetchData } = useGet(
-    `/plate/restaurant/${id}?page=${filter.page}&quantity=10`,
+
+  const { loading, fetchData } = useGet<RestaurantFood[]>(
+    `plate/search?name=${filter.text}&restaurantid=${id}`,
     { headers: { Authorization: ` Bearer ${authState.token}` } },
     dataReturn,
   )
-
   useEffect(() => {
     ;(async () => await fetchData())()
-  }, [filter])
+  }, [filter.text])
 
-  function dataReturn(response: ApiDataFood) {
-    setDataFood([...dataFood, ...response.content])
-    setDataEmpty(response.totalElements)
-    console.log('dataREturn', response.content)
+  function dataReturn(response: RestaurantFood[]) {
+    setDataFood([...dataFood, ...response])
     console.log('dataCompleto', response)
   }
-  async function handlerOnEndReached() {
-    setFilter({ page: filter.page + 1 })
-    console.log(filter.page)
+
+  const debounced = useDebouncedCallback((text) => {
+    handleSearch(text)
+  }, 1500)
+
+  function handleSearch(text: string) {
+    if (text.length > 1) {
+      setDataFood([])
+      setFilter({ text: text })
+    } else setDataFood([]), setFilter({ text: '' })
   }
 
   return (
     <>
+      <StatusBar
+        barStyle={'dark-content'}
+        backgroundColor={theme.colors.background}
+      />
       <HeaderStandard
         goBackButton={theme.icons.back_button}
         imageRight={theme.icons.favorite_white}
@@ -70,7 +76,14 @@ export function RestaurantProfile({ route }: any) {
       <Container>
         <FlatList
           showsVerticalScrollIndicator={false}
-          onEndReached={handlerOnEndReached}
+          ListEmptyComponent={
+            loading ? null : (
+              <>
+                <ImageNotFound source={theme.icons.not_found} />
+                <TextNotFound>Nenhum prato encontrado</TextNotFound>
+              </>
+            )
+          }
           ListFooterComponent={() => (
             <ViewLoading>{loading ? <Load /> : null}</ViewLoading>
           )}
@@ -81,15 +94,10 @@ export function RestaurantProfile({ route }: any) {
                 imageRestaurant={photo_url}
               />
               <TextPratos>Pratos</TextPratos>
-              <SearchFood nameRestaurant={name} textChange={(text) => text} />
-              <View>
-                {dataEmpty === 0 ? (
-                  <>
-                    <ImageNotFound source={theme.icons.not_found} />
-                    <TextNotFound>Nenhum prato encontrado</TextNotFound>
-                  </>
-                ) : null}
-              </View>
+              <SearchFood
+                nameRestaurant={name}
+                textChange={(text) => debounced(text)}
+              />
             </>
           }
           data={dataFood}
@@ -107,3 +115,38 @@ export function RestaurantProfile({ route }: any) {
     </>
   )
 }
+
+// ;[
+//   {
+//     description: 'Hamburger Gourmet',
+//     foodType: { id: 1, name: 'FASTFOOD' },
+//     id: 49,
+//     photo_url: 'https://develfood-3.herokuapp.com/photo/387',
+//     price: 45.5,
+//     restaurantName: "Vinicius's Bar",
+//   },
+//   {
+//     description: 'Yakisoba',
+//     foodType: { id: 4, name: 'DOCE' },
+//     id: 43,
+//     photo_url: 'https://develfood-3.herokuapp.com/photo/401',
+//     price: 40.56,
+//     restaurantName: "Vinicius's Bar",
+//   },
+//   {
+//     description: 'Picanha na brasa',
+//     foodType: { id: 3, name: 'ITALIANA' },
+//     id: 46,
+//     photo_url: 'https://develfood-3.herokuapp.com/photo/402',
+//     price: 150.89,
+//     restaurantName: "Vinicius's Bar",
+//   },
+//   {
+//     description: 'Pizza de Peperoni',
+//     foodType: { id: 2, name: 'PIZZA' },
+//     id: 48,
+//     photo_url: 'https://develfood-3.herokuapp.com/photo/403',
+//     price: 80.9,
+//     restaurantName: "Vinicius's Bar",
+//   },
+// ]

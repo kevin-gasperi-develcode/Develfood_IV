@@ -157,7 +157,7 @@ export function SignIn() {
           </ViewInputComponents>
           <Image
             source={require('../../assets/icons/backgroundSignIn.png')}
-            style={{ marginTop: -30 }}
+            style={{ marginTop: -30, alignSelf: 'center' }}
           />
         </ScrollView>
       </Container>

@@ -13,13 +13,13 @@ import { Load } from '../../components/load'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useDebouncedCallback } from 'use-debounce'
 import { useNavigation } from '@react-navigation/native'
+interface ApiData {
+  content: Restaurant[]
+}
 interface Restaurant {
   id: number
   name: string
   photo_url: string
-}
-interface ApiData {
-  content: Restaurant[]
 }
 export function Home() {
   const navigation = useNavigation()
@@ -47,15 +47,17 @@ export function Home() {
     setFilter({ ...filter, page: filter.page + 1 })
   }
 
+  const debounced = useDebouncedCallback((text) => {
+    handleSearch(text)
+  }, 1500)
+
   function handleSearch(text: string) {
     if (text.length > 1) {
       setDataRestaurants([])
       setFilter({ text: text, page: 0 })
     } else setDataRestaurants([]), setFilter({ text: '', page: 0 })
   }
-  const debounced = useDebouncedCallback((text) => {
-    handleSearch(text)
-  }, 1500)
+
   function handlerNavigate(id: number, name: string, photo_url: string) {
     navigation.navigate(
       'RestaurantProfile' as never,

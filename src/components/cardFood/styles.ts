@@ -2,13 +2,14 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
-export const Container = styled.View.attrs({ elevation: 10 })`
-  width: 100%;
+export const Container = styled.View.attrs({ elevation: 4 })`
+  width: 99%;
   height: ${RFValue(103)}px;
   border-radius: ${RFValue(8)}px;
   background-color: ${theme.colors.background};
   margin-top: ${RFValue(20)}px;
   flex-direction: row;
+  align-self: center;
 `
 export const ImageFood = styled.Image`
   width: ${RFValue(100)}px;

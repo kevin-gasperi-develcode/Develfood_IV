@@ -27,7 +27,7 @@ export function RestaurantInfo({
           <TipeRestautant>Pizza</TipeRestautant>
         </ViewRestaurantInfo>
         <ImageRestautant
-          resizeMode="stretch"
+          resizeMode="contain"
           source={
             imageRestaurant
               ? { uri: imageRestaurant }

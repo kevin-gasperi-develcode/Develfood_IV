@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAuth } from '../../context/auth'
 import theme from '../../global/theme'
+import { useGet } from '../../services'
 import {
   AddButton,
   Container,
@@ -16,20 +18,47 @@ interface RestaurantFood {
   description?: string
   foodType?: any
   id?: number
-  photo_url?: string
+  photo_url?: any
   price?: number
   restaurantName?: string
 }
+interface ImageData {
+  id: number
+  code: string
+}
+
 export function CardFood({
   description,
   price,
   id,
   photo_url,
 }: RestaurantFood) {
+  const { authState } = useAuth()
+  const photo = photo_url.slice(33)
+  console.log(photo)
+
+  useEffect(() => {
+    ;(async () => await fetchData())()
+  }, [photo])
+
+  const { fetchData, data } = useGet<ImageData>(
+    photo,
+    { headers: { Authorization: ` Bearer ${authState.token}` } },
+    SetPhotoFunction,
+  )
+
+  function SetPhotoFunction(valuePhoto: any) {
+    return valuePhoto
+  }
+
   return (
     <Container>
       {photo_url ? (
-        <ImageFood source={{ uri: photo_url }} />
+        <ImageFood
+          source={{
+            uri: data.code,
+          }}
+        />
       ) : (
         <ImageFood source={theme.icons.restaurant_without_img} />
       )}
