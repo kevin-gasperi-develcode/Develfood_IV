@@ -5,8 +5,8 @@ import { SearchRestaurants } from '../searchRestaurants'
 import {
   BarGray,
   ImageRestautant,
-  TipeRestautant,
   TittleRestaurant,
+  TypeRestautant,
   ViewRestaurantContainer,
   ViewRestaurantInfo,
 } from './styles'
@@ -24,10 +24,10 @@ export function RestaurantInfo({
       <ViewRestaurantContainer>
         <ViewRestaurantInfo>
           <TittleRestaurant>{nameRestaurant}</TittleRestaurant>
-          <TipeRestautant>Pizza</TipeRestautant>
+          <TypeRestautant>TypeFood</TypeRestautant>
         </ViewRestaurantInfo>
         <ImageRestautant
-          resizeMode="contain"
+          resizeMode="cover"
           source={
             imageRestaurant
               ? { uri: imageRestaurant }

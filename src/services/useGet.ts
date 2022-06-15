@@ -6,6 +6,7 @@ export function useGet<T = unknown>(
   url: string,
   options?: AxiosRequestConfig,
   onSuccess?: (response: T) => void,
+  onError?: (response: T) => void,
 ) {
   const [data, setData] = useState<T>({} as T)
   const [loading, setLoading] = useState<boolean>(false)
@@ -19,11 +20,10 @@ export function useGet<T = unknown>(
         onSuccess && onSuccess(response.data)
       })
     } catch (error) {
-      console.log(error)
-      setError(error)
+      onError && setError(error)
     }
     setLoading(false)
   }
 
-  return { data, loading, error, fetchData }
+  return { data, loading, error, fetchData, onError }
 }

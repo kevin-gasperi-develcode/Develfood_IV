@@ -17,7 +17,7 @@ export const TittleRestaurant = styled.Text`
   font-weight: 400;
   color: ${theme.colors.text_dark};
 `
-export const TipeRestautant = styled.Text`
+export const TypeRestautant = styled.Text`
   font-size: ${RFValue(12)}px;
   line-height: ${RFValue(14.06)}px;
   font-weight: 400;
@@ -29,6 +29,7 @@ export const ImageRestautant = styled.Image`
   position: absolute;
   right: ${RFValue(14)}px;
   margin-bottom: ${RFValue(26)}px;
+  border-radius: ${RFValue(33)}px;
 `
 export const BarGray = styled.View`
   height: ${RFValue(2.2)}px;

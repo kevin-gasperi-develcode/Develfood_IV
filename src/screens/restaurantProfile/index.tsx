@@ -29,7 +29,10 @@ interface RestaurantFood {
   photo_url: string
 }
 ;[]
-
+interface ImageData {
+  id: number
+  code: string
+}
 export function RestaurantProfile({ route }: any) {
   const { id, name, photo_url } = route.params
   const [filter, setFilter] = useState({ text: '' })
@@ -44,22 +47,28 @@ export function RestaurantProfile({ route }: any) {
   useEffect(() => {
     ;(async () => await fetchData())()
   }, [filter.text])
-
   function dataReturn(response: RestaurantFood[]) {
     setDataFood([...dataFood, ...response])
-    console.log('dataCompleto', response)
+    console.log(response)
   }
 
   const debounced = useDebouncedCallback((text) => {
     handleSearch(text)
   }, 1500)
-
   function handleSearch(text: string) {
     if (text.length > 1) {
       setDataFood([])
       setFilter({ text: text })
     } else setDataFood([]), setFilter({ text: '' })
   }
+
+  const photo = photo_url.slice(33)
+  useEffect(() => {
+    ;(async () => await fetchImage())()
+  }, [photo])
+  const { fetchData: fetchImage, data: dataImage } = useGet<ImageData>(photo, {
+    headers: { Authorization: ` Bearer ${authState.token}` },
+  })
 
   return (
     <>
@@ -91,7 +100,7 @@ export function RestaurantProfile({ route }: any) {
             <>
               <RestaurantInfo
                 nameRestaurant={name}
-                imageRestaurant={photo_url}
+                imageRestaurant={dataImage.code}
               />
               <TextPratos>Pratos</TextPratos>
               <SearchFood
@@ -104,6 +113,7 @@ export function RestaurantProfile({ route }: any) {
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
             <CardFood
+              name={item.name}
               description={item.description}
               price={item.price}
               id={item.id}
@@ -115,38 +125,3 @@ export function RestaurantProfile({ route }: any) {
     </>
   )
 }
-
-// ;[
-//   {
-//     description: 'Hamburger Gourmet',
-//     foodType: { id: 1, name: 'FASTFOOD' },
-//     id: 49,
-//     photo_url: 'https://develfood-3.herokuapp.com/photo/387',
-//     price: 45.5,
-//     restaurantName: "Vinicius's Bar",
-//   },
-//   {
-//     description: 'Yakisoba',
-//     foodType: { id: 4, name: 'DOCE' },
-//     id: 43,
-//     photo_url: 'https://develfood-3.herokuapp.com/photo/401',
-//     price: 40.56,
-//     restaurantName: "Vinicius's Bar",
-//   },
-//   {
-//     description: 'Picanha na brasa',
-//     foodType: { id: 3, name: 'ITALIANA' },
-//     id: 46,
-//     photo_url: 'https://develfood-3.herokuapp.com/photo/402',
-//     price: 150.89,
-//     restaurantName: "Vinicius's Bar",
-//   },
-//   {
-//     description: 'Pizza de Peperoni',
-//     foodType: { id: 2, name: 'PIZZA' },
-//     id: 48,
-//     photo_url: 'https://develfood-3.herokuapp.com/photo/403',
-//     price: 80.9,
-//     restaurantName: "Vinicius's Bar",
-//   },
-// ]

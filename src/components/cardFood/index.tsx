@@ -15,6 +15,7 @@ import {
 } from './styles'
 
 interface RestaurantFood {
+  name: string
   description?: string
   foodType?: any
   id?: number
@@ -28,6 +29,7 @@ interface ImageData {
 }
 
 export function CardFood({
+  name,
   description,
   price,
   id,
@@ -35,25 +37,18 @@ export function CardFood({
 }: RestaurantFood) {
   const { authState } = useAuth()
   const photo = photo_url.slice(33)
-  console.log(photo)
 
   useEffect(() => {
     ;(async () => await fetchData())()
   }, [photo])
 
-  const { fetchData, data } = useGet<ImageData>(
-    photo,
-    { headers: { Authorization: ` Bearer ${authState.token}` } },
-    SetPhotoFunction,
-  )
-
-  function SetPhotoFunction(valuePhoto: any) {
-    return valuePhoto
-  }
+  const { fetchData, data } = useGet<ImageData>(photo, {
+    headers: { Authorization: ` Bearer ${authState.token}` },
+  })
 
   return (
     <Container>
-      {photo_url ? (
+      {data.code ? (
         <ImageFood
           source={{
             uri: data.code,
@@ -64,12 +59,10 @@ export function CardFood({
       )}
       <ViewFood>
         <Tittle numberOfLines={1} ellipsizeMode={'tail'}>
-          {description}
+          {name}
         </Tittle>
         <Description numberOfLines={3} ellipsizeMode={'tail'}>
-          Um prato de camarão com fritas que é uma ótima opção para pedir quando
-          se está com a família. Um prato de camarão com fritas que é uma ótima
-          opção para pedir quando se está com a família.
+          {description}
         </Description>
         <Wrapper>
           <TextPrice>R$ {price}</TextPrice>

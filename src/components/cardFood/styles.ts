@@ -29,10 +29,10 @@ export const Tittle = styled.Text`
   font-size: ${RFValue(14)}px;
   line-height: ${RFValue(16.41)}px;
   color: ${theme.colors.header};
-  margin-bottom: ${RFValue(4)}px;
 `
 export const Description = styled.Text`
   height: ${RFValue(36)}px;
+  padding-top: ${RFValue(3)}px;
   font-weight: 400;
   font-size: ${RFValue(13)}px;
   line-height: ${RFValue(11.72)}px;

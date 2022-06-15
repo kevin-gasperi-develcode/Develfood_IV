@@ -20,6 +20,11 @@ interface Restaurant {
   id: number
   name: string
   photo_url: string
+  food_types: FoodTypes[]
+}
+interface FoodTypes {
+  id: number
+  name: string
 }
 export function Home() {
   const navigation = useNavigation()
@@ -64,6 +69,7 @@ export function Home() {
       { id, name, photo_url } as never,
     )
   }
+
   return (
     <>
       <StatusBar
@@ -103,6 +109,7 @@ export function Home() {
               dataImage={item.photo_url}
               name={item.name}
               id={item.id}
+              foodTypes={item.food_types}
             />
           </Wrapper>
         )}
