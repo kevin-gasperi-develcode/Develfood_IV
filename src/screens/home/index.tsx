@@ -63,10 +63,10 @@ export function Home() {
     } else setDataRestaurants([]), setFilter({ text: '', page: 0 })
   }
 
-  function handlerNavigate(id: number, name: string, photo_url: string) {
+  function handlerNavigate(id: number, name: string, photo_url: string, food_types:any) {
     navigation.navigate(
       'RestaurantProfile' as never,
-      { id, name, photo_url } as never,
+      { id, name, photo_url, food_types } as never,
     )
   }
 
@@ -104,12 +104,12 @@ export function Home() {
           <Wrapper>
             <CardRestaurant
               onPress={() =>
-                handlerNavigate(item.id, item.name, item.photo_url)
+                handlerNavigate(item.id, item.name, item.photo_url, item.food_types[0])
               }
               dataImage={item.photo_url}
               name={item.name}
               id={item.id}
-              foodTypes={item.food_types}
+              foodTypes={item.food_types[0]}
             />
           </Wrapper>
         )}

@@ -21,7 +21,7 @@ interface RestaurantFood {
   id: number
   description: string
   price: number
-  foodType: {
+  food_types: {
     id: number
     name: string
   }
@@ -34,7 +34,7 @@ interface ImageData {
   code: string
 }
 export function RestaurantProfile({ route }: any) {
-  const { id, name, photo_url } = route.params
+  const { id, name, photo_url, food_types } = route.params
   const [filter, setFilter] = useState({ text: '' })
   const [dataFood, setDataFood] = useState<RestaurantFood[]>([])
   const { authState } = useAuth()
@@ -49,7 +49,6 @@ export function RestaurantProfile({ route }: any) {
   }, [filter.text])
   function dataReturn(response: RestaurantFood[]) {
     setDataFood([...dataFood, ...response])
-    console.log(response)
   }
 
   const debounced = useDebouncedCallback((text) => {
@@ -69,7 +68,7 @@ export function RestaurantProfile({ route }: any) {
   const { fetchData: fetchImage, data: dataImage } = useGet<ImageData>(photo, {
     headers: { Authorization: ` Bearer ${authState.token}` },
   })
-
+  
   return (
     <>
       <StatusBar
@@ -101,6 +100,7 @@ export function RestaurantProfile({ route }: any) {
               <RestaurantInfo
                 nameRestaurant={name}
                 imageRestaurant={dataImage.code}
+                food_types={food_types}
               />
               <TextPratos>Pratos</TextPratos>
               <SearchFood

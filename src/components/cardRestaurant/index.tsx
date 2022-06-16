@@ -23,7 +23,7 @@ interface RestaurantProps {
   dataImage?: any
   name: string
   onPress: (event: GestureResponderEvent) => void
-  foodTypes: FoodTypes[]
+  foodTypes: FoodTypes
 }
 interface ImageData {
   id: number
@@ -68,7 +68,14 @@ export function CardRestaurant({
     }
   }
 
-  // [{"id": 1, "name": "FASTFOOD"}, {"id": 2, "name": "PIZZA"}, {"id": 3, "name": "ITALIANA"}, {"id": 4, "name": "DOCE"}]
+  function dataTypesFunction() {
+    if (foodTypes === undefined) {
+      return '--'
+    } else {
+      return foodTypes.name     
+    }
+  }
+  
   return (
     <ContainerButton onPress={onPress} activeOpacity={1}>
       <ImageRestaurant
@@ -85,7 +92,7 @@ export function CardRestaurant({
       </ViewFavorite>
       <ViewInfo>
         <TextInfo>{name}</TextInfo>
-        <TextCategories>l</TextCategories>
+        <TextCategories>{dataTypesFunction()}</TextCategories>
         <RateContainer>
           <ImageRate source={require('../../assets/icons/star-rate.png')} />
           <View>
