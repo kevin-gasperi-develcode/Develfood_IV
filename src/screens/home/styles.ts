@@ -9,12 +9,20 @@ export const TitleCategories = styled.Text`
   font-family: ${theme.fonts.secondaryReg};
   font-weight: 500;
 `
+export const ViewHomeCategories = styled.View`
+  align-self: center;
+`
+export const ViewSearchREstaurant = styled.View`
+  align-self: center;
+  width: 90%;
+`
 export const FlatListMod = styled.FlatList`
   width: 100%;
   background-color: #ffffff;
 `
 export const Wrapper = styled.View`
   align-self: center;
+  justify-content: space-between;
 `
 export const ViewLoading = styled.View`
   width: 100%;

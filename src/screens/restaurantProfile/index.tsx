@@ -47,6 +47,7 @@ export function RestaurantProfile({ route }: any) {
   useEffect(() => {
     ;(async () => await fetchData())()
   }, [filter.text])
+
   function dataReturn(response: RestaurantFood[]) {
     setDataFood([...dataFood, ...response])
   }
@@ -57,6 +58,7 @@ export function RestaurantProfile({ route }: any) {
   function handleSearch(text: string) {
     if (text.length > 1) {
       setDataFood([])
+
       setFilter({ text: text })
     } else setDataFood([]), setFilter({ text: '' })
   }
@@ -65,10 +67,11 @@ export function RestaurantProfile({ route }: any) {
   useEffect(() => {
     ;(async () => await fetchImage())()
   }, [photo])
+
   const { fetchData: fetchImage, data: dataImage } = useGet<ImageData>(photo, {
     headers: { Authorization: ` Bearer ${authState.token}` },
   })
-  
+
   return (
     <>
       <StatusBar

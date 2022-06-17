@@ -6,7 +6,6 @@ export const ContainerButton = styled.TouchableOpacity`
   width: ${RFValue(156)}px;
   height: ${RFValue(173)}px;
   border-radius: 8px;
-  margin-right: 10px;
 `
 export const ViewFavorite = styled.View`
   width: ${RFValue(42)}px;

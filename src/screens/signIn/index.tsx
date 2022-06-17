@@ -50,7 +50,7 @@ export function SignIn() {
   })
 
   function signInSuccess(data: any) {
-    data.token && setAuthState(data), navigation.navigate('Routes' as never)
+    data.token && setAuthState(data), navigation.navigate('Routes')
   }
 
   function signInError(error: AxiosError<any, any> | any) {
@@ -69,7 +69,7 @@ export function SignIn() {
   )
 
   function handleNavigationRegister() {
-    navigation.navigate('Register' as never)
+    navigation.navigate('Register')
   }
 
   return (

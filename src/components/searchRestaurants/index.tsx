@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Container,
   ImageSearch,
   InputRestaurants,
   TextInputMod,
@@ -13,16 +12,14 @@ interface InputProps {
 
 export function SearchRestaurants({ textChange }: InputProps) {
   return (
-    <Container>
-      <InputRestaurants>
-        <ViewSearch>
-          <ImageSearch source={require('../../assets/icons/search-icon.png')} />
-        </ViewSearch>
-        <TextInputMod
-          placeholder="Buscar restaurantes"
-          onChangeText={textChange}
-        />
-      </InputRestaurants>
-    </Container>
+    <InputRestaurants>
+      <ViewSearch>
+        <ImageSearch source={require('../../assets/icons/search-icon.png')} />
+      </ViewSearch>
+      <TextInputMod
+        placeholder="Buscar restaurantes"
+        onChangeText={textChange}
+      />
+    </InputRestaurants>
   )
 }

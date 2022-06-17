@@ -26,7 +26,7 @@ export function Register3({ route }: any) {
     route.params
 
   function createUserSuccess(data: any) {
-    data.password && navigation.navigate('RegisterSucess' as never)
+    data.password && navigation.navigate('RegisterSucess')
   }
 
   function createUserError(error: AxiosError<any, any> | any) {

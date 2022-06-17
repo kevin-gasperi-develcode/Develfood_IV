@@ -24,12 +24,14 @@ export default function Routes() {
           component={Home}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{  width: 75, alignItems: 'center' }}>
+              <View style={{ width: 75, alignItems: 'center' }}>
                 <Image
-                  source={require('../assets/icons/home_red.png')}
+                  source={require('../assets/icons/home_tab_icon.png')}
                   resizeMode={'contain'}
                   style={{
-                    tintColor: focused ? theme.colors.background_red : '#DEDCDC',
+                    tintColor: focused
+                      ? theme.colors.background_red
+                      : '#DEDCDC',
                     height: focused ? 25 : 23,
                   }}
                 />
@@ -43,12 +45,14 @@ export default function Routes() {
           component={Favorites}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{  width: 75, alignItems: 'center' }}>
+              <View style={{ width: 75, alignItems: 'center' }}>
                 <Image
-                  source={require('../assets/icons/favorites_red.png')}
+                  source={require('../assets/icons/favorite_tab_icon.png')}
                   resizeMode={'contain'}
                   style={{
-                    tintColor: focused ? theme.colors.background_red : '#DEDCDC',
+                    tintColor: focused
+                      ? theme.colors.background_red
+                      : '#DEDCDC',
                     height: focused ? 25 : 23,
                   }}
                 />
@@ -62,12 +66,14 @@ export default function Routes() {
           component={Demand}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{  width: 75, alignItems: 'center' }}>
+              <View style={{ width: 75, alignItems: 'center' }}>
                 <Image
-                  source={require('../assets/icons/history_red.png')}
+                  source={require('../assets/icons/demand_tab_icon.png')}
                   resizeMode={'contain'}
                   style={{
-                    tintColor: focused ? theme.colors.background_red : '#DEDCDC',
+                    tintColor: focused
+                      ? theme.colors.background_red
+                      : '#DEDCDC',
                     height: focused ? 25 : 23,
                   }}
                 />
@@ -81,12 +87,14 @@ export default function Routes() {
           component={Settings}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{  width: 75, alignItems: 'center' }}>
+              <View style={{ width: 75, alignItems: 'center' }}>
                 <Image
-                  source={require('../assets/icons/settings_red.png')}
+                  source={require('../assets/icons/settings_tab_icon.png')}
                   resizeMode={'contain'}
                   style={{
-                    tintColor: focused ? theme.colors.background_red : '#DEDCDC',
+                    tintColor: focused
+                      ? theme.colors.background_red
+                      : '#DEDCDC',
                     height: focused ? 25 : 23,
                   }}
                 />

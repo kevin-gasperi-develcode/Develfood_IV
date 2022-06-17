@@ -40,7 +40,7 @@ export function HeaderStandard({
       <BackButtonContainer
         onPress={
           backToStart
-            ? () => navigation.navigate('SignIn' as never)
+            ? () => navigation.navigate('SignIn')
             : () => navigation.goBack()
         }
       >

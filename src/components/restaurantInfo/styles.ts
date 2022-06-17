@@ -33,7 +33,7 @@ export const ImageRestautant = styled.Image`
 `
 export const BarGray = styled.View`
   height: ${RFValue(2.2)}px;
-  width: ${RFValue(343)}px;
+  width: 100%;
   background-color: #f0f0f5;
   align-self: center;
 `

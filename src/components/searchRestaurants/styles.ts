@@ -2,16 +2,15 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
-export const Container = styled.View`
-  align-self: center;
-`
 export const InputRestaurants = styled.View`
   height: ${RFValue(50)}px;
-  width: ${RFValue(339)}px;
+  width: 100%;
   border: ${RFValue(1.4)}px;
   border-color: #bfbaba;
   border-radius: 10px;
   flex-direction: row;
+  background-color: ray;
+  align-self: center;
 `
 export const ImageSearch = styled.Image`
   margin-left: ${RFValue(17)}px;

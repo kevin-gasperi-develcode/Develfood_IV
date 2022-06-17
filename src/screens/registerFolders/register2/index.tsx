@@ -20,20 +20,17 @@ export function Register2({ route }: any) {
   const onSignInPressed = () => {
     const values = getValues()
     const { email, password } = route.params
-    navigation.navigate(
-      'Register3' as never,
-      {
-        email,
-        password,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        cpf: values.cpf,
-        phone: values.phone,
-        photo: {
-          code: ' ',
-        },
-      } as never,
-    )
+    navigation.navigate('Register3', {
+      email,
+      password,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      cpf: values.cpf,
+      phone: values.phone,
+      photo: {
+        code: ' ',
+      },
+    } as never)
   }
 
   return (
@@ -46,7 +43,7 @@ export function Register2({ route }: any) {
           />
           <ScrollView showsVerticalScrollIndicator={true}>
             <RegisterSteps
-              circle={theme.icons.circle_filled}
+              circle={theme.icons.circle_empty}
               circle1={theme.icons.circle_empty}
               circle2={theme.icons.circle_empty}
               girl={theme.icons.girl_rigth_h_up}
@@ -84,14 +81,14 @@ export function Register2({ route }: any) {
                 control={control}
                 rules={{
                   required: 'CPF deve ser preenchido',
-                  // minLength: {
-                  //   value: 11,
-                  //   message: 'O CPF deve conter 11 digitos',
-                  // },
-                  // maxLength: {
-                  //   value: 11,
-                  //   message: 'O CPF deve conter 11 digitos',
-                  // },
+                  minLength: {
+                    value: 11,
+                    message: 'O CPF deve conter 11 digitos',
+                  },
+                  maxLength: {
+                    value: 11,
+                    message: 'O CPF deve conter 11 digitos',
+                  },
                 }}
               />
               <CustomInput
@@ -102,14 +99,14 @@ export function Register2({ route }: any) {
                 control={control}
                 rules={{
                   required: 'O telefone deve ser preenchido',
-                  // minLength: {
-                  //   value: 11,
-                  //   message: ' Exemplo de preenchimento (xx) xxxxx xxxx',
-                  // },
-                  // maxLength: {
-                  //   value: 11,
-                  //   message: 'O telefone deve conter 11 digitos',
-                  // },
+                  minLength: {
+                    value: 11,
+                    message: ' Exemplo de preenchimento (xx) xxxxx xxxx',
+                  },
+                  maxLength: {
+                    value: 11,
+                    message: 'O telefone deve conter 11 digitos',
+                  },
                 }}
               />
               <ViewButton>

@@ -17,7 +17,7 @@ export function RegisterSucess() {
   const navigation = useNavigation()
 
   const onSignInPressed = () => {
-    navigation.navigate('SignIn' as never)
+    navigation.navigate('SignIn')
   }
 
   return (

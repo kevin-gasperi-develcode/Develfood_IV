@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, StatusBar } from 'react-native'
+import { Dimensions, StatusBar, View } from 'react-native'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
 import { BannerHomeImage } from '../../components/bannerHomeImages'
 import { CardRestaurant } from '../../components/cardRestaurant'
@@ -7,7 +7,14 @@ import { HeaderAddress } from '../../components/headerAddress'
 import { SearchRestaurants } from '../../components/searchRestaurants'
 import theme from '../../global/theme'
 import { useGet } from '../../services'
-import { FlatListMod, TitleCategories, ViewLoading, Wrapper } from './styles'
+import {
+  FlatListMod,
+  TitleCategories,
+  ViewHomeCategories,
+  ViewLoading,
+  ViewSearchREstaurant,
+  Wrapper,
+} from './styles'
 import { useAuth } from '../../context/auth'
 import { Load } from '../../components/load'
 import { RFValue } from 'react-native-responsive-fontsize'
@@ -34,8 +41,11 @@ export function Home() {
     text: '',
     page: 0,
   })
-  const CardMargins =
-    (Dimensions.get('screen').width - RFValue(312)) / RFValue(3.5)
+
+  function CardMargins() {
+    return (Dimensions.get('screen').width - RFValue(312)) / RFValue(3)
+  }
+
   const { loading, fetchData } = useGet<ApiData>(
     `/restaurant/filter?name=${filter.text}&page=${filter.page}&quantity=10`,
     { headers: { Authorization: ` Bearer ${authState.token}` } },
@@ -63,11 +73,18 @@ export function Home() {
     } else setDataRestaurants([]), setFilter({ text: '', page: 0 })
   }
 
-  function handlerNavigate(id: number, name: string, photo_url: string, food_types:any) {
-    navigation.navigate(
-      'RestaurantProfile' as never,
-      { id, name, photo_url, food_types } as never,
-    )
+  function handlerNavigate(
+    id: number,
+    name: string,
+    photo_url: string,
+    food_types: any,
+  ) {
+    navigation.navigate('RestaurantProfile', {
+      id,
+      name,
+      photo_url,
+      food_types,
+    } as never)
   }
 
   return (
@@ -76,6 +93,7 @@ export function Home() {
         barStyle={'default'}
         backgroundColor={theme.colors.background_red}
       />
+      <HeaderAddress />
       <FlatListMod
         onEndReachedThreshold={0.1}
         showsVerticalScrollIndicator={false}
@@ -83,16 +101,19 @@ export function Home() {
         data={dataRestaurants}
         columnWrapperStyle={{
           justifyContent: 'space-between',
-          paddingHorizontal: RFValue(CardMargins),
+          paddingHorizontal: RFValue(CardMargins()),
           marginTop: 10,
         }}
         ListHeaderComponent={
           <>
-            <HeaderAddress />
             <BannerHomeImage />
             <TitleCategories>Categorias</TitleCategories>
-            <BannerHomeCategories />
-            <SearchRestaurants textChange={(text) => debounced(text)} />
+            <ViewHomeCategories>
+              <BannerHomeCategories />
+            </ViewHomeCategories>
+            <ViewSearchREstaurant>
+              <SearchRestaurants textChange={(text) => debounced(text)} />
+            </ViewSearchREstaurant>
           </>
         }
         onEndReached={handlerOnEndReached}
@@ -104,7 +125,12 @@ export function Home() {
           <Wrapper>
             <CardRestaurant
               onPress={() =>
-                handlerNavigate(item.id, item.name, item.photo_url, item.food_types[0])
+                handlerNavigate(
+                  item.id,
+                  item.name,
+                  item.photo_url,
+                  item.food_types[0],
+                )
               }
               dataImage={item.photo_url}
               name={item.name}

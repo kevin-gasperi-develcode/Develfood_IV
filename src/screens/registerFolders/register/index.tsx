@@ -31,10 +31,10 @@ export function Register() {
 
   const onSignInPressed = () => {
     const values = getValues()
-    navigation.navigate(
-      'Register2' as never,
-      { email: values.email, password: values.password } as never,
-    )
+    navigation.navigate('Register2', {
+      email: values.email,
+      password: values.password,
+    } as never)
   }
 
   return (
