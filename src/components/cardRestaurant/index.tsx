@@ -52,13 +52,12 @@ export function CardRestaurant({
     headers: { Authorization: ` Bearer ${authState.token}` },
   })
 
-  const {
-    fetchData: fetchId,
-    data: dataId,
-    error: errorId,
-  } = useGet<number>(`restaurantEvaluation/${id}/grade`, {
-    headers: { Authorization: ` Bearer ${authState.token}` },
-  })
+  const { fetchData: fetchId, data: dataId } = useGet<number>(
+    `restaurantEvaluation/${id}/grade`,
+    {
+      headers: { Authorization: ` Bearer ${authState.token}` },
+    },
+  )
 
   function dataIdFunction() {
     if (dataId?.toString() === '[object Object]') {
@@ -72,10 +71,10 @@ export function CardRestaurant({
     if (foodTypes === undefined) {
       return '--'
     } else {
-      return foodTypes.name     
+      return foodTypes.name
     }
   }
-  
+
   return (
     <ContainerButton onPress={onPress} activeOpacity={1}>
       <ImageRestaurant
