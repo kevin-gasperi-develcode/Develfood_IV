@@ -12,6 +12,7 @@ interface InputProps {
 }
 
 export function SearchRestaurants({ textChange }: InputProps) {
+
   return (
     <Container>
       <InputRestaurants>
