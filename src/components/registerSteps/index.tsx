@@ -1,18 +1,28 @@
 import React from 'react'
-import { Image } from 'react-native'
-import { Container, ImageGirl, ViewConlusionRegister } from './styles'
+import { Image, ImageSourcePropType } from 'react-native'
+import {
+  Container,
+  ImageCircle,
+  ImageGirl,
+  ViewConlusionRegister,
+} from './styles'
 
-export function RegisterSteps({ circle, circle1, circle2, girl }: any) {
+interface ImageProps {
+  circle: ImageSourcePropType
+  circle1: ImageSourcePropType
+  circle2: ImageSourcePropType
+  girl: ImageSourcePropType
+}
+
+export function RegisterSteps({ circle, circle1, circle2, girl }: ImageProps) {
   return (
     <Container>
       <ViewConlusionRegister>
-        <Image source={circle} />
-        <Image source={circle1} />
-        <Image source={circle2} />
+        <ImageCircle resizeMode="contain" source={circle} />
+        <ImageCircle resizeMode="contain" source={circle1} />
+        <ImageCircle resizeMode="contain" source={circle2} />
       </ViewConlusionRegister>
-      <ImageGirl>
-        <Image source={girl} />
-      </ImageGirl>
+      <ImageGirl source={girl} resizeMode="contain" />
     </Container>
   )
 }

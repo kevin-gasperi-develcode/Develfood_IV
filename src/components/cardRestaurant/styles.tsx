@@ -2,12 +2,10 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
-export const Container = styled.View`
+export const ContainerButton = styled.TouchableOpacity`
   width: ${RFValue(156)}px;
   height: ${RFValue(173)}px;
   border-radius: 8px;
-  margin-top: ${RFValue(18)}px;
-  margin-right: ${RFValue(25)}px;
 `
 export const ViewFavorite = styled.View`
   width: ${RFValue(42)}px;
@@ -33,12 +31,10 @@ export const ImageRestaurant = styled.Image`
   position: absolute;
 `
 
-export const ViewInfo = styled.View`
+export const ViewInfo = styled.View.attrs({ elevation: 10 })`
   width: ${RFValue(156)}px;
   height: ${RFValue(69)}px;
-  border: ${RFValue(1.5)}px;
   border-radius: 8px;
-  border-color: #bfbaba;
   top: ${RFValue(104)}px;
   position: absolute;
   background-color: white;

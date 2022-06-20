@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Text, Image, StatusBar, Alert } from 'react-native'
+import { Text, StatusBar, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useAuth } from '../../context/auth'
 import {
@@ -9,10 +9,15 @@ import {
   ViewInputComponents,
   ViewInputs,
   TextSenha,
+  ImageCheese,
+  ImagePizza,
+  ImageDevelfood,
+  ImageRedDust,
+  TextRegister,
+  TextRegisterRed,
 } from './style'
 import { usePost } from '../../services'
 import { ButtonStandard } from '../../components/buttonStandard'
-import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components'
 import { CustomInput } from '../../components/customInput'
 import { useForm } from 'react-hook-form'
@@ -25,18 +30,15 @@ interface TResponse {
   token: string
   type: string
 }
-interface RequestProps {
-  endpoint: string
-  body: {}
-  error: {
-    title: string
-    message: string
-  }
-}
+
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/
 
 export function SignIn() {
+  const cheesePhoto = require('../../assets/icons/cheese_image.png')
+  const pizzaPhoto = require('../../assets/icons/pizza_image.png')
+  const redDustPhoto = require('../../assets/icons/backgroundRedDust.png')
+
   const { setAuthState } = useAuth()
   const navigation = useNavigation()
   const theme = useTheme()
@@ -50,7 +52,7 @@ export function SignIn() {
   })
 
   function signInSuccess(data: any) {
-    data.token && setAuthState(data), navigation.navigate('Routes' as never)
+    data.token && setAuthState(data), navigation.navigate('Routes')
   }
 
   function signInError(error: AxiosError<any, any> | any) {
@@ -69,7 +71,7 @@ export function SignIn() {
   )
 
   function handleNavigationRegister() {
-    navigation.navigate('Register' as never)
+    navigation.navigate('Register')
   }
 
   return (
@@ -81,38 +83,35 @@ export function SignIn() {
             backgroundColor={'transparent'}
           />
           <ImagesContainer>
-            <Image source={require('../../assets/icons/cheese_image.png')} />
-            <Image
-              source={require('../../assets/icons/pizza_image.png')}
-              style={{ height: RFValue(300) }}
-            />
+            <ImageCheese source={cheesePhoto} resizeMode="contain" />
+            <ImagePizza source={pizzaPhoto} resizeMode="contain" />
           </ImagesContainer>
 
           <ViewInputComponents>
-            <Image source={theme.icons.develfood} style={{ marginTop: -60 }} />
+            <ImageDevelfood source={theme.icons.develfood} resizeMode="cover" />
             <ViewInputs>
               <CustomInput
-                image={require('../../assets/icons/E-mail.png')}
+                image={theme.icons.email_icon}
                 name="email"
                 placeholder="exemplo@email.com"
                 keybord="email-address"
                 control={control}
                 rules={{
-                  required: 'usuario deve ser preenchido',
+                  required: 'O usuário deve ser preenchido',
                   pattern: EMAIL_REGEX,
                 }}
               />
               <CustomInput
-                image={require('../../assets/icons/Password.png')}
+                image={theme.icons.password_icon}
                 name="password"
                 placeholder="senha"
                 control={control}
                 password={true}
                 rules={{
-                  required: 'senha deve ser preenchida',
+                  required: 'A senha deve ser preenchida',
                   minLength: {
                     value: 5,
-                    message: 'senha precisa de 5 caracters no mínimo',
+                    message: 'As senhas contém 5 caracters no mínimo',
                   },
                 }}
               />
@@ -131,34 +130,14 @@ export function SignIn() {
               />
 
               <TouchableOpacity onPress={handleNavigationRegister}>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    marginTop: 10,
-                    alignSelf: 'flex-end',
-                  }}
-                >
+                <TextRegister>
                   Não possui cadastro?
-                  {
-                    <Text
-                      style={{
-                        color: 'red',
-                        position: 'absolute',
-                        fontSize: 14,
-                      }}
-                    >
-                      {' '}
-                      Cadastre-se Aqui!
-                    </Text>
-                  }
-                </Text>
+                  {<TextRegisterRed> Cadastre-se Aqui!</TextRegisterRed>}
+                </TextRegister>
               </TouchableOpacity>
             </ViewInputs>
           </ViewInputComponents>
-          <Image
-            source={require('../../assets/icons/backgroundSignIn.png')}
-            style={{ marginTop: -30 }}
-          />
+          <ImageRedDust source={redDustPhoto} />
         </ScrollView>
       </Container>
     </>

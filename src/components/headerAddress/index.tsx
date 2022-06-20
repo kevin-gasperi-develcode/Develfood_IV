@@ -6,11 +6,11 @@ import { useNavigation } from '@react-navigation/native'
 import theme from '../../global/theme'
 
 export function HeaderAddress() {
-  const navigation = useNavigation()
+  const mapLogo = require('../../assets/icons/map-logo.png')
 
   return (
     <Container>
-      <ImageGoBack source={require('../../assets/icons/map-logo.png')} />
+      <ImageGoBack source={mapLogo} />
 
       <TextContainer>
         <TextTitle>rua Arcy da Nobrega 667, Panazollo</TextTitle>

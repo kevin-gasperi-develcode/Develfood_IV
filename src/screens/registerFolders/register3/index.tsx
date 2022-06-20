@@ -22,12 +22,11 @@ export function Register3({ route }: any) {
   } = useForm()
   const navigation = useNavigation()
   const theme = useTheme()
-  const values = getValues()
   const { email, password, firstName, lastName, cpf, phone, photo } =
     route.params
 
   function createUserSuccess(data: any) {
-    data.password && navigation.navigate('RegisterSucess' as never)
+    data.password && navigation.navigate('RegisterSucess')
   }
 
   function createUserError(error: AxiosError<any, any> | any) {
@@ -60,9 +59,9 @@ export function Register3({ route }: any) {
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-between' }}
             >
-              <View style={{ width: RFValue(150) }}>
+              <View style={{ width: RFValue(155) }}>
                 <CustomInput
-                  image={require('../../../assets/icons/Map.png')}
+                  image={theme.icons.map_icon}
                   name="nickname"
                   placeholder="Apelido do End."
                   control={control}
@@ -74,28 +73,28 @@ export function Register3({ route }: any) {
               </View>
               <View style={{ width: RFValue(120) }}>
                 <CustomInput
-                  image={require('../../../assets/icons/Map.png')}
+                  image={theme.icons.map_icon}
                   name="cep"
                   placeholder="CEP"
                   control={control}
                   keybord="numeric"
                   rules={{
                     required: 'Campo obrigatório',
-                    // minLength: {
-                    //   value: 8,
-                    //   message: 'CEP com 8 digitos',
-                    // },
-                    // maxLength: {
-                    //   value: 8,
-                    //   message: 'CEP com 8 digitos',
-                    // },
+                    minLength: {
+                      value: 8,
+                      message: 'CEP com 8 digitos',
+                    },
+                    maxLength: {
+                      value: 8,
+                      message: 'CEP com 8 digitos',
+                    },
                   }}
                 />
               </View>
             </View>
 
             <CustomInput
-              image={require('../../../assets/icons/Map.png')}
+              image={theme.icons.map_icon}
               name="street"
               placeholder="Rua"
               control={control}
@@ -104,7 +103,7 @@ export function Register3({ route }: any) {
               }}
             />
             <CustomInput
-              image={require('../../../assets/icons/Map.png')}
+              image={theme.icons.map_icon}
               name="city"
               placeholder="Cidade"
               control={control}
@@ -113,7 +112,7 @@ export function Register3({ route }: any) {
               }}
             />
             <CustomInput
-              image={require('../../../assets/icons/Map.png')}
+              image={theme.icons.map_icon}
               name="neighborhood"
               placeholder="Bairro"
               control={control}
@@ -126,7 +125,7 @@ export function Register3({ route }: any) {
             >
               <View style={{ width: RFValue(135) }}>
                 <CustomInput
-                  image={require('../../../assets/icons/Map.png')}
+                  image={theme.icons.map_icon}
                   name="state"
                   placeholder="Estado"
                   control={control}
@@ -138,7 +137,7 @@ export function Register3({ route }: any) {
               </View>
               <View style={{ width: RFValue(135) }}>
                 <CustomInput
-                  image={require('../../../assets/icons/Map.png')}
+                  image={theme.icons.map_icon}
                   name="number"
                   placeholder="Número"
                   keybord="numeric"
@@ -169,7 +168,7 @@ export function Register3({ route }: any) {
                       lastName,
                       cpf,
                       phone,
-                      photo: '',
+                      photo,
                       address: [
                         {
                           street: getValues().street,

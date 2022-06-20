@@ -31,10 +31,10 @@ export function Register() {
 
   const onSignInPressed = () => {
     const values = getValues()
-    navigation.navigate(
-      'Register2' as never,
-      { email: values.email, password: values.password } as never,
-    )
+    navigation.navigate('Register2', {
+      email: values.email,
+      password: values.password,
+    } as never)
   }
 
   return (
@@ -55,7 +55,7 @@ export function Register() {
 
             <ViewInputs>
               <CustomInput
-                image={require('../../../assets/icons/E-mail.png')}
+                image={theme.icons.email_icon}
                 name="email"
                 placeholder="exemplo@email.com"
                 keybord="email-address"
@@ -67,22 +67,22 @@ export function Register() {
               />
 
               <CustomInput
-                image={require('../../../assets/icons/Password.png')}
+                image={theme.icons.password_icon}
                 name="password"
                 placeholder="senha"
                 control={control}
                 password={true}
                 rules={{
                   required: 'senha deve ser preenchida',
-                  // minLength: {
-                  //   value: 5,
-                  //   message: 'senha precisa de 5 caracters no mínimo',
-                  // },
+                  minLength: {
+                    value: 5,
+                    message: 'senha precisa de no mínimo 5 caracters',
+                  },
                 }}
               />
               <CustomInput
-                image={require('../../../assets/icons/Password.png')}
-                name="password confirm"
+                image={theme.icons.password_icon}
+                name="password_confirm"
                 placeholder="confirmar senha"
                 control={control}
                 password={true}

@@ -7,6 +7,8 @@ import { Register2 } from '../screens/registerFolders/register2'
 import { Register3 } from '../screens/registerFolders/register3'
 import Routes from './routes'
 import { RegisterSucess } from '../screens/registerFolders/registerSucess'
+import { RestaurantProfile } from '../screens/restaurantProfile'
+import { Home } from '../screens/home'
 
 export function RoutesStack() {
   const Stack = createStackNavigator()
@@ -46,6 +48,16 @@ export function RoutesStack() {
         options={{ headerShown: false }}
         name="Routes"
         component={Routes}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="RestaurantProfile"
+        component={RestaurantProfile}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Home"
+        component={Home}
       />
     </Stack.Navigator>
   )

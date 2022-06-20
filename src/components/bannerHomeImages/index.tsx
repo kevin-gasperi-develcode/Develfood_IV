@@ -9,6 +9,10 @@ import {
 } from './styles'
 
 export function BannerHomeImage() {
+  const banner1 = require('../../assets/images/banner-image-1.png')
+  const banner2 = require('../../assets/images/banner-image-2.png')
+  const banner3 = require('../../assets/images/banner-image-3.png')
+
   return (
     <Container>
       <ScrollView
@@ -16,15 +20,9 @@ export function BannerHomeImage() {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       >
-        <ImageBanner
-          source={require('../../assets/images/banner-image-1.png')}
-        />
-        <ImageBanner
-          source={require('../../assets/images/banner-image-2.png')}
-        />
-        <ImageBanner
-          source={require('../../assets/images/banner-image-3.png')}
-        />
+        <ImageBanner source={banner1} />
+        <ImageBanner source={banner2} />
+        <ImageBanner source={banner3} />
       </ScrollView>
       <ViewCircles>
         <ViewCirclesGroup>

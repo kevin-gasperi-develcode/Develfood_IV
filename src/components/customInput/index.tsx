@@ -1,8 +1,18 @@
 import React, { useState } from 'react'
-import { TextInput } from 'react-native-gesture-handler'
-import { ButtonSecurity, Container, Input, SecurityItem } from './styles'
+import {
+  ButtonSecurity,
+  Container,
+  ImageLogo,
+  Input,
+  SecurityImage,
+} from './styles'
 import { Controller } from 'react-hook-form'
-import { Image, KeyboardTypeOptions, Text, View } from 'react-native'
+import {
+  Image,
+  ImageSourcePropType,
+  KeyboardTypeOptions,
+  Text,
+} from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import theme from '../../global/theme'
 
@@ -11,7 +21,7 @@ interface CustomInputProps {
   name: string
   placeholder: string
   rules?: object
-  image?: any
+  image: ImageSourcePropType
   keybord?: KeyboardTypeOptions
   password?: boolean
 }
@@ -40,7 +50,7 @@ export function CustomInput({
       }) => (
         <>
           <Container style={{ borderColor: error ? '#C20C18' : '#BFBABA' }}>
-            <Image source={image} style={{ margin: 5 }} />
+            <ImageLogo source={image} resizeMode={'contain'} />
             <Input
               style={{ fontSize: RFValue(16) }}
               value={value}
@@ -52,7 +62,10 @@ export function CustomInput({
             />
             {password && (
               <ButtonSecurity onPress={handlerSecurity}>
-                <SecurityItem source={theme.icons.security_icon}></SecurityItem>
+                <SecurityImage
+                  source={theme.icons.security_icon}
+                  resizeMode={'contain'}
+                ></SecurityImage>
               </ButtonSecurity>
             )}
           </Container>

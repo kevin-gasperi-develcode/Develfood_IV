@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Image, Text } from 'react-native'
 import { useTheme } from 'styled-components'
 import { ButtonStandard } from '../../../components/buttonStandard'
 import { HeaderStandard } from '../../../components/headerStandard'
@@ -18,7 +17,7 @@ export function RegisterSucess() {
   const navigation = useNavigation()
 
   const onSignInPressed = () => {
-    navigation.navigate('SignIn' as never)
+    navigation.navigate('SignIn')
   }
 
   return (
