@@ -2,7 +2,6 @@ import React from 'react'
 import { Text } from 'react-native'
 import theme from '../../global/theme'
 import {
-  Container,
   ImageSearch,
   InputRestaurants,
   TextInputMod,
@@ -18,7 +17,7 @@ export function SearchFood({ textChange, nameRestaurant }: InputProps) {
   return (
     <InputRestaurants>
       <ViewSearch>
-        <ImageSearch source={require('../../assets/icons/search-icon.png')} />
+        <ImageSearch source={theme.icons.serch_icon} resizeMode={'contain'} />
       </ViewSearch>
       <TextInputMod
         onChangeText={textChange}

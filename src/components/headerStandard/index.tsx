@@ -1,5 +1,4 @@
 import React from 'react'
-import { ImageProps, ImageSourcePropType, Text } from 'react-native'
 import {
   BackButtonContainer,
   Container,

@@ -1,3 +1,4 @@
+import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
@@ -10,6 +11,12 @@ export const ViewConlusionRegister = styled.View`
   justify-content: space-between;
   margin-bottom: 10px;
 `
-export const ImageGirl = styled.View`
-  align-items: center;
+
+export const ImageCircle = styled.Image`
+  height: ${RFValue(47)}px;
+  width: ${RFValue(47)}px;
+`
+export const ImageGirl = styled.Image`
+  align-self: center;
+  height: ${RFValue(200)}px;
 `

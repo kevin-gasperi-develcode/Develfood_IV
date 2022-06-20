@@ -1,11 +1,11 @@
 import React from 'react'
-import { Image, Text } from 'react-native'
+import { Image, ImageSourcePropType, Text } from 'react-native'
 import theme from '../../global/theme'
 import { Container } from './styles'
 
 interface TabProps {
-  focusedItem: any
-  tabIcon: any
+  focusedItem: boolean
+  tabIcon: ImageSourcePropType
   iconName: string
 }
 

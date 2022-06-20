@@ -1,4 +1,5 @@
 import React from 'react'
+import theme from '../../global/theme'
 import {
   ImageSearch,
   InputRestaurants,
@@ -14,10 +15,7 @@ export function SearchRestaurants({ textChange }: InputProps) {
   return (
     <InputRestaurants>
       <ViewSearch>
-        <ImageSearch
-          source={require('../../assets/icons/search-icon.png')}
-          resizeMode={'contain'}
-        />
+        <ImageSearch source={theme.icons.serch_icon} resizeMode={'contain'} />
       </ViewSearch>
       <TextInputMod
         placeholder="Buscar restaurantes"

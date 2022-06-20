@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Text, Image, StatusBar, Alert } from 'react-native'
+import { Text, StatusBar, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useAuth } from '../../context/auth'
 import {
@@ -13,10 +13,11 @@ import {
   ImagePizza,
   ImageDevelfood,
   ImageRedDust,
+  TextRegister,
+  TextRegisterRed,
 } from './style'
 import { usePost } from '../../services'
 import { ButtonStandard } from '../../components/buttonStandard'
-import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components'
 import { CustomInput } from '../../components/customInput'
 import { useForm } from 'react-hook-form'
@@ -29,18 +30,15 @@ interface TResponse {
   token: string
   type: string
 }
-interface RequestProps {
-  endpoint: string
-  body: {}
-  error: {
-    title: string
-    message: string
-  }
-}
+
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/
 
 export function SignIn() {
+  const cheesePhoto = require('../../assets/icons/cheese_image.png')
+  const pizzaPhoto = require('../../assets/icons/pizza_image.png')
+  const redDustPhoto = require('../../assets/icons/backgroundRedDust.png')
+
   const { setAuthState } = useAuth()
   const navigation = useNavigation()
   const theme = useTheme()
@@ -85,14 +83,8 @@ export function SignIn() {
             backgroundColor={'transparent'}
           />
           <ImagesContainer>
-            <ImageCheese
-              source={require('../../assets/icons/cheese_image.png')}
-              resizeMode="contain"
-            />
-            <ImagePizza
-              source={require('../../assets/icons/pizza_image.png')}
-              resizeMode="contain"
-            />
+            <ImageCheese source={cheesePhoto} resizeMode="contain" />
+            <ImagePizza source={pizzaPhoto} resizeMode="contain" />
           </ImagesContainer>
 
           <ViewInputComponents>
@@ -105,7 +97,7 @@ export function SignIn() {
                 keybord="email-address"
                 control={control}
                 rules={{
-                  required: 'usuario deve ser preenchido',
+                  required: 'O usuário deve ser preenchido',
                   pattern: EMAIL_REGEX,
                 }}
               />
@@ -116,10 +108,10 @@ export function SignIn() {
                 control={control}
                 password={true}
                 rules={{
-                  required: 'senha deve ser preenchida',
+                  required: 'A senha deve ser preenchida',
                   minLength: {
                     value: 5,
-                    message: 'senha precisa de 5 caracters no mínimo',
+                    message: 'As senhas contém 5 caracters no mínimo',
                   },
                 }}
               />
@@ -138,33 +130,14 @@ export function SignIn() {
               />
 
               <TouchableOpacity onPress={handleNavigationRegister}>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    marginTop: 10,
-                    alignSelf: 'flex-end',
-                  }}
-                >
+                <TextRegister>
                   Não possui cadastro?
-                  {
-                    <Text
-                      style={{
-                        color: 'red',
-                        position: 'absolute',
-                        fontSize: 14,
-                      }}
-                    >
-                      {' '}
-                      Cadastre-se Aqui!
-                    </Text>
-                  }
-                </Text>
+                  {<TextRegisterRed> Cadastre-se Aqui!</TextRegisterRed>}
+                </TextRegister>
               </TouchableOpacity>
             </ViewInputs>
           </ViewInputComponents>
-          <ImageRedDust
-            source={require('../../assets/icons/backgroundSignIn.png')}
-          />
+          <ImageRedDust source={redDustPhoto} />
         </ScrollView>
       </Container>
     </>

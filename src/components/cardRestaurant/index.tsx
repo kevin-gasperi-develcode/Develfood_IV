@@ -42,6 +42,7 @@ export function CardRestaurant({
 }: RestaurantProps) {
   const { authState } = useAuth()
   const photo = dataImage.slice(33)
+  const starRate = require('../../assets/icons/star-rate.png')
 
   useEffect(() => {
     ;(async () => await fetchData())()
@@ -88,18 +89,13 @@ export function CardRestaurant({
         }
       />
       <ViewFavorite>
-        <ImageFavorite
-          source={require('../../assets/icons/favorite-white.png')}
-        />
+        <ImageFavorite source={theme.icons.favorite_white} />
       </ViewFavorite>
       <ViewInfo>
         <TextInfo>{name}</TextInfo>
         <TextCategories>{dataTypesFunction()}</TextCategories>
         <RateContainer>
-          <ImageRate
-            source={require('../../assets/icons/star-rate.png')}
-            resizeMode={'contain'}
-          />
+          <ImageRate source={starRate} resizeMode={'contain'} />
           <View>
             <TextRate>{dataIdFunction()}</TextRate>
           </View>

@@ -59,7 +59,7 @@ export function Register3({ route }: any) {
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-between' }}
             >
-              <View style={{ width: RFValue(150) }}>
+              <View style={{ width: RFValue(155) }}>
                 <CustomInput
                   image={theme.icons.map_icon}
                   name="nickname"
@@ -80,14 +80,14 @@ export function Register3({ route }: any) {
                   keybord="numeric"
                   rules={{
                     required: 'Campo obrigatório',
-                    // minLength: {
-                    //   value: 8,
-                    //   message: 'CEP com 8 digitos',
-                    // },
-                    // maxLength: {
-                    //   value: 8,
-                    //   message: 'CEP com 8 digitos',
-                    // },
+                    minLength: {
+                      value: 8,
+                      message: 'CEP com 8 digitos',
+                    },
+                    maxLength: {
+                      value: 8,
+                      message: 'CEP com 8 digitos',
+                    },
                   }}
                 />
               </View>

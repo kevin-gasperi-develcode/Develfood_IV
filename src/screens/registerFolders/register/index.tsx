@@ -74,10 +74,10 @@ export function Register() {
                 password={true}
                 rules={{
                   required: 'senha deve ser preenchida',
-                  // minLength: {
-                  //   value: 5,
-                  //   message: 'senha precisa de no mínimo 5 caracters',
-                  // },
+                  minLength: {
+                    value: 5,
+                    message: 'senha precisa de no mínimo 5 caracters',
+                  },
                 }}
               />
               <CustomInput

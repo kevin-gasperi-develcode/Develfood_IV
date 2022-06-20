@@ -63,5 +63,6 @@ export default {
     favorite_white: require('../assets/icons/favorite-white.png'),
     plate_not_found: require('../assets/images/plate_not_found.png'),
     restaurant_without_img: require('../assets/images/restaurant-without-image.png'),
+    serch_icon: require('../assets/icons/search-icon.png'),
   },
 }
