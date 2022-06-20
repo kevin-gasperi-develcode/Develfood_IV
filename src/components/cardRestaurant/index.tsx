@@ -96,7 +96,10 @@ export function CardRestaurant({
         <TextInfo>{name}</TextInfo>
         <TextCategories>{dataTypesFunction()}</TextCategories>
         <RateContainer>
-          <ImageRate source={require('../../assets/icons/star-rate.png')} />
+          <ImageRate
+            source={require('../../assets/icons/star-rate.png')}
+            resizeMode={'contain'}
+          />
           <View>
             <TextRate>{dataIdFunction()}</TextRate>
           </View>

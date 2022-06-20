@@ -76,7 +76,7 @@ export function Register() {
                   required: 'senha deve ser preenchida',
                   // minLength: {
                   //   value: 5,
-                  //   message: 'senha precisa de 5 caracters no mínimo',
+                  //   message: 'senha precisa de no mínimo 5 caracters',
                   // },
                 }}
               />

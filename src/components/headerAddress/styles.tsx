@@ -12,6 +12,8 @@ export const TextContainer = styled.View`
   justify-content: center;
 `
 export const ImageGoBack = styled.Image`
+  height: ${RFValue(21)}px;
+  width: ${RFValue(24)}px;
   position: absolute;
   margin-top: ${RFValue(17)}px;
   margin-left: ${RFValue(16)}px;

@@ -9,6 +9,10 @@ import {
   ViewInputComponents,
   ViewInputs,
   TextSenha,
+  ImageCheese,
+  ImagePizza,
+  ImageDevelfood,
+  ImageRedDust,
 } from './style'
 import { usePost } from '../../services'
 import { ButtonStandard } from '../../components/buttonStandard'
@@ -81,15 +85,18 @@ export function SignIn() {
             backgroundColor={'transparent'}
           />
           <ImagesContainer>
-            <Image source={require('../../assets/icons/cheese_image.png')} />
-            <Image
+            <ImageCheese
+              source={require('../../assets/icons/cheese_image.png')}
+              resizeMode="contain"
+            />
+            <ImagePizza
               source={require('../../assets/icons/pizza_image.png')}
-              style={{ height: RFValue(300) }}
+              resizeMode="contain"
             />
           </ImagesContainer>
 
           <ViewInputComponents>
-            <Image source={theme.icons.develfood} style={{ marginTop: -60 }} />
+            <ImageDevelfood source={theme.icons.develfood} resizeMode="cover" />
             <ViewInputs>
               <CustomInput
                 image={theme.icons.email_icon}
@@ -155,9 +162,8 @@ export function SignIn() {
               </TouchableOpacity>
             </ViewInputs>
           </ViewInputComponents>
-          <Image
+          <ImageRedDust
             source={require('../../assets/icons/backgroundSignIn.png')}
-            style={{ marginTop: -30, alignSelf: 'center' }}
           />
         </ScrollView>
       </Container>

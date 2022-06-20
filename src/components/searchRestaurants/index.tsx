@@ -11,11 +11,13 @@ interface InputProps {
 }
 
 export function SearchRestaurants({ textChange }: InputProps) {
-
   return (
     <InputRestaurants>
       <ViewSearch>
-        <ImageSearch source={require('../../assets/icons/search-icon.png')} />
+        <ImageSearch
+          source={require('../../assets/icons/search-icon.png')}
+          resizeMode={'contain'}
+        />
       </ViewSearch>
       <TextInputMod
         placeholder="Buscar restaurantes"

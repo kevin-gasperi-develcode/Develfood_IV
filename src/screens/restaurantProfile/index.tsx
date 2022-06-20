@@ -90,7 +90,7 @@ export function RestaurantProfile({ route }: any) {
           ListEmptyComponent={
             loading ? null : (
               <>
-                <ImageNotFound source={theme.icons.not_found} />
+                <ImageNotFound source={theme.icons.plate_not_found} />
                 <TextNotFound>Nenhum prato encontrado</TextNotFound>
               </>
             )

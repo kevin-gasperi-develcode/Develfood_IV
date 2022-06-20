@@ -18,6 +18,7 @@ export default {
     text_gray: '#BFBABA',
     text_dark: '#2B2B2E',
 
+    icon_gray_tab: '#DEDCDC',
     icon_gray: '#BFBABA',
     icon_white: '#FFFFFF',
     icon_red: '#C20C18',
@@ -36,16 +37,18 @@ export default {
   },
 
   icons: {
-    home: require('../assets/icons/home.png'),
-    favorite: require('../assets/icons/favorites.png'),
-    history: require('../assets/icons/history.png'),
-    settings: require('../assets/icons/settings.png'),
+    home: require('../assets/icons/home_tab_icon.png'),
+    favorite: require('../assets/icons/favorite_tab_icon.png'),
+    demand: require('../assets/icons/demand_tab_icon.png'),
+    settings: require('../assets/icons/settings_tab_icon.png'),
+
     circle_empty: require('../assets/icons/vector-circle.png'),
     circle_filled: require('../assets/icons/vector_circle_green.png'),
     girl_rigth_h_up: require('../assets/icons/girl_right_hand-up.png'),
     girl_left_h_center: require('../assets/icons/girl_register.png'),
     girl_rigth_h_center: require('../assets/icons/girl_right_hand-center.png'),
     girl_success: require('../assets/icons/girl_success.png'),
+
     security_icon: require('../assets/icons/eye-slashed.png'),
     develfood: require('../assets/icons/develfood_logo.png'),
     back_button: require('../assets/icons/back-button.png'),
@@ -58,7 +61,7 @@ export default {
     cellphone_icon: require('../assets/icons/cellphone.png'),
     map_icon: require('../assets/icons/map.png'),
     favorite_white: require('../assets/icons/favorite-white.png'),
-    not_found: require('../assets/images/not_found.png'),
+    plate_not_found: require('../assets/images/plate_not_found.png'),
     restaurant_without_img: require('../assets/images/restaurant-without-image.png'),
   },
 }

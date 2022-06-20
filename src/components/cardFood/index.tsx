@@ -20,7 +20,7 @@ interface RestaurantFood {
   foodType?: any
   id?: number
   photo_url?: any
-  price?: number
+  price?: any
   restaurantName?: string
 }
 interface ImageData {
@@ -45,7 +45,11 @@ export function CardFood({
   const { fetchData, data } = useGet<ImageData>(photo, {
     headers: { Authorization: ` Bearer ${authState.token}` },
   })
-
+  function priceConverter() {
+    const priceTwoValues = parseFloat(price).toFixed(2)
+    const priceToStringFormatted = priceTwoValues.toString().replace('.', ',')
+    return priceToStringFormatted
+  }
   return (
     <Container>
       {data.code ? (
@@ -65,7 +69,7 @@ export function CardFood({
           {description}
         </Description>
         <Wrapper>
-          <TextPrice>R$ {price}</TextPrice>
+          <TextPrice>R$ {priceConverter()}</TextPrice>
           <AddButton>
             <TextButton>Adicionar</TextButton>
           </AddButton>
