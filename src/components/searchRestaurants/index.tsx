@@ -11,6 +11,7 @@ interface InputProps {
 }
 
 export function SearchRestaurants({ textChange }: InputProps) {
+
   return (
     <InputRestaurants>
       <ViewSearch>

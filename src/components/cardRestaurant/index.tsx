@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { GestureResponderEvent, View } from 'react-native'
 import { useAuth } from '../../context/auth'
 import { useGet } from '../../services'
+
 import {
   ContainerButton,
   ImageFavorite,
@@ -21,6 +22,7 @@ interface FoodTypes {
 interface RestaurantProps {
   id?: any
   dataImage?: any
+
   name: string
   onPress: (event: GestureResponderEvent) => void
   foodTypes: FoodTypes
@@ -97,6 +99,7 @@ export function CardRestaurant({
           <View>
             <TextRate>{dataIdFunction()}</TextRate>
           </View>
+
         </RateContainer>
       </ViewInfo>
     </ContainerButton>

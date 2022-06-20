@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, StatusBar, View } from 'react-native'
+import { Dimensions, StatusBar } from 'react-native'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
 import { BannerHomeImage } from '../../components/bannerHomeImages'
 import { CardRestaurant } from '../../components/cardRestaurant'
@@ -20,6 +20,7 @@ import { Load } from '../../components/load'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useDebouncedCallback } from 'use-debounce'
 import { useNavigation } from '@react-navigation/native'
+
 interface ApiData {
   content: Restaurant[]
 }
