@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { GestureResponderEvent, View } from 'react-native'
 import { useAuth } from '../../context/auth'
+import theme from '../../global/theme'
 import { useGet } from '../../services'
 
 import {
@@ -83,7 +84,7 @@ export function CardRestaurant({
         source={
           fetchDataImage.code
             ? { uri: fetchDataImage.code }
-            : require('../../assets/images/restaurant-without-image.png')
+            : theme.icons.restaurant_without_img
         }
       />
       <ViewFavorite>
@@ -99,7 +100,6 @@ export function CardRestaurant({
           <View>
             <TextRate>{dataIdFunction()}</TextRate>
           </View>
-
         </RateContainer>
       </ViewInfo>
     </ContainerButton>

@@ -1,4 +1,5 @@
 import React from 'react'
+import theme from '../../global/theme'
 import {
   BarGray,
   ImageRestautant,
@@ -11,7 +12,7 @@ import {
 interface RestaurantProfile {
   nameRestaurant: string
   imageRestaurant: string
-  food_types?:{
+  food_types?: {
     id: number
     name: string
   }
@@ -19,14 +20,13 @@ interface RestaurantProfile {
 export function RestaurantInfo({
   nameRestaurant,
   imageRestaurant,
-  food_types
+  food_types,
 }: RestaurantProfile) {
-  
   function dataTypesFunction() {
     if (food_types === undefined) {
       return '--'
     } else {
-      return food_types.name     
+      return food_types.name
     }
   }
   return (
@@ -41,7 +41,7 @@ export function RestaurantInfo({
           source={
             imageRestaurant
               ? { uri: imageRestaurant }
-              : require('../../assets/images/restaurant-without-image.png')
+              : theme.icons.restaurant_without_img
           }
         />
       </ViewRestaurantContainer>
