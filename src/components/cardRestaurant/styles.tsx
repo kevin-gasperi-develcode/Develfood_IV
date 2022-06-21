@@ -5,7 +5,7 @@ import theme from '../../global/theme'
 export const ContainerButton = styled.TouchableOpacity`
   width: ${RFValue(156)}px;
   height: ${RFValue(173)}px;
-  border-radius: 8px;
+  border-radius: ${RFValue(8)}px;
 `
 export const ViewFavorite = styled.View`
   width: ${RFValue(42)}px;

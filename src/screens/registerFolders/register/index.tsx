@@ -73,10 +73,10 @@ export function Register() {
                 control={control}
                 password={true}
                 rules={{
-                  required: 'senha deve ser preenchida',
+                  required: 'A senha deve ser preenchida',
                   minLength: {
                     value: 5,
-                    message: 'senha precisa de no mínimo 5 caracters',
+                    message: 'A senha precisa de no mínimo 5 caracters',
                   },
                 }}
               />
@@ -88,8 +88,8 @@ export function Register() {
                 password={true}
                 rules={{
                   validate: (value: any) =>
-                    value === pwd || 'Senhas não conferem',
-                  required: 'senha deve ser preenchida',
+                    value === pwd || 'As senhas não conferem',
+                  required: 'A confirmação da senha deve ser preenchida',
                 }}
               />
               <View

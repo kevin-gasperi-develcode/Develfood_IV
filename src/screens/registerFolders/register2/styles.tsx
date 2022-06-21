@@ -6,7 +6,7 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background};
 `
 export const ViewInputs = styled.View`
-  margin-top: ${RFValue(25)}px;
+  margin-top: ${RFValue(70)}px;
   padding: 0 ${RFValue(40)}px;
 `
 export const ViewButton = styled.View`

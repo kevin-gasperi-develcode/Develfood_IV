@@ -12,7 +12,7 @@ export const ViewBanner = styled.TouchableOpacity`
   background-color: ${theme.colors.background_red};
   height: ${RFValue(28)}px;
   width: ${RFValue(99)}px;
-  border-radius: 16px;
+  border-radius: ${RFValue(16)}px;
   align-items: center;
   justify-content: center;
   margin: ${RFValue(4)}px;

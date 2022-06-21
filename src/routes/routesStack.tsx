@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import RNBootSplash from 'react-native-bootsplash'
 import { SignIn } from '../screens/signIn'
 import { Register } from '../screens/registerFolders/register'
 import { Register2 } from '../screens/registerFolders/register2'
@@ -12,10 +11,6 @@ import { Home } from '../screens/home'
 
 export function RoutesStack() {
   const Stack = createStackNavigator()
-
-  useEffect(() => {
-    RNBootSplash.hide({ fade: true })
-  }, [])
 
   return (
     <Stack.Navigator>
@@ -45,19 +40,19 @@ export function RoutesStack() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        options={{ headerShown: false }}
         name="Routes"
         component={Routes}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
-        options={{ headerShown: false }}
         name="RestaurantProfile"
         component={RestaurantProfile}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
-        options={{ headerShown: false }}
         name="Home"
         component={Home}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   )
