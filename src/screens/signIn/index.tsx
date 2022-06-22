@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Text, StatusBar, Alert } from 'react-native'
+import { StatusBar, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useAuth } from '../../context/auth'
 import {

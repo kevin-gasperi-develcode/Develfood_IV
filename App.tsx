@@ -14,9 +14,11 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <NavigationContainer>
-          <RoutesStack />
-        </NavigationContainer>
+        <CartProvider>
+          <NavigationContainer>
+            <RoutesStack />
+          </NavigationContainer>
+        </CartProvider>
       </AuthProvider>
     </ThemeProvider>
   )
