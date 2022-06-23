@@ -20,6 +20,8 @@ import { Load } from '../../components/load'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useDebouncedCallback } from 'use-debounce'
 import { useNavigation } from '@react-navigation/native'
+import { useCart } from '../../context/cart'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface ApiData {
   content: Restaurant[]
@@ -37,6 +39,7 @@ interface FoodTypes {
 export function Home() {
   const navigation = useNavigation()
   const { authState } = useAuth()
+  const { addPlates } = useCart()
   const [dataRestaurants, setDataRestaurants] = useState<Restaurant[]>([])
   const [filter, setFilter] = useState({
     text: '',

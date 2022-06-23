@@ -5,6 +5,7 @@ import theme from './src/global/theme'
 import { AuthProvider } from './src/context/auth'
 import { RoutesStack } from './src/routes/routesStack'
 import RNBootSplash from 'react-native-bootsplash'
+import { CartProvider } from './src/context/cart'
 
 export default function App() {
   useEffect(() => {

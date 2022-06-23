@@ -120,6 +120,7 @@ export function RestaurantProfile({ route }: any) {
               description={item.description}
               price={item.price}
               id={item.id}
+              restaurantId={id}
               photo_url={item.photo_url}
             />
           )}

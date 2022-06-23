@@ -1,7 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { useState } from 'react'
 import { Alert, GestureResponderEvent, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useAuth } from '../../context/auth'
+import { useCart } from '../../context/cart'
 import theme from '../../global/theme'
 import { useGet } from '../../services'
 import {
@@ -24,6 +26,7 @@ interface RestaurantFood {
   photo_url?: any
   price?: any
   restaurantName?: string
+  restaurantId: number
 }
 interface ImageData {
   id: number
@@ -40,11 +43,12 @@ export function CardFood({
   price,
   id,
   photo_url,
+  restaurantId,
 }: RestaurantFood) {
   const { authState } = useAuth()
   const photo = photo_url.slice(33)
-  const [idPlate, setIdPlate] = useState<unknown[]>([])
-
+  const [idPlate, setIdPlate] = useState<any[]>([])
+  const { addPlates, removePlates } = useCart()
   useEffect(() => {
     ;(async () => await fetchData())()
   }, [photo])
@@ -58,13 +62,6 @@ export function CardFood({
     return priceToStringFormatted
   }
 
-  function functionCount(id: unknown) {
-    setIdPlate([...idPlate, ...id])
-    console.log(idPlate)
-    // var count = 0
-    // count++
-    // console.log(count)
-  }
   return (
     <Container>
       {data.code ? (
@@ -86,11 +83,14 @@ export function CardFood({
         <Wrapper>
           <TextPrice>R$ {priceConverter()}</TextPrice>
 
-          <AddButton
-            onPress={(item: GestureResponderEvent) => functionCount(id)}
-          >
+          <AddButton onPress={() => addPlates(id, price, restaurantId)}>
             <TextButton>Adicionar</TextButton>
           </AddButton>
+          <TouchableOpacity
+            onPress={() => removePlates(id, price, restaurantId)}
+          >
+            <TextButton>Rmv</TextButton>
+          </TouchableOpacity>
         </Wrapper>
       </ViewFood>
     </Container>
@@ -106,15 +106,15 @@ export function CardFood({
 //   "paymentType": "card",
 //   "status": "PEDIDO_REALIZADO",
 //   "requestItems": [
-//       {
-//           "plate":{
-//               "id":43,
-//               "price":49.90
-//           },
-//           "quantity": 2,
-//           "price": 49.90,
-//           "observation": ""
-//       }
+// {
+//     "plate":{
+//         "id":43,
+//         "price":49.90
+//     },
+//     "quantity": 2,
+//     "price": 49.90,
+//     "observation": ""
+// }
 //   ],
 //   "restaurantPromotion": null
 // }
