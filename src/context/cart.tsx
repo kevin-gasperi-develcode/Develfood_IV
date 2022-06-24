@@ -1,4 +1,11 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { Alert } from 'react-native'
 interface CartProviderProps {
   children: ReactNode
 }
@@ -11,44 +18,75 @@ interface CartItemsProps {
   quantity: number
   price: number
   observation?: string
+  restaurantId: string
 }
 ;[]
 interface PlateContent {
-  id: any
+  id: number
   price: number
 }
 
 const CartContext = createContext({} as CartData)
 
 function CartProvider({ children }: CartProviderProps) {
-  const cartValues = {} as CartData
   const [demand, setDemand] = useState<CartItemsProps[]>([])
 
-  function addPlates({ id, price }: PlateContent, restaurantId: number) {
-    const DemandCopy = [...demand]
-    const item = DemandCopy.find((item) => item.plate.id === id)
-    if (!item) {
-      DemandCopy.push({ quantity: 1, price: price, observation: '' }) // <<<<<<<<<<<<<<<<<<<<<<<
-    } else {
-      item.quantity = item.quantity + 1
-    }
-    setDemand(DemandCopy)
+  useEffect(() => {
     console.log(demand)
+  }, [demand])
+
+  function addPlates(id: number, price: number, restaurantId: any) {
+    const demandCopy = [...demand]
+    const itemFound = demandCopy.find((product) => product.plate.id === id)
+    const fromOtherRestaurant = demand.find(
+      (demand) => demand.restaurantId !== restaurantId,
+    )
+
+    if (!fromOtherRestaurant) {
+      if (!itemFound) {
+        demandCopy.push({
+          plate: { id, price },
+          quantity: 1,
+          price: price,
+          observation: '',
+          restaurantId: restaurantId,
+        })
+      } else {
+        ;(itemFound.quantity += 1), (itemFound.price = itemFound.price + price)
+      }
+      setDemand(demandCopy)
+    } else {
+      Alert.alert(
+        'Aviso',
+        'você pode adicionar apenas ítens do mesmo restaurante',
+      )
+    }
   }
+
   function removePlates(id: any, price: any, restaurantId: any) {
-    const DemandCopy = [...demand]
-    const item = DemandCopy.find((product) => product.plate.id === id)
+    const demandCopy = [...demand]
+    const item = demandCopy.find((product) => product.plate.id === id)
 
     if (item && item.quantity > 1) {
       item.quantity = item.quantity - 1
-      setDemand(DemandCopy)
+      item.price = item.price - price
+      setDemand(demandCopy)
     } else {
-      const arrayFiltered = DemandCopy.filter(
+      const arrayFiltered = demandCopy.filter(
         (product) => product.plate.id !== id,
       )
       setDemand(arrayFiltered)
     }
-    console.log(demand)
+  }
+
+  function cartCounter() {
+    const cartLength = demand.map((product) => product.quantity)
+    console.log('contagem do cart', cartLength)
+    let cartSoma = 0
+    for (let i = 0; i < cartLength.length; i++) {
+      cartSoma += cartLength[i]
+    }
+    return cartSoma
   }
 
   return (
@@ -79,7 +117,5 @@ export { CartProvider, useCart }
 //     quantity: number
 //     price: number
 //     observation: string
-//   },
-
-// ]
+//   },]
 // restaurantPromotion: null

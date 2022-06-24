@@ -119,7 +119,8 @@ export function CardFood({
 //   "restaurantPromotion": null
 // }
 
-// resposta da request {
+// resposta da request
+// {
 //   "id": 77,
 //   "costumer": {
 //       "id": 243,
