@@ -21,7 +21,6 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import { useDebouncedCallback } from 'use-debounce'
 import { useNavigation } from '@react-navigation/native'
 import { useCart } from '../../context/cart'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface ApiData {
   content: Restaurant[]

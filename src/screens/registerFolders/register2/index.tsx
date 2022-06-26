@@ -43,7 +43,7 @@ export function Register2({ route }: any) {
           />
           <ScrollView showsVerticalScrollIndicator={true}>
             <RegisterSteps
-              circle={theme.icons.circle_empty}
+              circle={theme.icons.circle_filled}
               circle1={theme.icons.circle_empty}
               circle2={theme.icons.circle_empty}
               girl={theme.icons.girl_rigth_h_up}

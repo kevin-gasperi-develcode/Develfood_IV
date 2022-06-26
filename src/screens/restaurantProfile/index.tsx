@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar, Text, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { useDebouncedCallback } from 'use-debounce'
 import { CardFood } from '../../components/cardFood'
+import { CartView } from '../../components/cartView'
 import { HeaderStandard } from '../../components/headerStandard'
 import { Load } from '../../components/load'
 import { RestaurantInfo } from '../../components/restaurantInfo'
 import { SearchFood } from '../../components/searchFood'
 import { useAuth } from '../../context/auth'
+import { useCart } from '../../context/cart'
 import theme from '../../global/theme'
 import { useGet } from '../../services'
 import {
@@ -38,6 +40,7 @@ export function RestaurantProfile({ route }: any) {
   const [filter, setFilter] = useState({ text: '' })
   const [dataFood, setDataFood] = useState<RestaurantFood[]>([])
   const { authState } = useAuth()
+  const { cartCounter } = useCart()
 
   const { loading, fetchData } = useGet<RestaurantFood[]>(
     `plate/search?name=${filter.text}&restaurantid=${id}`,
@@ -97,6 +100,7 @@ export function RestaurantProfile({ route }: any) {
           }
           ListFooterComponent={() => (
             <ViewLoading>{loading ? <Load /> : null}</ViewLoading>
+            
           )}
           ListHeaderComponent={
             <>
@@ -124,8 +128,10 @@ export function RestaurantProfile({ route }: any) {
               photo_url={item.photo_url}
             />
           )}
-        />
+          />
+      { cartCounter() >= 1 ? <CartView  textProp={cartCounter()}/>  : null }
       </Container>
     </>
   )
 }
+ //  { cartCounter() >= 1 ? <View style={{width: 100, height: 50, backgroundColor: 'red' }}><Text> { cartCounter()}  </Text></View> : null }

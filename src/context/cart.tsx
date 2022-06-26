@@ -12,6 +12,7 @@ interface CartProviderProps {
 interface CartData {
   addPlates: Function
   removePlates: Function
+  cartCounter: Function
 }
 interface CartItemsProps {
   plate: PlateContent
@@ -79,18 +80,20 @@ function CartProvider({ children }: CartProviderProps) {
     }
   }
 
-  function cartCounter() {
+  function cartCounter(
+  ) {
     const cartLength = demand.map((product) => product.quantity)
     console.log('contagem do cart', cartLength)
     let cartSoma = 0
     for (let i = 0; i < cartLength.length; i++) {
       cartSoma += cartLength[i]
     }
+    console.log('contagem do cart Soma', cartSoma)
     return cartSoma
   }
 
   return (
-    <CartContext.Provider value={{ addPlates, removePlates }}>
+    <CartContext.Provider value={{ addPlates, removePlates, cartCounter }}>
       {children}
     </CartContext.Provider>
   )
