@@ -1,35 +1,61 @@
 import React from 'react'
-import { Text } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Basket, Circle, TextBasket, TextCart, TouchableOpacityCart, ViewCart, WrapperLeft, WrapperRight } from './styles'
+import { useCart } from '../../context/cart'
+import {
+  Basket,
+  CircleView,
+  TextBasket,
+  TextCart,
+  TextValue,
+  TouchableOpacityCart,
+  ViewCart,
+  WrapperCart,
+  WrapperLeft,
+  WrapperRight,
+} from './styles'
 
 interface CartProps {
-    textProp: number
+  textProp: number
 }
 
-export function CartView ({textProp}:CartProps ) {
-    const circlebasket = require('../../assets/icons/circleBasket.png')
-    const basket = require('../../assets/icons/basket.png')
-    function maxNumber(){
-        if( textProp >=9){
-        const value = '  9+'
-        return value
-        }else  return textProp
-    }
-console.log (textProp)
-    return (
-        <ViewCart>
-            <WrapperLeft>
-                <Circle  source={circlebasket} resizeMode='contain' />
-                <Basket source={basket} resizeMode='contain'/>
-                <TextBasket> {maxNumber()} </TextBasket>
-            </WrapperLeft>
-            <TouchableOpacityCart >
-                <TextCart>Ver carrinho</TextCart>
-            </TouchableOpacityCart>
-            <WrapperRight>
-           <Text>R$ 49,99 </Text>
-            </WrapperRight>
-        </ViewCart>
-    )
+export function CartView({ textProp }: CartProps) {
+  const basket = require('../../assets/icons/basket.png')
+  const { totalPrice } = useCart()
+
+  const priceFormated = totalPrice.toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    style: 'currency',
+    currency: 'BRL',
+  })
+
+  function maxNumber() {
+    if (textProp > 9) {
+      const value = '9+'
+      return value
+    } else return textProp
+  }
+
+  function priceConverter() {
+    const priceTwoValues = totalPrice.toFixed(2)
+    const priceToStringFormatted = priceTwoValues.toString().replace('.', ',')
+    return priceToStringFormatted
+  }
+
+  return (
+    <WrapperCart>
+      <ViewCart>
+        <WrapperLeft>
+          <Basket source={basket} resizeMode="contain" />
+          <CircleView>
+            <TextBasket> {maxNumber()} </TextBasket>
+          </CircleView>
+        </WrapperLeft>
+        <TouchableOpacityCart>
+          <TextCart>Ver carrinho</TextCart>
+        </TouchableOpacityCart>
+        <WrapperRight>
+          <TextValue>R$ {priceConverter()} </TextValue>
+        </WrapperRight>
+      </ViewCart>
+    </WrapperCart>
+  )
 }

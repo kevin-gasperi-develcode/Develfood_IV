@@ -13,6 +13,8 @@ interface CartData {
   addPlates: Function
   removePlates: Function
   cartCounter: Function
+  deletePlate: Function
+  totalPrice: number
 }
 interface CartItemsProps {
   plate: PlateContent
@@ -31,21 +33,22 @@ const CartContext = createContext({} as CartData)
 
 function CartProvider({ children }: CartProviderProps) {
   const [demand, setDemand] = useState<CartItemsProps[]>([])
+  const [totalPrice, setTotalPrice] = useState(0)
 
+  useEffect(() => {}, [demand])
   useEffect(() => {
-    console.log(demand)
-  }, [demand])
+    console.log('total price', totalPrice)
+  }, [totalPrice])
 
   function addPlates(id: number, price: number, restaurantId: any) {
-    const demandCopy = [...demand]
-    const itemFound = demandCopy.find((product) => product.plate.id === id)
+    const item = demand.find((product) => product.plate.id === id)
     const fromOtherRestaurant = demand.find(
       (demand) => demand.restaurantId !== restaurantId,
     )
 
     if (!fromOtherRestaurant) {
-      if (!itemFound) {
-        demandCopy.push({
+      if (!item) {
+        demand.push({
           plate: { id, price },
           quantity: 1,
           price: price,
@@ -53,9 +56,10 @@ function CartProvider({ children }: CartProviderProps) {
           restaurantId: restaurantId,
         })
       } else {
-        ;(itemFound.quantity += 1), (itemFound.price = itemFound.price + price)
+        ;(item.quantity += 1), (item.price = item.price + price)
       }
-      setDemand(demandCopy)
+      setDemand(demand)
+      setTotalPrice(totalPrice + price)
     } else {
       Alert.alert(
         'Aviso',
@@ -66,34 +70,37 @@ function CartProvider({ children }: CartProviderProps) {
 
   function removePlates(id: any, price: any, restaurantId: any) {
     const demandCopy = [...demand]
-    const item = demandCopy.find((product) => product.plate.id === id)
+    const itemFound = demand.find((product) => product.plate.id === id)
 
-    if (item && item.quantity > 1) {
-      item.quantity = item.quantity - 1
-      item.price = item.price - price
-      setDemand(demandCopy)
-    } else {
-      const arrayFiltered = demandCopy.filter(
-        (product) => product.plate.id !== id,
-      )
-      setDemand(arrayFiltered)
+    if (itemFound) {
+      itemFound.quantity < 2
+        ? demand.splice(demand.indexOf(itemFound), 1)
+        : (itemFound.quantity -= 1)
+      setTotalPrice(totalPrice - price)
     }
   }
 
-  function cartCounter(
-  ) {
+  function deletePlate(id: number, price: number, restaurantId: any) {
+    const itemFound = demand.find((product) => product.plate.id === id)
+    if (itemFound) {
+      demand.splice(demand.indexOf(itemFound), 1)
+      setTotalPrice(totalPrice - itemFound.price)
+    }
+  }
+
+  function cartCounter() {
     const cartLength = demand.map((product) => product.quantity)
-    console.log('contagem do cart', cartLength)
     let cartSoma = 0
     for (let i = 0; i < cartLength.length; i++) {
       cartSoma += cartLength[i]
     }
-    console.log('contagem do cart Soma', cartSoma)
     return cartSoma
   }
 
   return (
-    <CartContext.Provider value={{ addPlates, removePlates, cartCounter }}>
+    <CartContext.Provider
+      value={{ addPlates, removePlates, cartCounter, deletePlate, totalPrice }}
+    >
       {children}
     </CartContext.Provider>
   )

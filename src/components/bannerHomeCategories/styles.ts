@@ -4,7 +4,6 @@ import theme from '../../global/theme'
 
 export const ContainerScroll = styled.View`
   height: ${RFValue(64)}px;
-
   flex-direction: row;
   align-items: center;
 `
@@ -16,8 +15,10 @@ export const ViewBanner = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   margin: ${RFValue(4)}px;
+  padding: ${RFValue(5)}px;
 `
 export const TextBanner = styled.Text`
   color: white;
   font-weight: 700;
+  font-size: ${RFValue(14)}px;
 `

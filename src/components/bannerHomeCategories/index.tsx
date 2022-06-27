@@ -11,7 +11,9 @@ export function BannerHomeCategories() {
         showsHorizontalScrollIndicator={false}
       >
         <ViewBanner>
-          <TextBanner>Pizza</TextBanner>
+          <TextBanner ellipsizeMode={'tail'} numberOfLines={1}>
+            Pizza
+          </TextBanner>
         </ViewBanner>
         <ViewBanner>
           <TextBanner>Churrasco</TextBanner>

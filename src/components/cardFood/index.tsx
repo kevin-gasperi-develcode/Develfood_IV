@@ -10,11 +10,17 @@ import {
   AddButton,
   Container,
   Description,
+  ImageAddRem,
   ImageFood,
+  ImageTrash,
   TextButton,
+  TextNumberItem,
   TextPrice,
   Tittle,
+  TouchableOpacityItem,
   ViewFood,
+  ViewItems,
+  ViewNumberItem,
   Wrapper,
 } from './styles'
 
@@ -47,8 +53,12 @@ export function CardFood({
 }: RestaurantFood) {
   const { authState } = useAuth()
   const photo = photo_url.slice(33)
-  const [idPlate, setIdPlate] = useState<any[]>([])
   const { addPlates, removePlates } = useCart()
+  const { cartCounter } = useCart()
+  const plus = require('../../assets/icons/plus.png')
+  const minus = require('../../assets/icons/minus.png')
+  const trash = require('../../assets/icons/trash.png')
+
   useEffect(() => {
     ;(async () => await fetchData())()
   }, [photo])
@@ -61,7 +71,60 @@ export function CardFood({
     const priceToStringFormatted = priceTwoValues.toString().replace('.', ',')
     return priceToStringFormatted
   }
+  var a = 1
+  function buttonDemand() {
+    if (a == 0) {
+      return (
+        <AddButton
+          onPress={() => {
+            addPlates(id, price, restaurantId)
+          }}
+        >
+          <TextButton>Adicionar</TextButton>
+        </AddButton>
+      )
+    } else if (a == 1) {
+      return (
+        <ViewItems>
+          <TouchableOpacityItem
+            onPress={() => removePlates(id, price, restaurantId)}
+          >
+            <ImageTrash source={trash} resizeMode={'contain'} />
+          </TouchableOpacityItem>
 
+          <ViewNumberItem>
+            <TextNumberItem>1</TextNumberItem>
+          </ViewNumberItem>
+
+          <TouchableOpacityItem
+            onPress={() => addPlates(id, price, restaurantId)}
+          >
+            <ImageAddRem source={plus} resizeMode={'contain'} />
+          </TouchableOpacityItem>
+        </ViewItems>
+      )
+    } else {
+      return (
+        <ViewItems>
+          <TouchableOpacityItem
+            onPress={() => removePlates(id, price, restaurantId)}
+          >
+            <ImageAddRem source={minus} resizeMode={'contain'} />
+          </TouchableOpacityItem>
+
+          <ViewNumberItem>
+            <TextNumberItem>2</TextNumberItem>
+          </ViewNumberItem>
+
+          <TouchableOpacityItem
+            onPress={() => addPlates(id, price, restaurantId)}
+          >
+            <ImageAddRem source={plus} resizeMode={'contain'} />
+          </TouchableOpacityItem>
+        </ViewItems>
+      )
+    }
+  }
   return (
     <Container>
       {data.code ? (
@@ -82,19 +145,22 @@ export function CardFood({
         </Description>
         <Wrapper>
           <TextPrice>R$ {priceConverter()}</TextPrice>
+          {buttonDemand()}
+        </Wrapper>
+      </ViewFood>
+    </Container>
+  )
+}
 
-          <AddButton onPress={() => addPlates(id, price, restaurantId)}>
+{
+  /* <AddButton onPress={() => addPlates(id, price, restaurantId)}>
             <TextButton>Adicionar</TextButton>
           </AddButton>
           <TouchableOpacity
             onPress={() => removePlates(id, price, restaurantId)}
           >
             <TextButton>Rmv</TextButton>
-          </TouchableOpacity>
-        </Wrapper>
-      </ViewFood>
-    </Container>
-  )
+          </TouchableOpacity> */
 }
 
 //request  {

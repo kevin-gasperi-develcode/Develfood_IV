@@ -100,7 +100,6 @@ export function RestaurantProfile({ route }: any) {
           }
           ListFooterComponent={() => (
             <ViewLoading>{loading ? <Load /> : null}</ViewLoading>
-            
           )}
           ListHeaderComponent={
             <>
@@ -128,10 +127,10 @@ export function RestaurantProfile({ route }: any) {
               photo_url={item.photo_url}
             />
           )}
-          />
-      { cartCounter() >= 1 ? <CartView  textProp={cartCounter()}/>  : null }
+        />
       </Container>
+      {cartCounter() >= 1 ? <CartView textProp={cartCounter()} /> : null}
     </>
   )
 }
- //  { cartCounter() >= 1 ? <View style={{width: 100, height: 50, backgroundColor: 'red' }}><Text> { cartCounter()}  </Text></View> : null }
+//  { cartCounter() >= 1 ? <View style={{width: 100, height: 50, backgroundColor: 'red' }}><Text> { cartCounter()}  </Text></View> : null }

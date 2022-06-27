@@ -26,7 +26,7 @@ export const ViewFood = styled.View`
 export const Tittle = styled.Text`
   width: 100%;
   font-weight: 500;
-  font-size: ${RFValue(14)}px;
+  font-size: ${RFValue(15)}px;
   line-height: ${RFValue(16.41)}px;
   color: ${theme.colors.header};
 `
@@ -34,13 +34,13 @@ export const Description = styled.Text`
   height: ${RFValue(36)}px;
   padding-top: ${RFValue(3)}px;
   font-weight: 400;
-  font-size: ${RFValue(13)}px;
+  font-size: ${RFValue(13.3)}px;
   line-height: ${RFValue(11.72)}px;
   color: ${theme.colors.icon_gray};
 `
 export const TextPrice = styled.Text`
   font-weight: 700;
-  font-size: ${RFValue(12)}px;
+  font-size: ${RFValue(14)}px;
   margin-top: ${RFValue(14)}px;
   line-height: ${RFValue(14.06)}px;
   color: ${theme.colors.text_dark};
@@ -50,7 +50,7 @@ export const Wrapper = styled.View`
 `
 export const TextButton = styled.Text`
   font-weight: 500;
-  font-size: ${RFValue(14)}px;
+  font-size: ${RFValue(15)}px;
   line-height: ${RFValue(16)}px;
   color: ${theme.colors.background_red};
 `
@@ -58,4 +58,39 @@ export const AddButton = styled.TouchableOpacity`
   position: absolute;
   right: ${RFValue(8)}px;
   margin-top: ${RFValue(6)}px;
+`
+export const ViewItems = styled.View`
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: ${RFValue(65)}px;
+  height: ${RFValue(24)}px;
+  position: absolute;
+  right: ${RFValue(8)}px;
+  margin-top: ${RFValue(6)}px;
+`
+export const TouchableOpacityItem = styled.TouchableOpacity``
+
+export const ImageTrash = styled.Image`
+  width: ${RFValue(15.84)}px;
+  height: ${RFValue(18)}px;
+`
+export const ViewNumberItem = styled.View`
+  background-color: ${theme.colors.background_red};
+  width: ${RFValue(24)}px;
+  height: ${RFValue(24)}px;
+  border-radius: ${RFValue(4)}px;
+  align-items: center;
+  justify-content: center;
+`
+
+export const TextNumberItem = styled.Text`
+  color: ${theme.colors.icon_white};
+  font-weight: 700;
+  font-size: ${RFValue(13)}px;
+`
+
+export const ImageAddRem = styled.Image`
+  width: ${RFValue(10)}px;
+  height: ${RFValue(18)}px;
 `
