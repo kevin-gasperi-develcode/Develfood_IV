@@ -82,7 +82,7 @@ export function RestaurantProfile({ route }: any) {
         backgroundColor={theme.colors.background}
       />
       <HeaderStandard
-        goBackButton={theme.icons.back_button}
+        leftButton={theme.icons.back_button}
         imageRight={theme.icons.favorite_white}
         title={'Restaurantes'}
       />
@@ -107,6 +107,7 @@ export function RestaurantProfile({ route }: any) {
                 nameRestaurant={name}
                 imageRestaurant={dataImage.code}
                 food_types={food_types}
+                barGray={true}
               />
               <TextPratos>Pratos</TextPratos>
               <SearchFood
@@ -133,4 +134,3 @@ export function RestaurantProfile({ route }: any) {
     </>
   )
 }
-//  { cartCounter() >= 1 ? <View style={{width: 100, height: 50, backgroundColor: 'red' }}><Text> { cartCounter()}  </Text></View> : null }

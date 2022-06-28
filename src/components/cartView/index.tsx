@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { useCart } from '../../context/cart'
 import {
@@ -20,6 +21,7 @@ interface CartProps {
 export function CartView({ textProp }: CartProps) {
   const basket = require('../../assets/icons/basket.png')
   const { totalPrice } = useCart()
+  const navigation = useNavigation()
 
   const priceFormated = totalPrice.toLocaleString('pt-BR', {
     minimumFractionDigits: 2,
@@ -49,7 +51,11 @@ export function CartView({ textProp }: CartProps) {
             <TextBasket> {maxNumber()} </TextBasket>
           </CircleView>
         </WrapperLeft>
-        <TouchableOpacityCart>
+        <TouchableOpacityCart
+          onPress={() => {
+            navigation.navigate('ShoppingCart' as never)
+          }}
+        >
           <TextCart>Ver carrinho</TextCart>
         </TouchableOpacityCart>
         <WrapperRight>

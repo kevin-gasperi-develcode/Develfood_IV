@@ -10,6 +10,7 @@ import {
 } from './styles'
 
 interface RestaurantProfile {
+  barGray?: boolean
   nameRestaurant: string
   imageRestaurant: string
   food_types?: {
@@ -21,6 +22,7 @@ export function RestaurantInfo({
   nameRestaurant,
   imageRestaurant,
   food_types,
+  barGray,
 }: RestaurantProfile) {
   function dataTypesFunction() {
     if (food_types === undefined) {
@@ -45,7 +47,7 @@ export function RestaurantInfo({
           }
         />
       </ViewRestaurantContainer>
-      <BarGray />
+      {barGray ? <BarGray /> : null}
     </>
   )
 }

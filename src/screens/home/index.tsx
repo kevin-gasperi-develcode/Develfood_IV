@@ -3,10 +3,16 @@ import { Dimensions, StatusBar } from 'react-native'
 import { BannerHomeCategories } from '../../components/bannerHomeCategories'
 import { BannerHomeImage } from '../../components/bannerHomeImages'
 import { CardRestaurant } from '../../components/cardRestaurant'
-import { HeaderAddress } from '../../components/headerAddress'
 import { SearchRestaurants } from '../../components/searchRestaurants'
 import theme from '../../global/theme'
 import { useGet } from '../../services'
+import { useAuth } from '../../context/auth'
+import { Load } from '../../components/load'
+import { RFValue } from 'react-native-responsive-fontsize'
+import { useDebouncedCallback } from 'use-debounce'
+import { useNavigation } from '@react-navigation/native'
+import { useCart } from '../../context/cart'
+import { CartView } from '../../components/cartView'
 import {
   FlatListMod,
   TitleCategories,
@@ -15,13 +21,7 @@ import {
   ViewSearchREstaurant,
   Wrapper,
 } from './styles'
-import { useAuth } from '../../context/auth'
-import { Load } from '../../components/load'
-import { RFValue } from 'react-native-responsive-fontsize'
-import { useDebouncedCallback } from 'use-debounce'
-import { useNavigation } from '@react-navigation/native'
-import { useCart } from '../../context/cart'
-import { CartView } from '../../components/cartView'
+import { HeaderStandard } from '../../components/headerStandard'
 
 interface ApiData {
   content: Restaurant[]
@@ -97,7 +97,11 @@ export function Home() {
         barStyle={'default'}
         backgroundColor={theme.colors.background_red}
       />
-      <HeaderAddress />
+      <HeaderStandard
+        backGround="red"
+        leftButton={theme.icons.map_logo}
+        title="rua Arcy da Nobrega 667, Panazollo"
+      />
       <FlatListMod
         onEndReachedThreshold={0.1}
         showsVerticalScrollIndicator={false}

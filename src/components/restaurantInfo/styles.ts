@@ -7,6 +7,7 @@ export const ViewRestaurantContainer = styled.View`
   width: 100%;
 `
 export const ViewRestaurantInfo = styled.View`
+  margin-top: ${RFValue(12)}px;
   height: ${RFValue(60)}px;
   width: ${RFValue(343)}px;
 `
@@ -24,16 +25,16 @@ export const TypeRestautant = styled.Text`
   color: ${theme.colors.text_gray};
 `
 export const ImageRestautant = styled.Image`
+  margin-top: ${RFValue(12)}px;
   height: ${RFValue(60)}px;
   width: ${RFValue(60)}px;
   position: absolute;
   right: ${RFValue(14)}px;
-  margin-bottom: ${RFValue(26)}px;
   border-radius: ${RFValue(33)}px;
 `
 export const BarGray = styled.View`
   height: ${RFValue(2.2)}px;
-  width: 100%;
-  background-color: #f0f0f5;
+  width: 90%;
+  background-color: #dcdcdc;
   align-self: center;
 `

@@ -4,10 +4,11 @@ import { SignIn } from '../screens/signIn'
 import { Register } from '../screens/registerFolders/register'
 import { Register2 } from '../screens/registerFolders/register2'
 import { Register3 } from '../screens/registerFolders/register3'
-import Routes from './routes'
 import { RegisterSucess } from '../screens/registerFolders/registerSucess'
 import { RestaurantProfile } from '../screens/restaurantProfile'
 import { Home } from '../screens/home'
+import { ShoppingCart } from '../screens/shoppingCart'
+import Routes from './routes'
 
 export function RoutesStack() {
   const Stack = createStackNavigator()
@@ -52,6 +53,11 @@ export function RoutesStack() {
       <Stack.Screen
         name="Home"
         component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ShoppingCart"
+        component={ShoppingCart}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

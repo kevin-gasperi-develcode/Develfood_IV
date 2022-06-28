@@ -46,7 +46,7 @@ export function Register3({ route }: any) {
       <Container>
         <HeaderStandard
           title={'Cadastro'}
-          goBackButton={theme.icons.back_button}
+          leftButton={theme.icons.back_button}
         />
         <ScrollView>
           <RegisterSteps
