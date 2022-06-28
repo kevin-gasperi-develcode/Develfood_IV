@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
 export const WrapperCart = styled.View`
+  background-color: ${theme.colors.background};
   width: 100%;
   height: ${RFValue(64)}px;
   justify-content: center;
@@ -40,8 +41,9 @@ export const CircleView = styled.View`
 `
 export const TextBasket = styled.Text`
   color: ${theme.colors.icon_red};
+  font-family: 'Mogra-Regular';
   font-weight: 500;
-  font-size: ${RFValue(12)}px;
+  font-size: ${RFValue(15)}px;
 `
 export const TouchableOpacityCart = styled.TouchableOpacity`
   width: 100%;

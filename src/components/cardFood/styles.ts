@@ -63,13 +63,16 @@ export const ViewItems = styled.View`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  width: ${RFValue(65)}px;
-  height: ${RFValue(24)}px;
+  width: ${RFValue(72)}px;
+  height: ${RFValue(32)}px;
   position: absolute;
   right: ${RFValue(8)}px;
   margin-top: ${RFValue(6)}px;
 `
-export const TouchableOpacityItem = styled.TouchableOpacity``
+export const TouchableOpacityItem = styled.TouchableOpacity`
+  width: ${RFValue(16)}px;
+  height: ${RFValue(24)}px;
+`
 
 export const ImageTrash = styled.Image`
   width: ${RFValue(15.84)}px;

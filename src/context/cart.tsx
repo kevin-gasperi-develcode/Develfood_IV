@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react'
 import { Alert } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 interface CartProviderProps {
   children: ReactNode
 }
@@ -15,6 +16,7 @@ interface CartData {
   cartCounter: Function
   deletePlate: Function
   totalPrice: number
+  demand: CartItemsProps[]
 }
 interface CartItemsProps {
   plate: PlateContent
@@ -36,18 +38,17 @@ function CartProvider({ children }: CartProviderProps) {
   const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {}, [demand])
-  useEffect(() => {
-    console.log('total price', totalPrice)
-  }, [totalPrice])
+
+  useEffect(() => {}, [totalPrice])
 
   function addPlates(id: number, price: number, restaurantId: any) {
-    const item = demand.find((product) => product.plate.id === id)
+    const itemFound = demand.find((product) => product.plate.id === id)
     const fromOtherRestaurant = demand.find(
       (demand) => demand.restaurantId !== restaurantId,
     )
 
     if (!fromOtherRestaurant) {
-      if (!item) {
+      if (!itemFound) {
         demand.push({
           plate: { id, price },
           quantity: 1,
@@ -56,19 +57,24 @@ function CartProvider({ children }: CartProviderProps) {
           restaurantId: restaurantId,
         })
       } else {
-        ;(item.quantity += 1), (item.price = item.price + price)
+        ;(itemFound.quantity += 1), (itemFound.price = itemFound.price + price)
       }
       setDemand(demand)
       setTotalPrice(totalPrice + price)
     } else {
       Alert.alert(
         'Aviso',
-        'você pode adicionar apenas ítens do mesmo restaurante',
+        'você pode adicionar apenas ítens do mesmo restaurante no seu carrinho, deseja substituir os itens?',
+        [
+          {
+            text: 'ok',
+          },
+        ],
       )
     }
   }
 
-  function removePlates(id: any, price: any, restaurantId: any) {
+  function removePlates(id: any, price: any) {
     const demandCopy = [...demand]
     const itemFound = demand.find((product) => product.plate.id === id)
 
@@ -80,7 +86,7 @@ function CartProvider({ children }: CartProviderProps) {
     }
   }
 
-  function deletePlate(id: number, price: number, restaurantId: any) {
+  function deletePlate(id: number) {
     const itemFound = demand.find((product) => product.plate.id === id)
     if (itemFound) {
       demand.splice(demand.indexOf(itemFound), 1)
@@ -99,7 +105,14 @@ function CartProvider({ children }: CartProviderProps) {
 
   return (
     <CartContext.Provider
-      value={{ addPlates, removePlates, cartCounter, deletePlate, totalPrice }}
+      value={{
+        addPlates,
+        removePlates,
+        cartCounter,
+        deletePlate,
+        totalPrice,
+        demand,
+      }}
     >
       {children}
     </CartContext.Provider>
@@ -110,22 +123,3 @@ function useCart() {
   return context
 }
 export { CartProvider, useCart }
-
-// costumer: { id: number }
-// restaurant: { id: number }
-// date: Date
-// dateLastUpdated: Date
-// totalValue: number
-// paymentType: string
-// status: string
-// requestItems:
-//     plate: {[
-//   {
-//       id: number
-//       price: number
-//     }
-//     quantity: number
-//     price: number
-//     observation: string
-//   },]
-// restaurantPromotion: null
