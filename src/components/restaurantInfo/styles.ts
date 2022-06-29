@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
 export const ViewRestaurantContainer = styled.View`
+  background-color: white;
   height: ${RFValue(99)}px;
   width: 100%;
 `

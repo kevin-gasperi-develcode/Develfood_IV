@@ -10,7 +10,7 @@ export const Container = styled.View`
   flex-direction: row;
 `
 export const ImageMap = styled.Image`
-  left: ${RFValue(16)}px;
+  left: ${RFValue(1)}px;
   height: ${RFValue(66)}px;
   width: ${RFValue(66)}px;
   border-radius: ${RFValue(8)}px;
@@ -54,7 +54,7 @@ export const TextNickname = styled.Text`
 
 export const BarGray = styled.View`
   height: ${RFValue(2.2)}px;
-  width: 90%;
+  width: 100%;
   border-radius: ${RFValue(2.2)}px;
   background-color: #dcdcdc;
   align-self: center;

@@ -6,7 +6,6 @@ import React, {
   useState,
 } from 'react'
 import { Alert } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 interface CartProviderProps {
   children: ReactNode
 }
@@ -64,7 +63,7 @@ function CartProvider({ children }: CartProviderProps) {
     } else {
       Alert.alert(
         'Aviso',
-        'você pode adicionar apenas ítens do mesmo restaurante no seu carrinho, deseja substituir os itens?',
+        'você pode adicionar apenas ítens do mesmo restaurante no seu carrinho.',
         [
           {
             text: 'ok',

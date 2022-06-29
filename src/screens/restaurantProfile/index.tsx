@@ -35,6 +35,7 @@ interface ImageData {
   id: number
   code: string
 }
+
 export function RestaurantProfile({ route }: any) {
   const { id, name, photo_url, food_types } = route.params
   const [filter, setFilter] = useState({ text: '' })
@@ -58,6 +59,7 @@ export function RestaurantProfile({ route }: any) {
   const debounced = useDebouncedCallback((text) => {
     handleSearch(text)
   }, 1500)
+
   function handleSearch(text: string) {
     if (text.length > 1) {
       setDataFood([])
@@ -130,7 +132,13 @@ export function RestaurantProfile({ route }: any) {
           )}
         />
       </Container>
-      {cartCounter() >= 1 ? <CartView textProp={cartCounter()} /> : null}
+      {cartCounter() >= 1 ? (
+        <CartView
+          textCart={cartCounter()}
+          leftViewItem="basket"
+          centerButton="Ver carrinho"
+        />
+      ) : null}
     </>
   )
 }

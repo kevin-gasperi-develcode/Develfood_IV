@@ -4,6 +4,7 @@ import { useCart } from '../../context/cart'
 import {
   Basket,
   CircleView,
+  ImageDollar,
   TextBasket,
   TextCart,
   TextValue,
@@ -15,25 +16,22 @@ import {
 } from './styles'
 
 interface CartProps {
-  textProp: number
+  textCart: number
+  leftViewItem: string
+  centerButton: string
 }
 
-export function CartView({ textProp }: CartProps) {
+export function CartView({ textCart, leftViewItem, centerButton }: CartProps) {
   const basket = require('../../assets/icons/basket.png')
   const { totalPrice } = useCart()
   const navigation = useNavigation()
-
-  const priceFormated = totalPrice.toLocaleString('pt-BR', {
-    minimumFractionDigits: 2,
-    style: 'currency',
-    currency: 'BRL',
-  })
+  const dollarImage = require('../../assets/icons/dollar_sign.png')
 
   function maxNumber() {
-    if (textProp > 9) {
+    if (textCart > 9) {
       const value = '9+'
       return value
-    } else return textProp
+    } else return textCart
   }
 
   function priceConverter() {
@@ -46,17 +44,33 @@ export function CartView({ textProp }: CartProps) {
     <WrapperCart>
       <ViewCart>
         <WrapperLeft>
-          <Basket source={basket} resizeMode="contain" />
-          <CircleView>
-            <TextBasket> {maxNumber()} </TextBasket>
-          </CircleView>
+          {leftViewItem === 'dollar' ? (
+            <ImageDollar source={dollarImage} />
+          ) : leftViewItem === 'basket' ? (
+            <>
+              <Basket source={basket} resizeMode="contain" />
+              <CircleView>
+                <TextBasket> {maxNumber()} </TextBasket>
+              </CircleView>
+            </>
+          ) : null}
         </WrapperLeft>
         <TouchableOpacityCart
           onPress={() => {
-            navigation.navigate('ShoppingCart' as never)
+            centerButton === 'Ver carrinho'
+              ? navigation.navigate('ShoppingCart' as never)
+              : centerButton === 'Finalizar pedido'
+              ? navigation.navigate('Home' as never) // Alterar para tela de sucesso
+              : null
           }}
         >
-          <TextCart>Ver carrinho</TextCart>
+          <TextCart>
+            {centerButton === 'Ver carrinho'
+              ? 'Ver carrinho'
+              : centerButton === 'Finalizar pedido'
+              ? 'Finalizar pedido'
+              : null}
+          </TextCart>
         </TouchableOpacityCart>
         <WrapperRight>
           <TextValue>R$ {priceConverter()} </TextValue>
@@ -65,3 +79,9 @@ export function CartView({ textProp }: CartProps) {
     </WrapperCart>
   )
 }
+
+// const priceFormated = totalPrice.toLocaleString('pt-BR', {
+//   minimumFractionDigits: 2,
+//   style: 'currency',
+//   currency: 'BRL',
+// })

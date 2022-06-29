@@ -148,7 +148,13 @@ export function Home() {
           </Wrapper>
         )}
       />
-      {cartCounter() >= 1 ? <CartView textProp={cartCounter()} /> : null}
+      {cartCounter() >= 1 ? (
+        <CartView
+          textCart={cartCounter()}
+          leftViewItem="basket"
+          centerButton="Ver carrinho"
+        />
+      ) : null}
     </>
   )
 }
