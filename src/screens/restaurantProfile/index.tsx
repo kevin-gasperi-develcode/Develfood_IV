@@ -37,14 +37,20 @@ interface ImageData {
 }
 export function RestaurantProfile({ route }: any) {
   const { id, name, photo_url, food_types } = route.params
-  const [filter, setFilter] = useState({ text: '' })
+  const [filter, setFilter] = useState({
+    text: '',
+  })
   const [dataFood, setDataFood] = useState<RestaurantFood[]>([])
   const { authState } = useAuth()
   const { cartCounter } = useCart()
 
   const { loading, fetchData } = useGet<RestaurantFood[]>(
     `plate/search?name=${filter.text}&restaurantid=${id}`,
-    { headers: { Authorization: ` Bearer ${authState.token}` } },
+    {
+      headers: {
+        Authorization: ` Bearer ${authState.token}`,
+      },
+    },
     dataReturn,
   )
   useEffect(() => {
@@ -62,8 +68,14 @@ export function RestaurantProfile({ route }: any) {
     if (text.length > 1) {
       setDataFood([])
 
-      setFilter({ text: text })
-    } else setDataFood([]), setFilter({ text: '' })
+      setFilter({
+        text: text,
+      })
+    } else
+      setDataFood([]),
+        setFilter({
+          text: '',
+        })
   }
 
   const photo = photo_url.slice(33)
@@ -72,7 +84,9 @@ export function RestaurantProfile({ route }: any) {
   }, [photo])
 
   const { fetchData: fetchImage, data: dataImage } = useGet<ImageData>(photo, {
-    headers: { Authorization: ` Bearer ${authState.token}` },
+    headers: {
+      Authorization: ` Bearer ${authState.token}`,
+    },
   })
 
   return (
