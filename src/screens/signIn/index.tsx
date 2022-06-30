@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Text, StatusBar, Alert } from 'react-native'
+import { StatusBar, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useAuth } from '../../context/auth'
 import {
@@ -35,9 +35,9 @@ const EMAIL_REGEX =
   /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/
 
 export function SignIn() {
-  const cheesePhoto = require('../../assets/icons/cheese_image.png')
-  const pizzaPhoto = require('../../assets/icons/pizza_image.png')
-  const redDustPhoto = require('../../assets/icons/backgroundRedDust.png')
+  const cheesePhoto = require('../../assets/images/cheese_image.png')
+  const pizzaPhoto = require('../../assets/images/pizza_image.png')
+  const redDustPhoto = require('../../assets/images/backgroundRedDust.png')
 
   const { setAuthState } = useAuth()
   const navigation = useNavigation()

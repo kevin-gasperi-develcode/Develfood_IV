@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, ViewInputs } from './styles'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
@@ -15,6 +15,7 @@ import { AxiosError } from 'axios'
 
 export function Register3({ route }: any) {
   const {
+    setFocus,
     control,
     handleSubmit,
     formState: { errors },

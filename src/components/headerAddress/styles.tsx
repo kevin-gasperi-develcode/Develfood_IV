@@ -19,6 +19,6 @@ export const ImageGoBack = styled.Image`
   margin-left: ${RFValue(16)}px;
 `
 export const TextTitle = styled.Text`
-  font-size: 16px;
+  font-size: ${RFValue(16)}px;
   color: ${({ theme }) => theme.colors.text_white};
 `

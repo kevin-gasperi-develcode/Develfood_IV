@@ -5,7 +5,7 @@ import theme from '../../global/theme'
 export const ContainerButton = styled.TouchableOpacity`
   width: ${RFValue(156)}px;
   height: ${RFValue(173)}px;
-  border-radius: 8px;
+  border-radius: ${RFValue(8)}px;
 `
 export const ViewFavorite = styled.View`
   width: ${RFValue(42)}px;
@@ -43,17 +43,18 @@ export const TextInfo = styled.Text`
   position: absolute;
   bottom: ${RFValue(34)}px;
   left: ${RFValue(12)}px;
-  font-size: ${RFValue(12)}px;
+  font-size: ${RFValue(14)}px;
   font-weight: ${RFValue(16)}px;
   font-weight: 500;
   color: ${theme.colors.text_dark};
+  width: ${RFValue(140)}px;
 `
 
 export const TextCategories = styled.Text`
   position: absolute;
   bottom: ${RFValue(13)}px;
   left: ${RFValue(12)}px;
-  font-size: ${RFValue(12)}px;
+  font-size: ${RFValue(14)}px;
   font-weight: ${RFValue(16)}px;
   font-weight: 400;
   color: ${theme.colors.text_gray};

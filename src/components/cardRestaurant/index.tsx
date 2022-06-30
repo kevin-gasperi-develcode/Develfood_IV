@@ -92,7 +92,9 @@ export function CardRestaurant({
         <ImageFavorite source={theme.icons.favorite_white} />
       </ViewFavorite>
       <ViewInfo>
-        <TextInfo>{name}</TextInfo>
+        <TextInfo numberOfLines={1} ellipsizeMode={'tail'}>
+          {name}
+        </TextInfo>
         <TextCategories>{dataTypesFunction()}</TextCategories>
         <RateContainer>
           <ImageRate source={starRate} resizeMode={'contain'} />
