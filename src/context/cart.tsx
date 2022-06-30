@@ -36,10 +36,6 @@ function CartProvider({ children }: CartProviderProps) {
   const [demand, setDemand] = useState<CartItemsProps[]>([])
   const [totalPrice, setTotalPrice] = useState(0)
 
-  useEffect(() => {}, [demand])
-
-  useEffect(() => {}, [totalPrice])
-
   function addPlates(id: number, price: number, restaurantId: any) {
     const itemFound = demand.find((product) => product.plate.id === id)
     const fromOtherRestaurant = demand.find(
@@ -56,7 +52,8 @@ function CartProvider({ children }: CartProviderProps) {
           restaurantId: restaurantId,
         })
       } else {
-        ;(itemFound.quantity += 1), (itemFound.price = itemFound.price + price)
+        itemFound.quantity += 1
+        itemFound.price = itemFound.price + price
       }
       setDemand(demand)
       setTotalPrice(totalPrice + price)
@@ -74,7 +71,6 @@ function CartProvider({ children }: CartProviderProps) {
   }
 
   function removePlates(id: any, price: any) {
-    const demandCopy = [...demand]
     const itemFound = demand.find((product) => product.plate.id === id)
 
     if (itemFound) {

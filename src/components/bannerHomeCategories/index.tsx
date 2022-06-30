@@ -16,13 +16,19 @@ export function BannerHomeCategories() {
           </TextBanner>
         </ViewBanner>
         <ViewBanner>
-          <TextBanner>Churrasco</TextBanner>
+          <TextBanner ellipsizeMode={'tail'} numberOfLines={1}>
+            Churrasco
+          </TextBanner>
         </ViewBanner>
         <ViewBanner>
-          <TextBanner>Almoço</TextBanner>
+          <TextBanner ellipsizeMode={'tail'} numberOfLines={1}>
+            Almoço
+          </TextBanner>
         </ViewBanner>
         <ViewBanner>
-          <TextBanner>Massas</TextBanner>
+          <TextBanner ellipsizeMode={'tail'} numberOfLines={1}>
+            Massas
+          </TextBanner>
         </ViewBanner>
       </ScrollView>
     </ContainerScroll>
