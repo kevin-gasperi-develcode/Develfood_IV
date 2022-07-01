@@ -1,120 +1,136 @@
 import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
+   createContext,
+   ReactNode,
+   useContext,
+   useEffect,
+   useState,
 } from 'react'
 import { Alert } from 'react-native'
 interface CartProviderProps {
-  children: ReactNode
+   children: ReactNode
 }
 interface CartData {
-  addPlates: Function
-  removePlates: Function
-  cartCounter: Function
-  deletePlate: Function
-  totalPrice: number
-  demand: CartItemsProps[]
+   addPlates: Function
+   removePlates: Function
+   deletePlate: Function
+   totalPrice: number
+   cartCleanup: Function
+   totalAmount: { quantity: number; price: number }
+   cartItems: CartItem[]
 }
-interface CartItemsProps {
-  plate: PlateContent
-  quantity: number
-  price: number
-  observation?: string
-  restaurantId: string
-}
-;[]
-interface PlateContent {
-  id: number
-  price: number
+
+type CartItem = {
+   name: string
+   description: string
+   id: number
+   photo_url: string
+   price: number
+   quantity: number
+   restaurantName: string
+   restaurantId: string
+   restaurantPhoto: string
+   food_types: string
 }
 
 const CartContext = createContext({} as CartData)
 
 function CartProvider({ children }: CartProviderProps) {
-  const [demand, setDemand] = useState<CartItemsProps[]>([])
-  const [totalPrice, setTotalPrice] = useState(0)
+   const [totalPrice, setTotalPrice] = useState(0)
+   const [cartItems, setCartItems] = useState<CartItem[]>([])
+   const [totalAmount, setTotalAmount] = useState({ quantity: 0, price: 0 })
+   const [restaurant, setRestaurant] = useState({
+      name: '',
+      id: '',
+      image: '',
+      type: '',
+   })
 
-  function addPlates(id: number, price: number, restaurantId: any) {
-    const itemFound = demand.find((product) => product.plate.id === id)
-    const fromOtherRestaurant = demand.find(
-      (demand) => demand.restaurantId !== restaurantId,
-    )
+   useEffect(() => {}, [cartItems])
 
-    if (!fromOtherRestaurant) {
-      if (!itemFound) {
-        demand.push({
-          plate: { id, price },
-          quantity: 1,
-          price: price,
-          observation: '',
-          restaurantId: restaurantId,
-        })
-      } else {
-        itemFound.quantity += 1
-        itemFound.price = itemFound.price + price
-      }
-      setDemand(demand)
-      setTotalPrice(totalPrice + price)
-    } else {
-      Alert.alert(
-        'Aviso',
-        'você pode adicionar apenas ítens do mesmo restaurante no seu carrinho.',
-        [
-          {
-            text: 'ok',
-          },
-        ],
+   function addPlates(item: CartItem) {
+      const addProducts = [...cartItems]
+      const itemFound = addProducts.find((CartItem) => CartItem.id === item.id)
+      const fromOtherRestaurant = addProducts.find(
+         (carItem) => carItem.restaurantId !== item.restaurantId,
       )
-    }
-  }
 
-  function removePlates(id: any, price: any) {
-    const itemFound = demand.find((product) => product.plate.id === id)
+      if (!fromOtherRestaurant) {
+         if (!itemFound) {
+            addProducts.push(item)
+            setRestaurant({
+               name: item.restaurantName,
+               id: item.restaurantId,
+               image: item.restaurantPhoto,
+               type: item.food_types,
+            })
+            console.log('console do item', item)
+         } else {
+            itemFound.quantity += 1
+            itemFound.price = item.price * itemFound.quantity
+         }
+         setTotalAmount({
+            quantity: totalAmount.quantity + 1,
+            price: totalAmount.price + item.price,
+         })
+      } else {
+         Alert.alert(
+            'Aviso',
+            'você pode adicionar apenas ítens do mesmo restaurante no seu carrinho.',
+            [
+               {
+                  text: 'ok',
+               },
+            ],
+         )
+      }
+   }
 
-    if (itemFound) {
-      itemFound.quantity < 2
-        ? demand.splice(demand.indexOf(itemFound), 1)
-        : (itemFound.quantity -= 1)
-      setTotalPrice(totalPrice - price)
-    }
-  }
+   function removePlates(item: CartItem) {
+      const itemFound = cartItems.find((cartItem) => cartItem.id === item.id)
 
-  function deletePlate(id: number) {
-    const itemFound = demand.find((product) => product.plate.id === id)
-    if (itemFound) {
-      demand.splice(demand.indexOf(itemFound), 1)
-      setTotalPrice(totalPrice - itemFound.price)
-    }
-  }
+      if (itemFound) {
+         itemFound.quantity < 2
+            ? cartItems.splice(cartItems.indexOf(itemFound), 1)
+            : (itemFound.quantity -= 1)
+         setTotalAmount({
+            quantity: totalAmount.quantity - 1,
+            price: totalAmount.price - item.price,
+         })
+      }
+   }
 
-  function cartCounter() {
-    const cartLength = demand.map((product) => product.quantity)
-    let cartSoma = 0
-    for (let i = 0; i < cartLength.length; i++) {
-      cartSoma += cartLength[i]
-    }
-    return cartSoma
-  }
+   function deletePlate(item: CartItem) {
+      const itemFound = cartItems.find((cartItem) => cartItem.id === item.id)
+      if (itemFound) {
+         cartItems.splice(cartItems.indexOf(itemFound), 1)
+         setTotalPrice(totalPrice - itemFound.price)
+      }
+   }
 
-  return (
-    <CartContext.Provider
-      value={{
-        addPlates,
-        removePlates,
-        cartCounter,
-        deletePlate,
-        totalPrice,
-        demand,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  )
+   function cartCleanup(item: CartItem) {
+      cartItems.splice(0, cartItems.length, item)
+      setTotalAmount({ quantity: 1, price: item.price })
+      console.log(cartItems)
+   }
+
+   return (
+      <CartContext.Provider
+         value={{
+            addPlates,
+            removePlates,
+            deletePlate,
+            totalPrice,
+            cartCleanup,
+            totalAmount,
+            cartItems,
+         }}
+      >
+         {children}
+      </CartContext.Provider>
+   )
 }
 function useCart() {
-  const context = useContext(CartContext)
-  return context
+   const context = useContext(CartContext)
+   return context
 }
 export { CartProvider, useCart }
