@@ -70,13 +70,12 @@ export function CardFood({
    }
 
    const itemFound = cartItems.find((CartItem) => CartItem.id === id)
-
    function buttonDemand() {
-      if (!itemFound) {
+      if (itemFound?.quantity === 0 || !itemFound) {
          return (
             <AddButton
                onPress={() => {
-                  addPlates(
+                  addPlates({
                      name,
                      description,
                      id,
@@ -86,18 +85,18 @@ export function CardFood({
                      restaurantId,
                      restaurantPhoto,
                      food_types,
-                  )
+                  })
                }}
             >
                <TextButton>Adicionar</TextButton>
             </AddButton>
          )
-      } else if (itemFound) {
+      } else if (itemFound?.quantity === 1) {
          return (
             <ViewItems>
                <TouchableOpacityItem
                   onPress={() =>
-                     removePlates(
+                     removePlates({
                         name,
                         description,
                         id,
@@ -107,19 +106,19 @@ export function CardFood({
                         restaurantId,
                         restaurantPhoto,
                         food_types,
-                     )
+                     })
                   }
                >
                   <ImageTrash source={trash} resizeMode={'contain'} />
                </TouchableOpacityItem>
 
                <ViewNumberItem>
-                  <TextNumberItem>{itemFound}</TextNumberItem>
+                  <TextNumberItem>{itemFound.quantity}</TextNumberItem>
                </ViewNumberItem>
 
                <TouchableOpacityItem
                   onPress={() =>
-                     addPlates(
+                     addPlates({
                         name,
                         description,
                         id,
@@ -129,7 +128,7 @@ export function CardFood({
                         restaurantId,
                         restaurantPhoto,
                         food_types,
-                     )
+                     })
                   }
                >
                   <ImageAddRem source={plus} resizeMode={'contain'} />
@@ -141,7 +140,7 @@ export function CardFood({
             <ViewItems>
                <TouchableOpacityItem
                   onPress={() =>
-                     removePlates(
+                     removePlates({
                         name,
                         description,
                         id,
@@ -151,19 +150,19 @@ export function CardFood({
                         restaurantId,
                         restaurantPhoto,
                         food_types,
-                     )
+                     })
                   }
                >
                   <ImageAddRem source={minus} resizeMode={'contain'} />
                </TouchableOpacityItem>
 
                <ViewNumberItem>
-                  <TextNumberItem>{itemFound}</TextNumberItem>
+                  <TextNumberItem>{itemFound.quantity}</TextNumberItem>
                </ViewNumberItem>
 
                <TouchableOpacityItem
                   onPress={() =>
-                     addPlates(
+                     addPlates({
                         name,
                         description,
                         id,
@@ -173,7 +172,7 @@ export function CardFood({
                         restaurantId,
                         restaurantPhoto,
                         food_types,
-                     )
+                     })
                   }
                >
                   <ImageAddRem source={plus} resizeMode={'contain'} />

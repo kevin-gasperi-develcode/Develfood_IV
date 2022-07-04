@@ -17,6 +17,7 @@ interface CartData {
    cartCleanup: Function
    totalAmount: { quantity: number; price: number }
    cartItems: CartItem[]
+   restaurant: { name: string; id: number; image: string; type: string }
 }
 
 type CartItem = {
@@ -27,7 +28,7 @@ type CartItem = {
    price: number
    quantity: number
    restaurantName: string
-   restaurantId: string
+   restaurantId: number
    restaurantPhoto: string
    food_types: string
 }
@@ -40,7 +41,7 @@ function CartProvider({ children }: CartProviderProps) {
    const [totalAmount, setTotalAmount] = useState({ quantity: 0, price: 0 })
    const [restaurant, setRestaurant] = useState({
       name: '',
-      id: '',
+      id: 0,
       image: '',
       type: '',
    })
@@ -48,14 +49,14 @@ function CartProvider({ children }: CartProviderProps) {
    useEffect(() => {}, [cartItems])
 
    function addPlates(item: CartItem) {
-      const addProducts = [...cartItems]
+      const addProducts = Array.from(cartItems)
       const itemFound = addProducts.find((CartItem) => CartItem.id === item.id)
       const fromOtherRestaurant = addProducts.find(
          (carItem) => carItem.restaurantId !== item.restaurantId,
       )
-
       if (!fromOtherRestaurant) {
          if (!itemFound) {
+            item.quantity = 1
             addProducts.push(item)
             setRestaurant({
                name: item.restaurantName,
@@ -63,11 +64,11 @@ function CartProvider({ children }: CartProviderProps) {
                image: item.restaurantPhoto,
                type: item.food_types,
             })
-            console.log('console do item', item)
          } else {
             itemFound.quantity += 1
             itemFound.price = item.price * itemFound.quantity
          }
+         setCartItems(addProducts)
          setTotalAmount({
             quantity: totalAmount.quantity + 1,
             price: totalAmount.price + item.price,
@@ -123,6 +124,7 @@ function CartProvider({ children }: CartProviderProps) {
             cartCleanup,
             totalAmount,
             cartItems,
+            restaurant,
          }}
       >
          {children}

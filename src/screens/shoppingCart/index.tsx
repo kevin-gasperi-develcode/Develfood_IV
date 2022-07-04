@@ -14,28 +14,30 @@ import theme from '../../global/theme'
 import { useGet } from '../../services'
 import { Container, FlatListmodified, TextMeusItens } from './styles'
 
+// interface RestaurantFood {
+//    name: string
+//    description?: string
+//    id: number
+//    photo_url?: string
+//    price: number
+//    restaurantName?: string
+//    restaurantId: number
+// }
+
 interface RestaurantFood {
    name: string
    description?: string
    id: number
-   photo_url?: string
+   photo_url: string
    price: number
-   restaurantName?: string
+   restaurantName: string
    restaurantId: number
+   restaurantPhoto: string
+   food_types: string
 }
-
 export function ShoppingCart() {
-   const { totalAmount, cartItems } = useCart()
-   const { authState } = useAuth()
+   const { totalAmount, cartItems, restaurant } = useCart()
    const [dataFood, setDataFood] = useState<RestaurantFood[]>([])
-
-   const [restaurantData, setRestaurantData] = useState<any>({
-      name: '',
-      food_types: {
-         id: 0,
-         name: '',
-      },
-   })
 
    return (
       <>
@@ -55,23 +57,27 @@ export function ShoppingCart() {
                   <>
                      <HeaderAdress />
                      <RestaurantInfo
-                        imageRestaurant=""
-                        nameRestaurant={restaurantData.name}
-                        // food_types={restaurantData.food_types}
+                        imageRestaurant={restaurant.image}
+                        nameRestaurant={restaurant.name}
+                        food_types={restaurant.type}
+                        barGray={false}
                      />
                      <TextMeusItens>Meus Itens</TextMeusItens>
                   </>
                }
                data={cartItems}
                keyExtractor={(item: any) => item.id}
-               renderItem={(item: any) => (
+               renderItem={({ item }: { item: RestaurantFood }) => (
                   <CardFood
                      name={item.name}
                      description={item.description}
                      price={item.price}
                      id={item.id}
                      photo_url={item.photo_url}
-                     restaurantId={item.restaurantId}
+                     restaurantId={restaurant.id}
+                     restaurantName={restaurant.name}
+                     restaurantPhoto={restaurant.image}
+                     food_types={restaurant.type}
                   />
                )}
             />
