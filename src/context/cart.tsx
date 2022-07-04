@@ -12,7 +12,6 @@ interface CartProviderProps {
 interface CartData {
    addPlates: Function
    removePlates: Function
-   deletePlate: Function
    totalPrice: number
    cartCleanup: Function
    totalAmount: { quantity: number; price: number }
@@ -66,7 +65,6 @@ function CartProvider({ children }: CartProviderProps) {
             })
          } else {
             itemFound.quantity += 1
-            itemFound.price = item.price * itemFound.quantity
          }
          setCartItems(addProducts)
          setTotalAmount({
@@ -95,16 +93,8 @@ function CartProvider({ children }: CartProviderProps) {
             : (itemFound.quantity -= 1)
          setTotalAmount({
             quantity: totalAmount.quantity - 1,
-            price: totalAmount.price - item.price,
+            price: totalAmount.price - itemFound.price,
          })
-      }
-   }
-
-   function deletePlate(item: CartItem) {
-      const itemFound = cartItems.find((cartItem) => cartItem.id === item.id)
-      if (itemFound) {
-         cartItems.splice(cartItems.indexOf(itemFound), 1)
-         setTotalPrice(totalPrice - itemFound.price)
       }
    }
 
@@ -119,7 +109,6 @@ function CartProvider({ children }: CartProviderProps) {
          value={{
             addPlates,
             removePlates,
-            deletePlate,
             totalPrice,
             cartCleanup,
             totalAmount,
