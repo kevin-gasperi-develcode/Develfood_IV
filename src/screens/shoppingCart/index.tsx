@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { StatusBar, View } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
+import React, { useState } from 'react'
+import { StatusBar } from 'react-native'
 import { CardFood } from '../../components/cardFood'
-import { ViewItems } from '../../components/cardFood/styles'
 import { CartView } from '../../components/cartView'
-import { ViewCart } from '../../components/cartView/styles'
 import { HeaderAdress } from '../../components/headerAdress'
 import { HeaderStandard } from '../../components/headerStandard'
 import { RestaurantInfo } from '../../components/restaurantInfo'
-import { useAuth } from '../../context/auth'
 import { useCart } from '../../context/cart'
 import theme from '../../global/theme'
-import { useGet } from '../../services'
 import { Container, FlatListmodified, TextMeusItens } from './styles'
-
-// interface RestaurantFood {
-//    name: string
-//    description?: string
-//    id: number
-//    photo_url?: string
-//    price: number
-//    restaurantName?: string
-//    restaurantId: number
-// }
 
 interface RestaurantFood {
    name: string
@@ -82,11 +67,13 @@ export function ShoppingCart() {
                )}
             />
          </Container>
-         <CartView
-            textCart={totalAmount.quantity}
-            leftViewItem="dollar"
-            centerButton="Finalizar pedido"
-         />
+         {totalAmount.quantity >= 1 ? (
+            <CartView
+               textCart={totalAmount.quantity}
+               leftViewItem="dollar"
+               centerButton="Finalizar pedido"
+            />
+         ) : null}
       </>
    )
 }

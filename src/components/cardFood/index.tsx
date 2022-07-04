@@ -10,16 +10,21 @@ import {
    ImageAddRem,
    ImageFood,
    ImageTrash,
+   ImageTrashSwipe,
    TextButton,
    TextNumberItem,
    TextPrice,
+   TextRemove,
    Tittle,
    TouchableOpacityItem,
+   TouchableRemoveItem,
    ViewFood,
    ViewItems,
    ViewNumberItem,
    Wrapper,
 } from './styles'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
+import { Text, View } from 'react-native'
 
 interface RestaurantFood {
    name: string
@@ -67,6 +72,17 @@ export function CardFood({
       const priceTwoValues = parseFloat(price.toString()).toFixed(2)
       const priceToStringFormatted = priceTwoValues.toString().replace('.', ',')
       return priceToStringFormatted
+   }
+
+   function renderLeft() {
+      return (
+         <TouchableRemoveItem>
+            <View>
+               <ImageTrashSwipe source={trash} />
+               <TextRemove>Remover</TextRemove>
+            </View>
+         </TouchableRemoveItem>
+      )
    }
 
    const itemFound = cartItems.find((CartItem) => CartItem.id === id)
@@ -182,28 +198,30 @@ export function CardFood({
       }
    }
    return (
-      <Container>
-         {data.code ? (
-            <ImageFood
-               source={{
-                  uri: data.code,
-               }}
-            />
-         ) : (
-            <ImageFood source={theme.icons.restaurant_without_img} />
-         )}
-         <ViewFood>
-            <Tittle numberOfLines={1} ellipsizeMode={'tail'}>
-               {name}
-            </Tittle>
-            <Description numberOfLines={3} ellipsizeMode={'tail'}>
-               {description}
-            </Description>
-            <Wrapper>
-               <TextPrice>R$ {priceConverter()}</TextPrice>
-               {buttonDemand()}
-            </Wrapper>
-         </ViewFood>
-      </Container>
+      <Swipeable renderLeftActions={renderLeft}>
+         <Container>
+            {data.code ? (
+               <ImageFood
+                  source={{
+                     uri: data.code,
+                  }}
+               />
+            ) : (
+               <ImageFood source={theme.icons.restaurant_without_img} />
+            )}
+            <ViewFood>
+               <Tittle numberOfLines={1} ellipsizeMode={'tail'}>
+                  {name}
+               </Tittle>
+               <Description numberOfLines={3} ellipsizeMode={'tail'}>
+                  {description}
+               </Description>
+               <Wrapper>
+                  <TextPrice>R$ {priceConverter()}</TextPrice>
+                  {buttonDemand()}
+               </Wrapper>
+            </ViewFood>
+         </Container>
+      </Swipeable>
    )
 }

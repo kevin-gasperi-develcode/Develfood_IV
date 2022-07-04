@@ -99,9 +99,13 @@ function CartProvider({ children }: CartProviderProps) {
    }
 
    function cartCleanup(item: CartItem) {
+      const itemFound = cartItems.find((cartItem) => cartItem.id === item.id)
+
       cartItems.splice(0, cartItems.length, item)
       setTotalAmount({ quantity: 1, price: item.price })
       console.log(cartItems)
+
+      // REvisar   <<<<<<<<<<<<<<<<<<<<<<,
    }
 
    return (
