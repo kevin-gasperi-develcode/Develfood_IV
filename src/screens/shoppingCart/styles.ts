@@ -3,18 +3,30 @@ import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
 export const Container = styled.View`
-  background-color: white;
-  padding: 0 ${RFValue(21)}px;
-  flex: 1;
+   flex: 1;
+   background-color: ${theme.colors.background};
 `
+
+export const ContainerHeader = styled.View`
+   background-color: ${theme.colors.background};
+   padding: ${RFValue(10)}px;
+`
+export const ContainerFlatList = styled.View`
+   background-color: ${theme.colors.background_gray};
+   border-top-left-radius: 100px;
+   margin-left: 20px;
+   flex: 1;
+`
+export const ItensView = styled.View`
+   margin: ${RFValue(15)}px;
+`
+
 export const TextMeusItens = styled.Text`
-  align-self: center;
-  color: ${theme.colors.icon_dark};
-  font-weight: 400;
-  font-size: ${RFValue(20)}px;
+   color: ${theme.colors.icon_dark};
+   font-weight: 400;
+   font-size: ${RFValue(20)}px;
+   align-self: center;
 `
 export const FlatListmodified = styled.FlatList`
-  background-color: ${theme.colors.background_gray};
-  right: ${RFValue(0)}px;
-  border-top-left-radius: 100px;
+   padding-left: 10;
 `

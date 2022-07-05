@@ -7,7 +7,14 @@ import { HeaderStandard } from '../../components/headerStandard'
 import { RestaurantInfo } from '../../components/restaurantInfo'
 import { useCart } from '../../context/cart'
 import theme from '../../global/theme'
-import { Container, FlatListmodified, TextMeusItens } from './styles'
+import {
+   Container,
+   ContainerFlatList,
+   ContainerHeader,
+   FlatListmodified,
+   ItensView,
+   TextMeusItens,
+} from './styles'
 
 interface RestaurantFood {
    name: string
@@ -20,6 +27,7 @@ interface RestaurantFood {
    restaurantPhoto: string
    food_types: string
 }
+
 export function ShoppingCart() {
    const { totalAmount, cartItems, restaurant } = useCart()
    const [dataFood, setDataFood] = useState<RestaurantFood[]>([])
@@ -35,45 +43,50 @@ export function ShoppingCart() {
             leftButton={theme.icons.back_button_x_white}
             title="Compras"
          />
+
          <Container>
-            <FlatListmodified
-               showsVerticalScrollIndicator={false}
-               ListHeaderComponent={
-                  <>
-                     <HeaderAdress />
-                     <RestaurantInfo
-                        imageRestaurant={restaurant.image}
-                        nameRestaurant={restaurant.name}
+            <ContainerHeader>
+               <HeaderAdress />
+               <RestaurantInfo
+                  imageRestaurant={restaurant.image}
+                  nameRestaurant={restaurant.name}
+                  food_types={restaurant.type}
+                  barGray={false}
+               />
+            </ContainerHeader>
+
+            <ContainerFlatList>
+               <ItensView>
+                  <TextMeusItens>Meus Itens</TextMeusItens>
+               </ItensView>
+               <FlatListmodified
+                  showsVerticalScrollIndicator={false}
+                  data={cartItems}
+                  keyExtractor={(item: any) => item.id}
+                  renderItem={({ item }: { item: RestaurantFood }) => (
+                     <CardFood
+                        isSwipeable
+                        name={item.name}
+                        description={item.description}
+                        price={item.price}
+                        id={item.id}
+                        photo_url={item.photo_url}
+                        restaurantId={restaurant.id}
+                        restaurantName={restaurant.name}
+                        restaurantPhoto={restaurant.image}
                         food_types={restaurant.type}
-                        barGray={false}
                      />
-                     <TextMeusItens>Meus Itens</TextMeusItens>
-                  </>
-               }
-               data={cartItems}
-               keyExtractor={(item: any) => item.id}
-               renderItem={({ item }: { item: RestaurantFood }) => (
-                  <CardFood
-                     name={item.name}
-                     description={item.description}
-                     price={item.price}
-                     id={item.id}
-                     photo_url={item.photo_url}
-                     restaurantId={restaurant.id}
-                     restaurantName={restaurant.name}
-                     restaurantPhoto={restaurant.image}
-                     food_types={restaurant.type}
-                  />
-               )}
-            />
+                  )}
+               />
+            </ContainerFlatList>
+            {totalAmount.quantity >= 1 ? (
+               <CartView
+                  textCart={totalAmount.quantity}
+                  leftViewItem="dollar"
+                  centerButton="Finalizar pedido"
+               />
+            ) : null}
          </Container>
-         {totalAmount.quantity >= 1 ? (
-            <CartView
-               textCart={totalAmount.quantity}
-               leftViewItem="dollar"
-               centerButton="Finalizar pedido"
-            />
-         ) : null}
       </>
    )
 }

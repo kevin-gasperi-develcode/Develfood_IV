@@ -13,7 +13,7 @@ interface CartData {
    addPlates: Function
    removePlates: Function
    totalPrice: number
-   cartCleanup: Function
+   deleteFromCart: Function
    totalAmount: { quantity: number; price: number }
    cartItems: CartItem[]
    restaurant: { name: string; id: number; image: string; type: string }
@@ -98,14 +98,16 @@ function CartProvider({ children }: CartProviderProps) {
       }
    }
 
-   function cartCleanup(item: CartItem) {
-      const itemFound = cartItems.find((cartItem) => cartItem.id === item.id)
+   function deleteFromCart(id: number) {
+      const itemFound = cartItems.find((cartItem) => cartItem.id === id)
+      if (itemFound) {
+         cartItems.splice(cartItems.indexOf(itemFound), 1)
 
-      cartItems.splice(0, cartItems.length, item)
-      setTotalAmount({ quantity: 1, price: item.price })
-      console.log(cartItems)
-
-      // REvisar   <<<<<<<<<<<<<<<<<<<<<<,
+         setTotalAmount({
+            quantity: totalAmount.quantity - itemFound?.quantity,
+            price: totalAmount.price - itemFound.quantity * itemFound.price,
+         })
+      }
    }
 
    return (
@@ -114,7 +116,7 @@ function CartProvider({ children }: CartProviderProps) {
             addPlates,
             removePlates,
             totalPrice,
-            cartCleanup,
+            deleteFromCart,
             totalAmount,
             cartItems,
             restaurant,

@@ -6,6 +6,7 @@ import { useGet } from '../../services'
 import {
    AddButton,
    Container,
+   ContainerSwipeable,
    Description,
    ImageAddRem,
    ImageFood,
@@ -24,7 +25,7 @@ import {
    Wrapper,
 } from './styles'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 
 interface RestaurantFood {
    name: string
@@ -36,6 +37,7 @@ interface RestaurantFood {
    restaurantId: number
    restaurantPhoto: string
    food_types: string
+   isSwipeable?: boolean
 }
 interface ImageData {
    id: number
@@ -52,10 +54,12 @@ export function CardFood({
    restaurantName,
    restaurantPhoto,
    food_types,
+   isSwipeable,
 }: RestaurantFood) {
    const { authState } = useAuth()
    const photo = photo_url?.slice(33)
-   const { addPlates, removePlates, totalAmount, cartItems } = useCart()
+   const { addPlates, removePlates, totalAmount, cartItems, deleteFromCart } =
+      useCart()
    const plus = require('../../assets/icons/plus.png')
    const minus = require('../../assets/icons/minus.png')
    const trash = require('../../assets/icons/trash.png')
@@ -76,9 +80,13 @@ export function CardFood({
 
    function renderLeft() {
       return (
-         <TouchableRemoveItem>
+         <TouchableRemoveItem onPress={() => deleteFromCart(id)}>
             <View>
-               <ImageTrashSwipe source={trash} />
+               <ImageTrashSwipe
+                  resizeMode="center"
+                  source={trash}
+                  style={{ tintColor: 'white' }}
+               />
                <TextRemove>Remover</TextRemove>
             </View>
          </TouchableRemoveItem>
@@ -197,31 +205,57 @@ export function CardFood({
          )
       }
    }
-   return (
-      <Swipeable renderLeftActions={renderLeft}>
-         <Container>
-            {data.code ? (
-               <ImageFood
-                  source={{
-                     uri: data.code,
-                  }}
-               />
-            ) : (
-               <ImageFood source={theme.icons.restaurant_without_img} />
-            )}
-            <ViewFood>
-               <Tittle numberOfLines={1} ellipsizeMode={'tail'}>
-                  {name}
-               </Tittle>
-               <Description numberOfLines={3} ellipsizeMode={'tail'}>
-                  {description}
-               </Description>
-               <Wrapper>
-                  <TextPrice>R$ {priceConverter()}</TextPrice>
-                  {buttonDemand()}
-               </Wrapper>
-            </ViewFood>
-         </Container>
-      </Swipeable>
+   return isSwipeable ? (
+      <View style={{ marginLeft: -10 }}>
+         <Swipeable renderLeftActions={renderLeft}>
+            <ContainerSwipeable>
+               {data.code ? (
+                  <ImageFood
+                     source={{
+                        uri: data.code,
+                     }}
+                  />
+               ) : (
+                  <ImageFood source={theme.icons.restaurant_without_img} />
+               )}
+               <ViewFood>
+                  <Tittle numberOfLines={1} ellipsizeMode={'tail'}>
+                     {name}
+                  </Tittle>
+                  <Description numberOfLines={3} ellipsizeMode={'tail'}>
+                     {description}
+                  </Description>
+                  <Wrapper>
+                     <TextPrice>R$ {priceConverter()}</TextPrice>
+                     {buttonDemand()}
+                  </Wrapper>
+               </ViewFood>
+            </ContainerSwipeable>
+         </Swipeable>
+      </View>
+   ) : (
+      <Container>
+         {data.code ? (
+            <ImageFood
+               source={{
+                  uri: data.code,
+               }}
+            />
+         ) : (
+            <ImageFood source={theme.icons.restaurant_without_img} />
+         )}
+         <ViewFood>
+            <Tittle numberOfLines={1} ellipsizeMode={'tail'}>
+               {name}
+            </Tittle>
+            <Description numberOfLines={3} ellipsizeMode={'tail'}>
+               {description}
+            </Description>
+            <Wrapper>
+               <TextPrice>R$ {priceConverter()}</TextPrice>
+               {buttonDemand()}
+            </Wrapper>
+         </ViewFood>
+      </Container>
    )
 }
