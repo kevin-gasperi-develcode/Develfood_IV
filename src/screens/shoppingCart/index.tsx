@@ -12,8 +12,11 @@ import {
    ContainerFlatList,
    ContainerHeader,
    FlatListmodified,
+   ImageEmptyCart,
    ItensView,
+   TextEmptyCart,
    TextMeusItens,
+   ViewEmptyCart,
 } from './styles'
 
 interface RestaurantFood {
@@ -30,8 +33,7 @@ interface RestaurantFood {
 
 export function ShoppingCart() {
    const { totalAmount, cartItems, restaurant } = useCart()
-   const [dataFood, setDataFood] = useState<RestaurantFood[]>([])
-
+   const emptyCart = require('../../assets/images/empty_cart.png')
    return (
       <>
          <StatusBar
@@ -44,49 +46,58 @@ export function ShoppingCart() {
             title="Compras"
          />
 
-         <Container>
-            <ContainerHeader>
-               <HeaderAdress />
-               <RestaurantInfo
-                  imageRestaurant={restaurant.image}
-                  nameRestaurant={restaurant.name}
-                  food_types={restaurant.type}
-                  barGray={false}
-               />
-            </ContainerHeader>
-
-            <ContainerFlatList>
-               <ItensView>
-                  <TextMeusItens>Meus Itens</TextMeusItens>
-               </ItensView>
-               <FlatListmodified
-                  showsVerticalScrollIndicator={false}
-                  data={cartItems}
-                  keyExtractor={(item: any) => item.id}
-                  renderItem={({ item }: { item: RestaurantFood }) => (
-                     <CardFood
-                        isSwipeable
-                        name={item.name}
-                        description={item.description}
-                        price={item.price}
-                        id={item.id}
-                        photo_url={item.photo_url}
-                        restaurantId={restaurant.id}
-                        restaurantName={restaurant.name}
-                        restaurantPhoto={restaurant.image}
+         {totalAmount.quantity >= 1 ? (
+            <>
+               <Container>
+                  <ContainerHeader>
+                     <HeaderAdress />
+                     <RestaurantInfo
+                        imageRestaurant={restaurant.image}
+                        nameRestaurant={restaurant.name}
                         food_types={restaurant.type}
+                        barGray={false}
                      />
-                  )}
-               />
-            </ContainerFlatList>
-            {totalAmount.quantity >= 1 ? (
-               <CartView
-                  textCart={totalAmount.quantity}
-                  leftViewItem="dollar"
-                  centerButton="Finalizar pedido"
-               />
-            ) : null}
-         </Container>
+                  </ContainerHeader>
+
+                  <ContainerFlatList>
+                     <ItensView>
+                        <TextMeusItens>Meus Itens</TextMeusItens>
+                     </ItensView>
+                     <FlatListmodified
+                        showsVerticalScrollIndicator={false}
+                        data={cartItems}
+                        keyExtractor={(item: any) => item.id}
+                        renderItem={({ item }: { item: RestaurantFood }) => (
+                           <CardFood
+                              isSwipeable
+                              name={item.name}
+                              description={item.description}
+                              price={item.price}
+                              id={item.id}
+                              photo_url={item.photo_url}
+                              restaurantId={restaurant.id}
+                              restaurantName={restaurant.name}
+                              restaurantPhoto={restaurant.image}
+                              food_types={restaurant.type}
+                           />
+                        )}
+                     />
+                  </ContainerFlatList>
+                  {totalAmount.quantity >= 1 ? (
+                     <CartView
+                        textCart={totalAmount.quantity}
+                        leftViewItem="dollar"
+                        centerButton="Finalizar pedido"
+                     />
+                  ) : null}
+               </Container>
+            </>
+         ) : (
+            <ViewEmptyCart>
+               <ImageEmptyCart source={emptyCart} />
+               <TextEmptyCart>Seu carrinho está vazio</TextEmptyCart>
+            </ViewEmptyCart>
+         )}
       </>
    )
 }

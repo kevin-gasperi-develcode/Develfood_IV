@@ -96,26 +96,28 @@ export function CardFood({
    const itemFound = cartItems.find((CartItem) => CartItem.id === id)
    function buttonDemand() {
       if (itemFound?.quantity === 0 || !itemFound) {
-         return (
-            <AddButton
-               onPress={() => {
-                  addPlates({
-                     name,
-                     description,
-                     id,
-                     photo_url,
-                     price,
-                     restaurantName,
-                     restaurantId,
-                     restaurantPhoto,
-                     food_types,
-                  })
-               }}
-            >
-               <TextButton>Adicionar</TextButton>
-            </AddButton>
-         )
-      } else if (itemFound?.quantity === 1) {
+         if (!isSwipeable) {
+            return (
+               <AddButton
+                  onPress={() => {
+                     addPlates({
+                        name,
+                        description,
+                        id,
+                        photo_url,
+                        price,
+                        restaurantName,
+                        restaurantId,
+                        restaurantPhoto,
+                        food_types,
+                     })
+                  }}
+               >
+                  <TextButton>Adicionar</TextButton>
+               </AddButton>
+            )
+         }
+      } else if (itemFound?.quantity === 1 && !isSwipeable) {
          return (
             <ViewItems>
                <TouchableOpacityItem

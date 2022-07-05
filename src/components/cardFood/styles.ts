@@ -106,7 +106,6 @@ export const TouchableRemoveItem = styled.TouchableOpacity`
 `
 export const ImageTrashSwipe = styled.Image`
    position: absolute;
-   color: ${theme.colors.icon_white};
    align-self: center;
    width: ${RFValue(16)}px;
    height: ${RFValue(16)}px;
