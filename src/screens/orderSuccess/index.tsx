@@ -16,7 +16,7 @@ export function OrderSuccess() {
    const navigation = useNavigation()
 
    function navigateToDemand() {
-      navigation.navigate('Demand' as never)
+      navigation.navigate('Pedidos' as never)
    }
    return (
       <>

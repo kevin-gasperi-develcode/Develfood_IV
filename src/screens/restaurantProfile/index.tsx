@@ -1,49 +1,49 @@
-import React, { useEffect, useState } from 'react'
-import { StatusBar, Text, View } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
-import { useDebouncedCallback } from 'use-debounce'
-import { CardFood } from '../../components/cardFood'
-import { CartView } from '../../components/cartView'
-import { HeaderStandard } from '../../components/headerStandard'
-import { Load } from '../../components/load'
-import { RestaurantInfo } from '../../components/restaurantInfo'
-import { SearchFood } from '../../components/searchFood'
-import { useAuth } from '../../context/auth'
-import { useCart } from '../../context/cart'
-import theme from '../../global/theme'
-import { useGet } from '../../services'
+import React, { useEffect, useState } from 'react';
+import { StatusBar, Text, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { useDebouncedCallback } from 'use-debounce';
+import { CardFood } from '../../components/cardFood';
+import { CartView } from '../../components/cartView';
+import { HeaderStandard } from '../../components/headerStandard';
+import { Load } from '../../components/load';
+import { RestaurantInfo } from '../../components/restaurantInfo';
+import { SearchFood } from '../../components/searchFood';
+import { useAuth } from '../../context/auth';
+import { useCart } from '../../context/cart';
+import theme from '../../global/theme';
+import { useGet } from '../../services';
 import {
    Container,
    ImageNotFound,
    TextNotFound,
    TextPratos,
    ViewLoading,
-} from './styles'
+} from './styles';
 interface RestaurantFood {
-   description: string
-   foodType: string
-   name: string
-   id: number
-   photo_url: string
-   price: number
-   restaurantName: string
+   description: string;
+   foodType: string;
+   name: string;
+   id: number;
+   photo_url: string;
+   price: number;
+   restaurantName: string;
 }
-;[]
+[];
 interface ImageData {
-   id: number
-   code: string
+   id: number;
+   code: string;
 }
 
 export function RestaurantProfile({ route }: any) {
-   const { id, name, photo_url, food_types } = route.params
+   const { id, name, photo_url, food_types } = route.params;
 
    const [filter, setFilter] = useState({
       text: '',
-   })
+   });
 
-   const [dataFood, setDataFood] = useState<RestaurantFood[]>([])
-   const { authState } = useAuth()
-   const { totalAmount } = useCart()
+   const [dataFood, setDataFood] = useState<RestaurantFood[]>([]);
+   const { authState } = useAuth();
+   const { totalAmount } = useCart();
 
    const { loading, fetchData } = useGet<RestaurantFood[]>(
       `plate/search?name=${filter.text}&restaurantid=${id}`,
@@ -53,43 +53,43 @@ export function RestaurantProfile({ route }: any) {
          },
       },
       dataReturn,
-   )
+   );
    useEffect(() => {
-      ;(async () => await fetchData())()
-   }, [filter.text])
+      (async () => await fetchData())();
+   }, [filter.text]);
 
    function dataReturn(response: RestaurantFood[]) {
-      setDataFood([...dataFood, ...response])
+      setDataFood([...dataFood, ...response]);
    }
 
    const debounced = useDebouncedCallback((text) => {
-      handleSearch(text)
-   }, 1500)
+      handleSearch(text);
+   }, 1500);
 
    function handleSearch(text: string) {
       if (text.length > 1) {
-         setDataFood([])
+         setDataFood([]);
 
          setFilter({
             text: text,
-         })
+         });
       } else
          setDataFood([]),
             setFilter({
                text: '',
-            })
+            });
    }
 
-   const photo = photo_url.slice(33)
+   const photo = photo_url.slice(33);
    useEffect(() => {
-      ;(async () => await fetchImage())()
-   }, [photo])
+      (async () => await fetchImage())();
+   }, [photo]);
 
    const { fetchData: fetchImage, data: dataImage } = useGet<ImageData>(photo, {
       headers: {
          Authorization: ` Bearer ${authState.token}`,
       },
-   })
+   });
 
    return (
       <>
@@ -158,5 +158,5 @@ export function RestaurantProfile({ route }: any) {
             />
          ) : null}
       </>
-   )
+   );
 }
