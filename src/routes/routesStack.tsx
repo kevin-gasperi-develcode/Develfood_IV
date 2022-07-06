@@ -6,11 +6,9 @@ import { Register2 } from '../screens/registerFolders/register2';
 import { Register3 } from '../screens/registerFolders/register3';
 import { RegisterSucess } from '../screens/registerFolders/registerSucess';
 import { RestaurantProfile } from '../screens/restaurantProfile';
-import { Home } from '../screens/home';
 import { ShoppingCart } from '../screens/shoppingCart';
 import Routes from './routes';
 import { OrderSuccess } from '../screens/orderSuccess';
-import Demand from '../screens/demand';
 
 export function RoutesStack() {
    const Stack = createStackNavigator();
@@ -52,11 +50,6 @@ export function RoutesStack() {
             component={RestaurantProfile}
             options={{ headerShown: false }}
          />
-         {/* <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-         /> */}
          <Stack.Screen
             name="ShoppingCart"
             component={ShoppingCart}

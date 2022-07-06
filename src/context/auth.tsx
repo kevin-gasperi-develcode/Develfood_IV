@@ -1,30 +1,51 @@
-import React, { createContext, ReactNode, useContext } from 'react'
-import { useState } from 'react'
+import React, { createContext, ReactNode, useContext, useEffect } from 'react';
+import { useState } from 'react';
+import { useGet } from '../services';
 interface AuthProviderProps {
-  children: ReactNode
+   children: ReactNode;
 }
 interface AuthContextData {
-  authState: PropContext
-  setAuthState: React.Dispatch<React.SetStateAction<PropContext>>
+   authState: PropContext;
+   setAuthState: React.Dispatch<React.SetStateAction<PropContext>>;
+   userId: number | null;
 }
 interface PropContext {
-  token: string
-  type: string
+   token: string;
+   type: string;
 }
-
-const AuthContext = createContext({} as AuthContextData)
+interface CostumerId {
+   costumer: userIdProp;
+}
+interface userIdProp {
+   id: number;
+}
+const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [authState, setAuthState] = useState({} as PropContext)
+   const [authState, setAuthState] = useState({} as PropContext);
+   const [userId, setUserId] = useState<number | null>(null);
 
-  return (
-    <AuthContext.Provider value={{ authState, setAuthState }}>
-      {children}
-    </AuthContext.Provider>
-  )
+   useEffect(() => {
+      (async () => await fetchData())();
+   }, [authState]);
+
+   const { fetchData, data: dataId } = useGet<CostumerId>('/auth', {
+      headers: {
+         Authorization: ` Bearer ${authState.token}`,
+      },
+   });
+
+   useEffect(() => {
+      dataId?.costumer?.id && setUserId(dataId.costumer.id);
+   }, [dataId]);
+   return (
+      <AuthContext.Provider value={{ authState, setAuthState, userId }}>
+         {children}
+      </AuthContext.Provider>
+   );
 }
 function useAuth() {
-  const context = useContext(AuthContext)
-  return context
+   const context = useContext(AuthContext);
+   return context;
 }
-export { AuthProvider, useAuth }
+export { AuthProvider, useAuth };

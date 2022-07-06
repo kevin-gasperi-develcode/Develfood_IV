@@ -46,7 +46,7 @@ export default function Routes() {
                }}
             />
             <Tab.Screen
-               name="Pedidos"
+               name="Demand"
                component={Demand}
                options={{
                   tabBarIcon: ({ focused }) => (
@@ -59,7 +59,7 @@ export default function Routes() {
                }}
             />
             <Tab.Screen
-               name="Perfil"
+               name="Settings"
                component={Settings}
                options={{
                   tabBarIcon: ({ focused }) => (
