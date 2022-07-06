@@ -6,6 +6,12 @@ import React, {
    useState,
 } from 'react'
 import { Alert } from 'react-native'
+import { useGet, usePost } from '../services'
+import { useAuth } from '../context/auth'
+import { AxiosError } from 'axios'
+import { useNavigation } from '@react-navigation/native'
+import { OrderSuccess } from '../screens/orderSuccess'
+
 interface CartProviderProps {
    children: ReactNode
 }
@@ -17,6 +23,7 @@ interface CartData {
    totalAmount: { quantity: number; price: number }
    cartItems: CartItem[]
    restaurant: { name: string; id: number; image: string; type: string }
+   cartPost: Function
 }
 
 type CartItem = {
@@ -32,6 +39,31 @@ type CartItem = {
    food_types: string
 }
 
+interface BodyCart {
+   costumer: { id: number }
+   restaurant: { id: number }
+   date: () => string
+   dateLastUpdated: () => string
+   totalValue: number
+   paymentType: string
+   status: string
+   requestItems: RequestItems[]
+   restaurantPromotion: null
+}
+
+interface RequestItems {
+   plate: {
+      id: number
+      price: number
+   }
+   quantity: number
+   price: number
+   observation: string
+}
+
+interface userId {
+   id: number
+}
 const CartContext = createContext({} as CartData)
 
 function CartProvider({ children }: CartProviderProps) {
@@ -110,6 +142,61 @@ function CartProvider({ children }: CartProviderProps) {
       }
    }
 
+   function clearCart() {
+      cartItems.splice(0, cartItems.length)
+      setTotalAmount({ quantity: 0, price: 0 })
+   }
+   const { authState } = useAuth()
+   const { fetchData, data: dataId } = useGet<userId>('/auth', {
+      headers: {
+         Authorization: ` Bearer ${authState.token}`,
+      },
+   })
+   useEffect(() => {
+      fetchData()
+   }, [])
+   const bodyCart = cartItems.map((item) => {
+      return {
+         plate: {
+            id: item.id,
+            price: item.price,
+         },
+         quantity: item.quantity,
+         price: item.price,
+         observation: '',
+      }
+   })
+   const navigation = useNavigation()
+   const { data, loading, handlerPost } = usePost<BodyCart>(
+      '/request',
+      cartError,
+      {
+         headers: {
+            Authorization: ` Bearer ${authState.token}`,
+         },
+      },
+      orderSuccess,
+   )
+   function cartError(error: AxiosError<any, any> | any) {
+      error && Alert.alert('Erro no pedido', 'Tente novamente')
+   }
+   function orderSuccess() {
+      navigation.navigate('OrderSuccess' as never), clearCart()
+   }
+   function cartPost() {
+      handlerPost({
+         costumer: { id: dataId.id },
+         restaurant: { id: cartItems[0].restaurantId },
+         date: new Date().toString,
+         dateLastUpdated: new Date().toString,
+         totalValue: totalAmount.price,
+         paymentType: 'card',
+         status: 'PEDIDO_REALIZADO',
+         requestItems: bodyCart,
+         restaurantPromotion: null,
+      })
+   }
+
    return (
       <CartContext.Provider
          value={{
@@ -120,6 +207,7 @@ function CartProvider({ children }: CartProviderProps) {
             totalAmount,
             cartItems,
             restaurant,
+            cartPost,
          }}
       >
          {children}

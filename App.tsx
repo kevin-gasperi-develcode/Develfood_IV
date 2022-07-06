@@ -17,11 +17,11 @@ export default function App() {
       <GestureHandlerRootView style={{ flex: 1 }}>
          <ThemeProvider theme={theme}>
             <AuthProvider>
-               <CartProvider>
-                  <NavigationContainer>
+               <NavigationContainer>
+                  <CartProvider>
                      <RoutesStack />
-                  </NavigationContainer>
-               </CartProvider>
+                  </CartProvider>
+               </NavigationContainer>
             </AuthProvider>
          </ThemeProvider>
       </GestureHandlerRootView>

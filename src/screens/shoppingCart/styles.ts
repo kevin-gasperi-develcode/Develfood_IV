@@ -28,7 +28,7 @@ export const TextMeusItens = styled.Text`
    align-self: center;
 `
 export const FlatListmodified = styled.FlatList`
-   padding-left: 10;
+   padding-left: ${RFValue(10)}px;
 `
 
 export const ViewEmptyCart = styled.View`

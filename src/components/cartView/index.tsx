@@ -23,7 +23,7 @@ interface CartProps {
 
 export function CartView({ textCart, leftViewItem, centerButton }: CartProps) {
    const basket = require('../../assets/icons/basket.png')
-   const { totalAmount } = useCart()
+   const { totalAmount, cartPost } = useCart()
    const navigation = useNavigation()
    const dollarImage = require('../../assets/icons/dollar_sign.png')
 
@@ -60,7 +60,7 @@ export function CartView({ textCart, leftViewItem, centerButton }: CartProps) {
                   centerButton === 'Ver carrinho'
                      ? navigation.navigate('ShoppingCart' as never)
                      : centerButton === 'Finalizar pedido'
-                     ? navigation.navigate('Home' as never) // Alterar para tela de sucesso
+                     ? cartPost()
                      : null
                }}
             >
