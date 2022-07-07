@@ -77,7 +77,7 @@ function CartProvider({ children }: CartProviderProps) {
       type: '',
    });
 
-   useEffect(() => {}, [cartItems]);
+   // useEffect(() => {}, [cartItems]);
 
    function addPlates(item: CartItem) {
       const addProducts = Array.from(cartItems);
@@ -146,15 +146,16 @@ function CartProvider({ children }: CartProviderProps) {
       cartItems.splice(0, cartItems.length);
       setTotalAmount({ quantity: 0, price: 0 });
    }
-   const { authState } = useAuth();
-   const { fetchData, data: dataId } = useGet<userId>('/auth', {
-      headers: {
-         Authorization: ` Bearer ${authState.token}`,
-      },
-   });
-   useEffect(() => {
-      fetchData();
-   }, []);
+   const { authState, userId } = useAuth();
+
+   // const { fetchData, data: dataId } = useGet<userId>('/auth', {
+   //    headers: {
+   //       Authorization: ` Bearer ${authState.token}`,
+   //    },
+   // });
+   // useEffect(() => {
+   //    fetchData();
+   // }, []);
    const bodyCart = cartItems.map((item) => {
       return {
          plate: {
@@ -186,7 +187,7 @@ function CartProvider({ children }: CartProviderProps) {
 
    function cartPost() {
       handlerPost({
-         costumer: { id: dataId.id },
+         costumer: { id: userId! },
          restaurant: { id: cartItems[0].restaurantId },
          date: new Date().toString,
          dateLastUpdated: new Date().toString,
