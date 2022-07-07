@@ -1,37 +1,169 @@
-import React from 'react';
-import { longPressGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler';
+import React, { useEffect, useState } from 'react';
+import { SectionList, Text } from 'react-native';
+import { CardDemand } from '../../components/cardDemand';
 import { HeaderStandard } from '../../components/headerStandard';
 import { useAuth } from '../../context/auth';
 import { useGet } from '../../services';
-import { Container } from '../signIn/style';
-import { ImageNoOrders, TextNoOrders, ViewNoOrders } from './styles';
+import {
+   Container,
+   ImageNoOrders,
+   TextDate,
+   TextNoOrders,
+   TextTitle,
+   ViewNoOrders,
+} from './styles';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
-interface userId {
+interface DemandResponse {
+   content: ContentProps[];
+}
+interface ContentProps {
    id: number;
+   costumer: string;
+   restaurant: Restaurant;
+   date: string;
+   dateLastUpdated: string;
+   totalValue: number;
+   paymentType: string;
+   status: string;
+   requestItems: requestItemsProps[];
 }
 
+interface Restaurant {
+   id: number;
+   name: string;
+   photo_url: string;
+   food_types: FoodTypesProps[];
+}
+interface FoodTypesProps {
+   id: number;
+   name: string;
+}
+interface requestItemsProps {
+   id: number;
+   plateDTO: plateDTOProps;
+   quantity: number;
+   price: number;
+   observation: string;
+}
+interface plateDTOProps {
+   id: number;
+   name: string;
+   description: string;
+   price: number;
+   foodType: foodTypeProps;
+   restaurantName: string;
+   photo_url: string;
+}
+interface foodTypeProps {
+   id: string;
+   name: string;
+   photo_url: string;
+}
+interface SectionListData {
+   title: string;
+   data: ContentProps[];
+}
 export default function Demand() {
    const withOrder = true;
    const noOrdersImg = require('../../assets/images/no_orders.png');
-   const { authState } = useAuth();
 
-   const { fetchData: fetchDataId, data: dataId } = useGet<userId>('/auth', {
-      headers: {
-         Authorization: ` Bearer ${authState.token}`,
-      },
+   const { authState } = useAuth();
+   const [filter, setFilter] = useState({
+      page: 0,
    });
 
-   // const { fetchData: fetchDataDemand, data: dataDemand } = useGet<any>(
-   //    `/request/costumer?id=${userId}&page=${page}&quantity=20`, {
-   //    headers: {
-   //       Authorization: ` Bearer ${authState.token}`,
-   //    },
-   // });
+   const { fetchData: fetchDataDemand, data: dataDemand } =
+      useGet<DemandResponse>(
+         `request/costumer?page=${filter.page}&quantity=10`,
+         {
+            headers: {
+               Authorization: ` Bearer ${authState.token}`,
+            },
+         },
+      );
+   useEffect(() => {
+      fetchDataDemand();
+   }, []);
+
+   const [historicSections, setHistoricSections] = useState<SectionListData[]>(
+      [],
+   );
+   const [orders, setOrders] = useState<ContentProps[]>([]);
+
+   useEffect(() => {
+      dataDemand?.content &&
+         sectionDataFormatter([...orders, ...dataDemand?.content]);
+   }, [dataDemand]);
+
+   function sectionDataFormatter(data: ContentProps[]) {
+      const historicFormatted: SectionListData[] = [];
+      data.forEach((order: ContentProps) => {
+         const sectionFound = historicFormatted.find(
+            (historicSections: SectionListData) =>
+               historicSections.title === order.date,
+         );
+         if (sectionFound) {
+            sectionFound.data.push(order);
+         } else {
+            historicFormatted.push({
+               title: order.date,
+               data: [order],
+            });
+         }
+      });
+      setHistoricSections(historicFormatted);
+   }
+
+   const listItems = (item: ContentProps) => {
+      let quantityVisible = item.requestItems.map(
+         (requestItem: requestItemsProps, index) => {
+            if (requestItem.quantity > 1) {
+               return index != 0
+                  ? ' + ' +
+                       requestItem.quantity +
+                       ' ' +
+                       requestItem.plateDTO.name
+                  : requestItem.quantity + ' ' + requestItem.plateDTO.name;
+            } else {
+               return index != 0
+                  ? ' + ' + requestItem?.plateDTO.name
+                  : requestItem?.plateDTO.name;
+            }
+         },
+      );
+
+      return quantityVisible;
+   };
+
    return (
       <>
          <HeaderStandard backGround="red" title="Meus Pedidos" />
          {withOrder ? (
-            <Container></Container>
+            <Container>
+               <TextTitle>Histórico</TextTitle>
+               <TextDate>Sáb 02 abril 2022</TextDate>
+               <SectionList
+                  sections={historicSections}
+                  renderSectionHeader={({ section: { title } }: any) => (
+                     <Text>{moment(title).format('llll').slice(0, -9)}</Text>
+                  )}
+                  keyExtractor={(item: any) => item?.id}
+                  renderItem={({ item }: any) => (
+                     <>
+                        <CardDemand
+                           name={item.restaurant.name}
+                           status={item.status}
+                           image={item.restaurant.photo_url}
+                           id={item.id}
+                           date={item.date}
+                           quantityAndName={listItems(item)}
+                        />
+                     </>
+                  )}
+               />
+            </Container>
          ) : (
             <ViewNoOrders>
                <ImageNoOrders source={noOrdersImg} />

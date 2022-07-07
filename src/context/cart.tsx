@@ -1,16 +1,9 @@
-import React, {
-   createContext,
-   ReactNode,
-   useContext,
-   useEffect,
-   useState,
-} from 'react';
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 import { Alert } from 'react-native';
-import { useGet, usePost } from '../services';
 import { useAuth } from '../context/auth';
 import { AxiosError } from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { OrderSuccess } from '../screens/orderSuccess';
+import { usePost } from '../services';
 
 interface CartProviderProps {
    children: ReactNode;
@@ -61,9 +54,6 @@ interface RequestItems {
    observation: string;
 }
 
-interface userId {
-   id: number;
-}
 const CartContext = createContext({} as CartData);
 
 function CartProvider({ children }: CartProviderProps) {
