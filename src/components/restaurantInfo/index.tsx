@@ -1,51 +1,49 @@
 import React from 'react'
 import theme from '../../global/theme'
 import {
-  BarGray,
-  ImageRestautant,
-  TittleRestaurant,
-  TypeRestautant,
-  ViewRestaurantContainer,
-  ViewRestaurantInfo,
+   BarGray,
+   ImageRestautant,
+   TittleRestaurant,
+   TypeRestautant,
+   ViewRestaurantContainer,
+   ViewRestaurantInfo,
 } from './styles'
 
 interface RestaurantProfile {
-  nameRestaurant: string
-  imageRestaurant: string
-  food_types?: {
-    id: number
-    name: string
-  }
+   barGray: boolean
+   nameRestaurant: string
+   imageRestaurant: string
+   food_types: string
 }
 export function RestaurantInfo({
-  nameRestaurant,
-  imageRestaurant,
-  food_types,
+   nameRestaurant,
+   imageRestaurant,
+   food_types,
+   barGray,
 }: RestaurantProfile) {
-  function dataTypesFunction() {
-    if (food_types === undefined) {
-      return '--'
-    } else {
-      return food_types.name
-    }
-  }
-  return (
-    <>
-      <ViewRestaurantContainer>
-        <ViewRestaurantInfo>
-          <TittleRestaurant>{nameRestaurant}</TittleRestaurant>
-          <TypeRestautant>{dataTypesFunction()}</TypeRestautant>
-        </ViewRestaurantInfo>
-        <ImageRestautant
-          resizeMode="cover"
-          source={
-            imageRestaurant
-              ? { uri: imageRestaurant }
-              : theme.icons.restaurant_without_img
-          }
-        />
-      </ViewRestaurantContainer>
-      <BarGray />
-    </>
-  )
+   function dataTypesFunction() {
+      if (!food_types) {
+         return '--'
+      }
+      return food_types
+   }
+   return (
+      <>
+         <ViewRestaurantContainer>
+            <ViewRestaurantInfo>
+               <TittleRestaurant>{nameRestaurant}</TittleRestaurant>
+               <TypeRestautant>{dataTypesFunction()}</TypeRestautant>
+            </ViewRestaurantInfo>
+            <ImageRestautant
+               resizeMode="cover"
+               source={
+                  imageRestaurant
+                     ? { uri: imageRestaurant }
+                     : theme.icons.restaurant_without_img
+               }
+            />
+         </ViewRestaurantContainer>
+         {barGray ? <BarGray /> : null}
+      </>
+   )
 }

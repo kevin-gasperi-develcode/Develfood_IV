@@ -5,7 +5,7 @@ import theme from '../../global/theme'
 export const WrapperCart = styled.View`
   background-color: ${theme.colors.background};
   width: 100%;
-  height: ${RFValue(64)}px;
+  height: ${RFValue(62)}px;
   justify-content: center;
 `
 export const ViewCart = styled.View`
@@ -14,7 +14,7 @@ export const ViewCart = styled.View`
   justify-content: center;
   background-color: ${theme.colors.background_red};
   width: 90%;
-  height: ${RFValue(52)}px;
+  height: ${RFValue(50)}px;
   border-radius: ${RFValue(6)}px;
   position: absolute;
   align-self: center;
@@ -23,6 +23,10 @@ export const WrapperLeft = styled.View`
   position: absolute;
   width: ${RFValue(32)}px;
   left: ${RFValue(18)}px;
+`
+export const ImageDollar = styled.Image`
+  height: ${RFValue(32)}px;
+  width: ${RFValue(32)}px;
 `
 export const Basket = styled.Image`
   height: ${RFValue(25.2)}px;
@@ -46,7 +50,7 @@ export const TextBasket = styled.Text`
   font-size: ${RFValue(15)}px;
 `
 export const TouchableOpacityCart = styled.TouchableOpacity`
-  width: 100%;
+  width: ${RFValue(150)}px;
   align-items: center;
   justify-content: center;
 `

@@ -13,17 +13,17 @@ import theme from '../../global/theme'
 
 interface HeaderProps {
   title?: string
-  goBackButton?: any
-  backToStart?: boolean
-  backGroundIsRed?: boolean
+  leftButton?: any
+  goBackTo?: string
+  backGround?: string
   imageRight?: any
 }
 
 export function HeaderStandard({
   title,
-  goBackButton,
-  backToStart,
-  backGroundIsRed,
+  leftButton,
+  goBackTo,
+  backGround,
   imageRight,
 }: HeaderProps) {
   const navigation = useNavigation()
@@ -31,25 +31,27 @@ export function HeaderStandard({
   return (
     <Container
       style={
-        backGroundIsRed
+        backGround === 'red'
           ? { backgroundColor: redColor }
           : { backgroundColor: 'white' }
       }
     >
       <BackButtonContainer
         onPress={
-          backToStart
+          goBackTo === 'ShoppingCart'
+            ? () => navigation.navigate('ShoppingCart' as never)
+            : goBackTo === 'SignIn'
             ? () => navigation.navigate('SignIn')
             : () => navigation.goBack()
         }
       >
-        <ImageGoBack source={goBackButton} />
+        <ImageGoBack source={leftButton} />
       </BackButtonContainer>
       <TextContainer>
         <TextTitle>{title}</TextTitle>
       </TextContainer>
       <RightImageContainer>
-        <ImageRight resizeMode="stretch" source={imageRight} />
+        <ImageRight resizeMode="contain" source={imageRight} />
       </RightImageContainer>
     </Container>
   )

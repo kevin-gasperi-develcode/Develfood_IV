@@ -53,6 +53,7 @@ export default {
     develfood: require('../assets/icons/develfood_logo.png'),
     back_button: require('../assets/icons/back-button.png'),
     back_button_x: require('../assets/icons/back-button-x.png'),
+    back_button_x_white: require('../assets/icons/close-button-x.png'),
     map_logo: require('../assets/icons/map-logo.png'),
     email_icon: require('../assets/icons/e-mail.png'),
     password_icon: require('../assets/icons/password.png'),

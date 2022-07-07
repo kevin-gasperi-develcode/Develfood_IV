@@ -24,8 +24,8 @@ export function RegisterSucess() {
     <Container>
       <HeaderStandard
         title={'Cadastro'}
-        goBackButton={theme.icons.back_button_x}
-        backToStart={true}
+        leftButton={theme.icons.back_button_x}
+        goBackTo="SignIn"
       />
       <Content>
         <ViewImage source={theme.icons.girl_success} />

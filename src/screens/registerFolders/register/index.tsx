@@ -43,7 +43,8 @@ export function Register() {
         <Container>
           <HeaderStandard
             title={'Cadastro'}
-            goBackButton={theme.icons.back_button}
+            leftButton={theme.icons.back_button}
+            goBackTo="SignIn"
           />
           <ScrollView>
             <RegisterSteps
