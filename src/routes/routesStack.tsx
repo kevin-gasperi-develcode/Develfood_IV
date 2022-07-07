@@ -10,6 +10,7 @@ import { Home } from '../screens/home'
 import { ShoppingCart } from '../screens/shoppingCart'
 import Routes from './routes'
 import { OrderSuccess } from '../screens/orderSuccess'
+import Demand from '../screens/demand'
 
 export function RoutesStack() {
    const Stack = createStackNavigator()
@@ -64,6 +65,11 @@ export function RoutesStack() {
          <Stack.Screen
             name="OrderSuccess"
             component={OrderSuccess}
+            options={{ headerShown: false }}
+         />
+         <Stack.Screen
+            name="Demand"
+            component={Demand}
             options={{ headerShown: false }}
          />
       </Stack.Navigator>

@@ -83,13 +83,12 @@ export function ShoppingCart() {
                         )}
                      />
                   </ContainerFlatList>
-                  {totalAmount.quantity >= 1 ? (
-                     <CartView
-                        textCart={totalAmount.quantity}
-                        leftViewItem="dollar"
-                        centerButton="Finalizar pedido"
-                     />
-                  ) : null}
+
+                  <CartView
+                     textCart={totalAmount.quantity}
+                     leftViewItem="dollar"
+                     centerButton="Finalizar pedido"
+                  />
                </Container>
             </>
          ) : (
