@@ -24,7 +24,6 @@ export const TextNoOrders = styled.Text`
    margin-top: ${RFValue(-36)}px;
    line-height: ${RFValue(21)}px;
 `;
-
 export const TextTitle = styled.Text`
    margin-top: ${RFValue(16)}px;
    font-weight: 400;
@@ -37,4 +36,13 @@ export const TextDate = styled.Text`
    line-height: ${RFValue(14.06)}px;
    font-weight: 400;
    color: ${theme.colors.text_gray};
+`;
+export const TextDateCard = styled.Text`
+   margin-top: ${RFValue(8)}px;
+   margin-bottom: ${RFValue(-5)}px;
+`;
+export const ViewLoading = styled.View`
+   width: 100%;
+   height: ${RFValue(80)}px;
+   justify-content: center;
 `;

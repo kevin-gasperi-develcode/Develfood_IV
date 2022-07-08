@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'react-native';
 import { CardFood } from '../../components/cardFood';
 import { CartView } from '../../components/cartView';
@@ -67,7 +67,11 @@ export function ShoppingCart() {
                         showsVerticalScrollIndicator={false}
                         data={cartItems}
                         keyExtractor={(item: any) => item.id}
-                        renderItem={({ item }: { item: RestaurantFood }) => (
+                        renderItem={({
+                           item,
+                        }: {
+                           item: RestaurantFood;
+                        }) => (
                            <CardFood
                               isSwipeable
                               name={item.name}
