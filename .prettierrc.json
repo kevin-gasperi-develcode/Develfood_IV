@@ -5,7 +5,7 @@
   "singleQuote": true,
   "allowParens": "avoid",
   "singleAttributePerLine": false,
-  "printWidth": 80,
+  "printWidth": 70,
   "bracketSpacing": true,
   "bracketLine": false
 }

@@ -29,7 +29,6 @@ interface ContentProps {
    status: string;
    requestItems: requestItemsProps[];
 }
-
 interface Restaurant {
    id: number;
    name: string;
@@ -137,20 +136,25 @@ export default function Demand() {
       return quantityVisible;
    };
 
+function endReached (){
+console.log('end    ')
+setFilter(filter.page + 1)
+}
+
    return (
       <>
          <HeaderStandard backGround="red" title="Meus Pedidos" />
          {withOrder ? (
             <Container>
                <TextTitle>Histórico</TextTitle>
-               <TextDate>Sáb 02 abril 2022</TextDate>
                <SectionList
                   sections={historicSections}
+                  onEndReached={()=>{endReached()}}
                   renderSectionHeader={({ section: { title } }: any) => (
                      <Text>{moment(title).format('llll').slice(0, -9)}</Text>
                   )}
                   keyExtractor={(item: any) => item?.id}
-                  renderItem={({ item }: any) => (
+                  renderItem={({ item }: any ) => (
                      <>
                         <CardDemand
                            name={item.restaurant.name}
@@ -160,6 +164,7 @@ export default function Demand() {
                            date={item.date}
                            quantityAndName={listItems(item)}
                         />
+                        
                      </>
                   )}
                />
