@@ -1,22 +1,22 @@
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { ButtonStandard } from '../../components/buttonStandard'
-import { HeaderStandard } from '../../components/headerStandard'
-import theme from '../../global/theme'
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { ButtonStandard } from '../../components/buttonStandard';
+import { HeaderStandard } from '../../components/headerStandard';
+import theme from '../../global/theme';
 import {
    Container,
    ImageOrderSuccess,
    TextOrderSuccess,
    TitleOrderSuccess,
    ViewOrderSuccess,
-} from './styles'
+} from './styles';
 
 export function OrderSuccess() {
-   const orderSuccesImg = require('../../assets/images/orderSuccessImg.png')
-   const navigation = useNavigation()
+   const orderSuccesImg = require('../../assets/images/orderSuccessImg.png');
+   const navigation = useNavigation();
 
    function navigateToDemand() {
-      navigation.navigate('Demand' as never)
+      navigation.navigate('Demand' as never);
    }
    return (
       <>
@@ -37,11 +37,11 @@ export function OrderSuccess() {
             </ViewOrderSuccess>
             <ButtonStandard
                onPressed={() => {
-                  navigateToDemand()
+                  navigateToDemand();
                }}
                title="Ver o pedido"
             />
          </Container>
       </>
-   )
+   );
 }

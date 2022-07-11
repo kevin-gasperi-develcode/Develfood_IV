@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { StatusBar } from 'react-native'
-import { CardFood } from '../../components/cardFood'
-import { CartView } from '../../components/cartView'
-import { HeaderAdress } from '../../components/headerAdress'
-import { HeaderStandard } from '../../components/headerStandard'
-import { RestaurantInfo } from '../../components/restaurantInfo'
-import { useCart } from '../../context/cart'
-import theme from '../../global/theme'
+import React from 'react';
+import { StatusBar } from 'react-native';
+import { CardFood } from '../../components/cardFood';
+import { CartView } from '../../components/cartView';
+import { HeaderAdress } from '../../components/headerAdress';
+import { HeaderStandard } from '../../components/headerStandard';
+import { RestaurantInfo } from '../../components/restaurantInfo';
+import { useCart } from '../../context/cart';
+import theme from '../../global/theme';
 import {
    Container,
    ContainerFlatList,
@@ -17,23 +17,23 @@ import {
    TextEmptyCart,
    TextMeusItens,
    ViewEmptyCart,
-} from './styles'
+} from './styles';
 
 interface RestaurantFood {
-   name: string
-   description?: string
-   id: number
-   photo_url: string
-   price: number
-   restaurantName: string
-   restaurantId: number
-   restaurantPhoto: string
-   food_types: string
+   name: string;
+   description?: string;
+   id: number;
+   photo_url: string;
+   price: number;
+   restaurantName: string;
+   restaurantId: number;
+   restaurantPhoto: string;
+   food_types: string;
 }
 
 export function ShoppingCart() {
-   const { totalAmount, cartItems, restaurant } = useCart()
-   const emptyCart = require('../../assets/images/empty_cart.png')
+   const { totalAmount, cartItems, restaurant } = useCart();
+   const emptyCart = require('../../assets/images/empty_cart.png');
    return (
       <>
          <StatusBar
@@ -67,7 +67,11 @@ export function ShoppingCart() {
                         showsVerticalScrollIndicator={false}
                         data={cartItems}
                         keyExtractor={(item: any) => item.id}
-                        renderItem={({ item }: { item: RestaurantFood }) => (
+                        renderItem={({
+                           item,
+                        }: {
+                           item: RestaurantFood;
+                        }) => (
                            <CardFood
                               isSwipeable
                               name={item.name}
@@ -98,5 +102,5 @@ export function ShoppingCart() {
             </ViewEmptyCart>
          )}
       </>
-   )
+   );
 }
