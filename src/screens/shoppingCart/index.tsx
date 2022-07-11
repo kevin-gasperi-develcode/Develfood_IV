@@ -1,17 +1,18 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
-import { CardFood } from '../../components/cardFood';
-import { CartView } from '../../components/cartView';
-import { HeaderAdress } from '../../components/headerAdress';
-import { HeaderStandard } from '../../components/headerStandard';
-import { RestaurantInfo } from '../../components/restaurantInfo';
-import { useCart } from '../../context/cart';
-import theme from '../../global/theme';
+
+import React, { useState } from 'react'
+import { FlatList, StatusBar } from 'react-native'
+import { CardFood } from '../../components/cardFood'
+import { CartView } from '../../components/cartView'
+import { HeaderAdress } from '../../components/headerAdress'
+import { HeaderStandard } from '../../components/headerStandard'
+import { RestaurantInfo } from '../../components/restaurantInfo'
+import { useCart } from '../../context/cart'
+import theme from '../../global/theme'
+
 import {
    Container,
    ContainerFlatList,
    ContainerHeader,
-   FlatListmodified,
    ImageEmptyCart,
    ItensView,
    TextEmptyCart,
@@ -63,7 +64,10 @@ export function ShoppingCart() {
                      <ItensView>
                         <TextMeusItens>Meus Itens</TextMeusItens>
                      </ItensView>
-                     <FlatListmodified
+                     <FlatList
+                        style={{
+                           marginLeft: '5%',
+                        }}
                         showsVerticalScrollIndicator={false}
                         data={cartItems}
                         keyExtractor={(item: any) => item.id}
