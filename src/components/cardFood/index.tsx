@@ -22,6 +22,7 @@ import {
    ViewFood,
    ViewItems,
    ViewNumberItem,
+   ViewSwipeable,
    Wrapper,
 } from './styles'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
@@ -208,7 +209,7 @@ export function CardFood({
       }
    }
    return isSwipeable ? (
-      <View style={{ marginLeft: -10 }}>
+      <ViewSwipeable>
          <Swipeable renderLeftActions={renderLeft}>
             <ContainerSwipeable>
                {data.code ? (
@@ -234,7 +235,7 @@ export function CardFood({
                </ViewFood>
             </ContainerSwipeable>
          </Swipeable>
-      </View>
+      </ViewSwipeable>
    ) : (
       <Container>
          {data.code ? (
