@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useAuth } from '../../context/auth'
-import { useCart } from '../../context/cart'
-import theme from '../../global/theme'
-import { useGet } from '../../services'
+import React, { useEffect } from 'react';
+import { useAuth } from '../../context/auth';
+import { useCart } from '../../context/cart';
+import theme from '../../global/theme';
+import { useGet } from '../../services';
 import {
    AddButton,
    Container,
@@ -24,25 +24,25 @@ import {
    ViewNumberItem,
    ViewSwipeable,
    Wrapper,
-} from './styles'
-import Swipeable from 'react-native-gesture-handler/Swipeable'
-import { View } from 'react-native'
+} from './styles';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { View } from 'react-native';
 
 interface RestaurantFood {
-   name: string
-   description?: string
-   id: number
-   photo_url: string
-   price: number
-   restaurantName: string
-   restaurantId: number
-   restaurantPhoto: string
-   food_types: string
-   isSwipeable?: boolean
+   name: string;
+   description?: string;
+   id: number;
+   photo_url: string;
+   price: number;
+   restaurantName: string;
+   restaurantId: number;
+   restaurantPhoto: string;
+   food_types: string;
+   isSwipeable?: boolean;
 }
 interface ImageData {
-   id: number
-   code: string
+   id: number;
+   code: string;
 }
 
 export function CardFood({
@@ -57,26 +57,28 @@ export function CardFood({
    food_types,
    isSwipeable,
 }: RestaurantFood) {
-   const { authState } = useAuth()
-   const photo = photo_url?.slice(33)
+   const { authState } = useAuth();
+   const photo = photo_url?.slice(33);
    const { addPlates, removePlates, totalAmount, cartItems, deleteFromCart } =
-      useCart()
-   const plus = require('../../assets/icons/plus.png')
-   const minus = require('../../assets/icons/minus.png')
-   const trash = require('../../assets/icons/trash.png')
+      useCart();
+   const plus = require('../../assets/icons/plus.png');
+   const minus = require('../../assets/icons/minus.png');
+   const trash = require('../../assets/icons/trash.png');
 
    useEffect(() => {
-      ;(async () => await fetchData())()
-   }, [photo])
+      (async () => await fetchData())();
+   }, [photo]);
 
    const { fetchData, data } = useGet<ImageData>(photo, {
       headers: { Authorization: ` Bearer ${authState.token}` },
-   })
+   });
 
    function priceConverter() {
-      const priceTwoValues = parseFloat(price.toString()).toFixed(2)
-      const priceToStringFormatted = priceTwoValues.toString().replace('.', ',')
-      return priceToStringFormatted
+      const priceTwoValues = parseFloat(price.toString()).toFixed(2);
+      const priceToStringFormatted = priceTwoValues
+         .toString()
+         .replace('.', ',');
+      return priceToStringFormatted;
    }
 
    function renderLeft() {
@@ -91,10 +93,10 @@ export function CardFood({
                <TextRemove>Remover</TextRemove>
             </View>
          </TouchableRemoveItem>
-      )
+      );
    }
 
-   const itemFound = cartItems.find((CartItem) => CartItem.id === id)
+   const itemFound = cartItems.find((CartItem) => CartItem.id === id);
    function buttonDemand() {
       if (itemFound?.quantity === 0 || !itemFound) {
          if (!isSwipeable) {
@@ -111,12 +113,12 @@ export function CardFood({
                         restaurantId,
                         restaurantPhoto,
                         food_types,
-                     })
+                     });
                   }}
                >
                   <TextButton>Adicionar</TextButton>
                </AddButton>
-            )
+            );
          }
       } else if (itemFound?.quantity === 1 && !isSwipeable) {
          return (
@@ -161,7 +163,7 @@ export function CardFood({
                   <ImageAddRem source={plus} resizeMode={'contain'} />
                </TouchableOpacityItem>
             </ViewItems>
-         )
+         );
       } else {
          return (
             <ViewItems>
@@ -205,7 +207,7 @@ export function CardFood({
                   <ImageAddRem source={plus} resizeMode={'contain'} />
                </TouchableOpacityItem>
             </ViewItems>
-         )
+         );
       }
    }
    function resizeUpView() {}
@@ -265,5 +267,5 @@ export function CardFood({
             </Wrapper>
          </ViewFood>
       </Container>
-   )
+   );
 }
