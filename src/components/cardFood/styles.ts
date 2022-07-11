@@ -121,11 +121,10 @@ export const ContainerSwipeable = styled.View`
    border-radius: 8px;
    background-color: ${theme.colors.background};
    flex-direction: row;
-   align-self: center;
 `
-export const ViewSwipeable = styled.View`
+export const ViewSwipeable = styled.View.attrs({ elevation: 6 })`
    height: ${RFValue(103)}px;
-   width: 95%;
+   width: 98%;
    background-color: ${({ theme }) => theme.colors.background_red};
    margin-top: ${RFValue(18)}px;
    border-radius: 8px;

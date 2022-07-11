@@ -208,9 +208,14 @@ export function CardFood({
          )
       }
    }
+   function resizeUpView() {}
    return isSwipeable ? (
       <ViewSwipeable>
-         <Swipeable renderLeftActions={renderLeft}>
+         <Swipeable
+            renderLeftActions={renderLeft}
+            overshootFriction={2}
+            onSwipeableWillOpen={resizeUpView}
+         >
             <ContainerSwipeable>
                {data.code ? (
                   <ImageFood

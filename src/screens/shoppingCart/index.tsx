@@ -64,8 +64,7 @@ export function ShoppingCart() {
                      </ItensView>
                      <FlatList
                         style={{
-                           width: '90%',
-                           marginLeft: '10%',
+                           marginLeft: '5%',
                         }}
                         showsVerticalScrollIndicator={false}
                         data={cartItems}
