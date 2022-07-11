@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StatusBar } from 'react-native'
+import { FlatList, StatusBar } from 'react-native'
 import { CardFood } from '../../components/cardFood'
 import { CartView } from '../../components/cartView'
 import { HeaderAdress } from '../../components/headerAdress'
@@ -11,7 +11,6 @@ import {
    Container,
    ContainerFlatList,
    ContainerHeader,
-   FlatListmodified,
    ImageEmptyCart,
    ItensView,
    TextEmptyCart,
@@ -63,7 +62,10 @@ export function ShoppingCart() {
                      <ItensView>
                         <TextMeusItens>Meus Itens</TextMeusItens>
                      </ItensView>
-                     <FlatListmodified
+                     <FlatList
+                        style={{
+                           marginLeft: '5%',
+                        }}
                         showsVerticalScrollIndicator={false}
                         data={cartItems}
                         keyExtractor={(item: any) => item.id}

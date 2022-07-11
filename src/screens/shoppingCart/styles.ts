@@ -27,9 +27,6 @@ export const TextMeusItens = styled.Text`
    font-size: ${RFValue(20)}px;
    align-self: center;
 `
-export const FlatListmodified = styled.FlatList`
-   padding-left: ${RFValue(10)}px;
-`
 
 export const ViewEmptyCart = styled.View`
    flex: 1;
