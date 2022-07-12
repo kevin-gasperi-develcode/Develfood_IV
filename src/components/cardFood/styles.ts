@@ -2,7 +2,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 import theme from '../../global/theme'
 
-export const Container = styled.View.attrs({ elevation: 4 })`
+export const Container = styled.View.attrs({ elevation: 6 })`
    width: 99%;
    height: ${RFValue(103)}px;
    border-radius: ${RFValue(8)}px;
@@ -100,9 +100,6 @@ export const TouchableRemoveItem = styled.TouchableOpacity`
    border-radius: ${RFValue(10)}px;
    width: ${RFValue(100)}px;
    height: ${RFValue(103)}px;
-   margin-top: ${RFValue(22)}px;
-   margin-left: ${RFValue(15)}px;
-   margin-right: ${RFValue(-25)}px;
 `
 export const ImageTrashSwipe = styled.Image`
    position: absolute;
@@ -119,11 +116,16 @@ export const TextRemove = styled.Text`
 `
 
 export const ContainerSwipeable = styled.View`
-   width: 90%;
+   width: 100%;
    height: ${RFValue(103)}px;
-   border-radius: ${RFValue(8)}px;
+   border-radius: 8px;
    background-color: ${theme.colors.background};
-   margin-top: ${RFValue(20)}px;
    flex-direction: row;
-   align-self: center;
+`
+export const ViewSwipeable = styled.View.attrs({ elevation: 6 })`
+   height: ${RFValue(103)}px;
+   width: 98%;
+   background-color: ${({ theme }) => theme.colors.background_red};
+   margin-top: ${RFValue(18)}px;
+   border-radius: 8px;
 `
